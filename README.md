@@ -5,6 +5,7 @@
 - LLMSurvey : https://github.com/RUCAIBox/LLMSurvey?tab=readme-ov-file#table-of-contents
 - A Survey of Large Language Models(2023) : https://wikidocs.net/237619, https://arxiv.org/abs/2303.18223
 - Large Language Models: A Survey(2024) : https://velog.io/@sohtks/Paper-Review-Large-Language-Models-A-Survey, https://arxiv.org/abs/2402.06196
+- A Survey of Resource-efficient LLM and Multimodal Foundation Models : https://wikidocs.net/237419
 
 ## Paper with name
 - LLaVA: Large Language and Vision Assistant https://github.com/haotian-liu/LLaVA?tab=readme-ov-file
