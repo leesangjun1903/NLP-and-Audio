@@ -14,3 +14,19 @@ Applying Unsupervised Learning Approaches
 How Well Does It Work? – Evaluation  
 What to Do If the System Isn’t Working  
 Summary and Looking to the Future  
+
+## Long Short-Term Memory Networks With Python, Jason Brownlee
+What are LSTMs  
+How to Train LSTMs  
+How to Prepare Data for LSTMs  
+How to Develop LSTMs in Keras  
+Models for Sequence Prediction  
+How to Develop Vanilla LSTMs  
+How to Develop Stacked LSTMs  
+How to Develop CNN LSTMs  
+How to Develop Encoder-Decoder LSTMs  
+How to Develop Bidirectional LSTMs  
+How to Develop Generative LSTMs  
+How to Diagnose and Tune LSTMs  
+How to Make Predictions with LSTMs  
+How to Update LSTM Models  
