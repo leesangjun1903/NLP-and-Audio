@@ -5,7 +5,7 @@
 
 
 ## Natural Language Understanding with Python, Deborah A. Dahl
-Natural Language Understanding, Related Technologies, and Natural Language Applications  
+Natural Language Understanding, Related Technologies, and Natural Language Applications  
 Identifying Practical Natural Language Understanding Problems  
 Approaches to Natural Language Understanding – Rule-Based Systems, Machine Learning, and Deep Learning  
 Selecting Libraries and Tools for Natural Language Understanding  
