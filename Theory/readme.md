@@ -1,3 +1,9 @@
+## Lecture with Theory
+- Deep learning Bible : https://wikidocs.net/177759
+- 딥 러닝을 이용한 자연어 처리 입문 https://wikidocs.net/book/2155
+
+
+
 ## Natural Language Understanding with Python, Deborah A. Dahl
 Natural Language Understanding, Related Technologies, and Natural Language Applications  
 Identifying Practical Natural Language Understanding Problems  
