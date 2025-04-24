@@ -3,6 +3,9 @@
 # Main Architecture : Transformers
 https://github.com/huggingface/transformers/tree/main
 
+# PaLM + RLHF - Pytorch
+https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
+
 # LLM
 ## LLM Survey
 - LLMSurvey : https://github.com/RUCAIBox/LLMSurvey?tab=readme-ov-file#table-of-contents
