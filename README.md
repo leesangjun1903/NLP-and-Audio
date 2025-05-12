@@ -6,6 +6,9 @@ https://github.com/huggingface/transformers/tree/main
 # PaLM + RLHF - Pytorch
 https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 
+# Prompt Engineering
+https://www.kaggle.com/whitepaper-prompt-engineering
+
 ## NLP
 - Beginner to Intermediate Natural Language Processing Guide - NowYSM https://www.kaggle.com/code/ashishpatel26/beginner-to-intermediate-nlp-tutorial/notebook : sklearn + logistic Regression을 활용한 감성분석(긍/부정 표현 판별)
 - Deep Learning NLP Quora Solutions - https://www.kaggle.com/code/ashishpatel26/deep-learning-nlp-quora-solutions : NowYSM 딥러닝(Keras)을 활용한 악성(사회적으로 문제가 될 수 있는, 질이 나쁜) 질문 판별
