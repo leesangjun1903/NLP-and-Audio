@@ -1,4 +1,4 @@
-# LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | LLM
+# LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
 
 LongLoRA는 **사전학습된 대형 언어모델(LLM)의 문맥 길이를 효율적으로 확장**하기 위한 파라미터-효율적 미세조정 기법이다[1].  
 주요 기여:
