@@ -7,5 +7,7 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - RAG From Scratch : https://github.com/langchain-ai/rag-from-scratch
 
 ## papers
+- (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models
+
 - LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
 - Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | Question answering, Reinforcement Learning
