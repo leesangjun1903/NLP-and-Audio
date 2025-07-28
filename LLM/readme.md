@@ -9,6 +9,7 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 ## papers
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models
 - (Survey) Parameter-Efficient Fine-Tuning for Large Models : A Comprehensive Survey
+- (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
 
 - LoRA: Low-Rank Adaptation of Large Language Models | LLM, Fine-tuning, Mathematical Reasoning
 - LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
