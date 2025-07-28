@@ -8,3 +8,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 
 ## papers
 - LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
+- Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | Question answering, Reinforcement Learning
