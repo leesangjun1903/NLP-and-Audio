@@ -12,7 +12,7 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations
-- 
+- AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2
 - LoRA: Low-Rank Adaptation of Large Language Models | LLM, Fine-tuning, Mathematical Reasoning
 - LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
 - iVQA : Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | Question answering, Reinforcement Learning
