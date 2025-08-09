@@ -20,3 +20,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - GPT-2: Language Models are Unsupervised Multitask Learners
 - GPT-3 : Language Models are Few-Shot Learners
 - GPT-4 Technical Report
+- DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models
