@@ -17,4 +17,5 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
 - iVQA : Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | Question answering, Reinforcement Learning
 - GPT-1 : Improving Language Understanding by Generative Pre-Training
+- GPT-2: Language Models are Unsupervised Multitask Learners
 - GPT-4 Technical Report
