@@ -30,3 +30,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - Titans: Learning to Memorize at Test Time
 - PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels
 - Parallelizing Linear Transformers with the Delta Rule over Sequence Length
+- DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float
