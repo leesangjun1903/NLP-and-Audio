@@ -10,6 +10,7 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models
 - (Survey) Parameter-Efficient Fine-Tuning for Large Models : A Comprehensive Survey
 - (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
+- (Survey) A Survey of Large Language Models
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations
 - AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2
@@ -24,3 +25,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
 - DeepSeek-V3 Technical Report
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+- 
