@@ -22,3 +22,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - GPT-4 Technical Report
 - DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
+- DeepSeek-V3 Technical Report
