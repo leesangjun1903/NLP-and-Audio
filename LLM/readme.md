@@ -25,4 +25,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
 - DeepSeek-V3 Technical Report
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
-- 
+- Transformer-Squared: Self-Adaptive LLMs
