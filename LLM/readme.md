@@ -29,3 +29,4 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - Transformer : Attention Is All You Need
 - Titans: Learning to Memorize at Test Time
 - PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels
+- Parallelizing Linear Transformers with the Delta Rule over Sequence Length
