@@ -1,3 +1,5 @@
+Building Large Language Models and Lightweight Language Models, Language Models Algorithm.
+
 # Lecture
 Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 
