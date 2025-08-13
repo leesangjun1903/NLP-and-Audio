@@ -19,7 +19,7 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models
 - (Survey) Parameter-Efficient Fine-Tuning for Large Models : A Comprehensive Survey
 - (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
-- (Survey) A Survey of Large Language Models
+- (Survey) A Survey of Large Language Models : https://github.com/RUCAIBox/LLMSurvey?tab=readme-ov-file#table-of-contents
 - (Survey) A Survey on Large Language Model based Autonomous Agents
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations
