@@ -1,4 +1,7 @@
 # NLP
+- NLP 학회 논문 : https://m.blog.naver.com/pianadev/222965217320
+- 
+
 - Awesome AI Agents : https://github.com/e2b-dev/awesome-ai-agents?tab=readme-ov-file
 
 # Awesome LLM
