@@ -22,7 +22,6 @@ https://www.kaggle.com/whitepaper-prompt-engineering
 
 # LLM
 ## LLM Survey
-- Large Language Models: A Survey(2024) : https://velog.io/@sohtks/Paper-Review-Large-Language-Models-A-Survey, https://arxiv.org/abs/2402.06196
 - A Survey of Resource-efficient LLM and Multimodal Foundation Models : https://wikidocs.net/237419
 
 ## Paper with name
