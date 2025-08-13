@@ -41,3 +41,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Parallelizing Linear Transformers with the Delta Rule over Sequence Length
 - DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float
 - Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | Quety classification
+- Mitigating Language-Dependent Ethnic Bias in BERT
