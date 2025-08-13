@@ -20,10 +20,6 @@ https://www.kaggle.com/whitepaper-prompt-engineering
 - Deep Learning NLP Quora Solutions - https://www.kaggle.com/code/ashishpatel26/deep-learning-nlp-quora-solutions : NowYSM 딥러닝(Keras)을 활용한 악성(사회적으로 문제가 될 수 있는, 질이 나쁜) 질문 판별
 - NLP Quick Start for Newbie😁 with 9steps https://www.kaggle.com/code/songseungwon/nlp-quick-start-for-newbie-with-9steps : Seungwon Song 재난 트위터를 활용한 가짜 뉴스 판별기 구현
 
-# LLM
-## LLM Survey
-- A Survey of Resource-efficient LLM and Multimodal Foundation Models : https://wikidocs.net/237419
-
 ## Paper with name
 - LLaVA: Large Language and Vision Assistant https://github.com/haotian-liu/LLaVA?tab=readme-ov-file
   - Improved Baselines with Visual Instruction Tuning, Visual Instruction Tuning
