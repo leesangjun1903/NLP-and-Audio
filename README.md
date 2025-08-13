@@ -1,4 +1,5 @@
 # NLP
+- Awesome AI Agents : https://github.com/e2b-dev/awesome-ai-agents?tab=readme-ov-file
 
 # Main Architecture : Transformers
 https://github.com/huggingface/transformers/tree/main
