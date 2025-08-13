@@ -3,12 +3,19 @@
 # Lecture
 Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 
+# PaLM + RLHF - Pytorch
+https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
+
 ## LangChain
 - 랭체인(LangChain) 입문부터 응용까지 : https://wikidocs.net/book/14473  
 - <랭체인LangChain 노트> - LangChain 한국어 튜토리얼 :  https://wikidocs.net/book/14314  , https://github.com/teddylee777/langchain-kr?tab=readme-ov-file\
 - RAG From Scratch : https://github.com/langchain-ai/rag-from-scratch
 
 ## papers
+### Main Architecture : Transformers
+- Transformer : Attention Is All You Need
+: https://github.com/huggingface/transformers/tree/main
+
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models
 - (Survey) Parameter-Efficient Fine-Tuning for Large Models : A Comprehensive Survey
 - (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
@@ -29,7 +36,6 @@ Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
 - DeepSeek-V3 Technical Report
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
 - Transformer-Squared: Self-Adaptive LLMs
-- Transformer : Attention Is All You Need
 - Titans: Learning to Memorize at Test Time
 - PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels
 - Parallelizing Linear Transformers with the Delta Rule over Sequence Length
