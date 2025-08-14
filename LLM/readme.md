@@ -47,3 +47,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - PaLM: Scaling Language Modeling with Pathways
 - A Length-Extrapolatable Transformer
 - Understanding R1-Zero-Like Training: A Critical Perspective
+- Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?
