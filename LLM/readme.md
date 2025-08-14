@@ -44,3 +44,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | Quety classification
 - Mitigating Language-Dependent Ethnic Bias in BERT
 - Learning to Summarize from Human Feedback
+- PaLM: Scaling Language Modeling with Pathways
