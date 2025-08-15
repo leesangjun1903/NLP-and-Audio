@@ -53,3 +53,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer
 - mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer
 - PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation
+- CPM-2: Large-scale Cost-effective Pre-trained Language Models
