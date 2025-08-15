@@ -49,3 +49,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Understanding R1-Zero-Like Training: A Critical Perspective
 - Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?
 - RoBERTa: A Robustly Optimized BERT Pretraining Approach
+- DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter
