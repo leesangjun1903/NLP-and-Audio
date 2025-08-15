@@ -54,3 +54,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer
 - PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation
 - CPM-2: Large-scale Cost-effective Pre-trained Language Models
+- BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension
