@@ -51,3 +51,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - RoBERTa: A Robustly Optimized BERT Pretraining Approach
 - DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter
 - Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer
+- mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer
