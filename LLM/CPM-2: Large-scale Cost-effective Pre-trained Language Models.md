@@ -25,7 +25,7 @@ CPM-2는 기존 거대 언어모델의
 2) Bilingual Stage: 영어 토큰 임베딩 초기화 및 한·영 데이터 비율 2:1 유지하며 추가 학습  
 3) MoE Stage: Bilingual 모델 복제 후 전문가(Experts) 분기 게이팅 고정한 채 Mixture-of-Experts 확장  
 > 학습 단계별 손실 함수:  
-> $$ \mathcal{L} = \sum_{i\in\text{stages}} \mathrm{MLM}_{i} $$  
+> $$\mathcal{L} = \sum_{i\in\text{stages}} \mathrm{MLM}_{i} $$  
 
 #### 2.2.2 프롬프트 튜닝  
 - 입력 앞뒤·문장 사이에 100개의 연속 소프트 프롬프트 삽입  
