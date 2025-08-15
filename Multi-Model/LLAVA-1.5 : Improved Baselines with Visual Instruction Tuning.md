@@ -1,4 +1,4 @@
-# LLAVA : Improved Baselines with Visual Instruction Tuning
+# LLAVA-1.5 : Improved Baselines with Visual Instruction Tuning
 
 ## 1. 핵심 주장과 주요 기여  
 이 논문은 **LLaVA** 프레임워크를 기반으로 하는 대규모 다중모달 모델(LMM)의 설계 선택을 체계적으로 비교·분석하여, 다음과 같은 핵심 기여를 제시한다:[1]
