@@ -58,3 +58,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - RoFormer: Enhanced Transformer with Rotary Position Embedding
 - Direct Preference Optimization: Your Language Model is Secretly a Reward Model
 - KTO: Model Alignment as Prospect Theoretic Optimization
+- Noise Contrastive Alignment of Language Models with Explicit Rewards
