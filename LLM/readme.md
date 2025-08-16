@@ -57,3 +57,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension
 - RoFormer: Enhanced Transformer with Rotary Position Embedding
 - Direct Preference Optimization: Your Language Model is Secretly a Reward Model
+- KTO: Model Alignment as Prospect Theoretic Optimization
