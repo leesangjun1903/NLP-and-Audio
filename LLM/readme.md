@@ -61,3 +61,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Noise Contrastive Alignment of Language Models with Explicit Rewards
 - SpinQuant: LLM quantization with learned rotations
 - CBQ: Cross-Block Quantization for Large Language Models
+- LeanQuant: Accurate and Scalable Large Language Model Quantization with Loss-error-aware Grid
