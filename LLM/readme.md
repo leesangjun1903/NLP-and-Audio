@@ -63,3 +63,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - CBQ: Cross-Block Quantization for Large Language Models
 - LeanQuant: Accurate and Scalable Large Language Model Quantization with Loss-error-aware Grid
 - KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization
+- QBB: Quantization with Binary Bases for LLMs
