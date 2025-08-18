@@ -62,3 +62,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - SpinQuant: LLM quantization with learned rotations
 - CBQ: Cross-Block Quantization for Large Language Models
 - LeanQuant: Accurate and Scalable Large Language Model Quantization with Loss-error-aware Grid
+- KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization
