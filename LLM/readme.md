@@ -60,3 +60,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - KTO: Model Alignment as Prospect Theoretic Optimization
 - Noise Contrastive Alignment of Language Models with Explicit Rewards
 - SpinQuant: LLM quantization with learned rotations
+- CBQ: Cross-Block Quantization for Large Language Models
