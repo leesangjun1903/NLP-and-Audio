@@ -69,3 +69,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - KV Cache is 1 Bit Per Channel: Efficient Large Language Model Inference with Coupled Quantization
 - Evaluating Quantized Large Language Models
 - SqueezeLLM: Dense-and-Sparse Quantization
+- KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache
