@@ -74,3 +74,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - BiLLM: Pushing the Limit of Post-Training Quantization for LLMs
 - OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models
 - LoftQ: LoRA-Fine-Tuning-Aware Quantization for Large Language Models
+- SpQR: Near-Lossless LLM Weight Compression
