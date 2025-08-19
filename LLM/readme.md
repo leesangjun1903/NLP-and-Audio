@@ -73,3 +73,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - AQLM : Extreme Compression of Large Language Models via Additive Quantization
 - BiLLM: Pushing the Limit of Post-Training Quantization for LLMs
 - OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models
+- LoftQ: LoRA-Fine-Tuning-Aware Quantization for Large Language Models
