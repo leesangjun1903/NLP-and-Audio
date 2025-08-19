@@ -70,3 +70,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Evaluating Quantized Large Language Models
 - SqueezeLLM: Dense-and-Sparse Quantization
 - KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache
+- AQLM : Extreme Compression of Large Language Models via Additive Quantization
