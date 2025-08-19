@@ -72,3 +72,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache
 - AQLM : Extreme Compression of Large Language Models via Additive Quantization
 - BiLLM: Pushing the Limit of Post-Training Quantization for LLMs
+- OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models
