@@ -65,3 +65,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization
 - QBB: Quantization with Binary Bases for LLMs
 - ZipCache: Accurate and Efficient KV Cache Quantization with Salient Token Identification
+- DuQuant: Distributing Outliers via Dual Transformation Makes Stronger Quantized LLMs
