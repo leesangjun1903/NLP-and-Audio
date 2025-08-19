@@ -76,3 +76,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - LoftQ: LoRA-Fine-Tuning-Aware Quantization for Large Language Models
 - SpQR: Near-Lossless LLM Weight Compression
 - QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models
+- LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models
