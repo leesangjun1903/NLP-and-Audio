@@ -66,3 +66,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - QBB: Quantization with Binary Bases for LLMs
 - ZipCache: Accurate and Efficient KV Cache Quantization with Salient Token Identification
 - DuQuant: Distributing Outliers via Dual Transformation Makes Stronger Quantized LLMs
+- KV Cache is 1 Bit Per Channel: Efficient Large Language Model Inference with Coupled Quantization
