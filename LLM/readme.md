@@ -78,3 +78,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models
 - LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models
 - IR-QLoRA : Accurate LoRA-Finetuning Quantization of LLMs via Information Retention
+- QuIP: 2-Bit Quantization of Large Language Models With Guarantees
