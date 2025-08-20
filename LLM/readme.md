@@ -1,4 +1,4 @@
-> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithm.
+> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms.
 
 # Lecture
 Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
@@ -79,3 +79,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models
 - IR-QLoRA : Accurate LoRA-Finetuning Quantization of LLMs via Information Retention
 - QuIP: 2-Bit Quantization of Large Language Models With Guarantees
+- Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization
