@@ -82,3 +82,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization
 - Atom: Low-bit Quantization for Efficient and Accurate LLM Serving
 - AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration
+- LLM-QAT: Data-Free Quantization Aware Training for Large Language Models
