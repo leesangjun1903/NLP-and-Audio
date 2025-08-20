@@ -81,3 +81,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - QuIP: 2-Bit Quantization of Large Language Models With Guarantees
 - Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization
 - Atom: Low-bit Quantization for Efficient and Accurate LLM Serving
+- AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration
