@@ -80,3 +80,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - IR-QLoRA : Accurate LoRA-Finetuning Quantization of LLMs via Information Retention
 - QuIP: 2-Bit Quantization of Large Language Models With Guarantees
 - Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization
+- Atom: Low-bit Quantization for Efficient and Accurate LLM Serving
