@@ -83,3 +83,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Atom: Low-bit Quantization for Efficient and Accurate LLM Serving
 - AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration
 - LLM-QAT: Data-Free Quantization Aware Training for Large Language Models
+- Outlier Suppression+: Accurate quantization of large language models by equivalent and effective shifting and scaling
