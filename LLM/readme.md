@@ -84,3 +84,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration
 - LLM-QAT: Data-Free Quantization Aware Training for Large Language Models
 - Outlier Suppression+: Accurate quantization of large language models by equivalent and effective shifting and scaling
+- RPTQ: Reorder-based Post-training Quantization for Large Language Models
