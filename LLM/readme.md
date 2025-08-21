@@ -93,3 +93,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale
 - ZeroQuant: Eﬃcient and Aﬀordable Post-Training Quantization for Large-Scale Transformers
 - Compression of Generative Pre-trained Language Models via Quantization
+- BinaryBERT: Pushing the Limit of BERT Quantization
