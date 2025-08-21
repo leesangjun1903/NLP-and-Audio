@@ -14,7 +14,8 @@
 https://www.kaggle.com/whitepaper-prompt-engineering
 
 ## Studies
-- 딥러닝을 이용한 자연어 처리 입문 https://wikidocs.net/book/2155
+- Deep learning Bible : https://wikidocs.net/177759
+- 딥 러닝을 이용한 자연어 처리 입문 https://wikidocs.net/book/2155
 - 인공지능 기반 자연어처리와 빅데이터 분석 : https://wikidocs.net/book/6280
 - Beginner to Intermediate Natural Language Processing Guide - NowYSM https://www.kaggle.com/code/ashishpatel26/beginner-to-intermediate-nlp-tutorial/notebook : sklearn + logistic Regression을 활용한 감성분석(긍/부정 표현 판별)
 - Deep Learning NLP Quora Solutions - https://www.kaggle.com/code/ashishpatel26/deep-learning-nlp-quora-solutions : NowYSM 딥러닝(Keras)을 활용한 악성(사회적으로 문제가 될 수 있는, 질이 나쁜) 질문 판별
