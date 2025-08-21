@@ -86,3 +86,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Outlier Suppression+: Accurate quantization of large language models by equivalent and effective shifting and scaling
 - RPTQ: Reorder-based Post-training Quantization for Large Language Models
 - The Case for 4-Bit Precision: k-Bit Inference Scaling Laws
+- SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models
