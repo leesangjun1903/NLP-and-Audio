@@ -95,3 +95,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Compression of Generative Pre-trained Language Models via Quantization
 - BinaryBERT: Pushing the Limit of BERT Quantization
 - Understanding and Overcoming the Challenges of Efficient Transformer Quantization
+- TernaryBERT: Distillation-aware Ultra-low Bit BERT
