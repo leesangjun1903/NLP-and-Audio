@@ -94,3 +94,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - ZeroQuant: Eﬃcient and Aﬀordable Post-Training Quantization for Large-Scale Transformers
 - Compression of Generative Pre-trained Language Models via Quantization
 - BinaryBERT: Pushing the Limit of BERT Quantization
+- Understanding and Overcoming the Challenges of Efficient Transformer Quantization
