@@ -30,7 +30,7 @@ $$ \mathrm{GELU}(x) = x\,\frac{1+\mathrm{erf}(x/\sqrt{2})}{2}. $$
    
    - erf를 둘째차 다항식 $$L(x)=a(x+b)^2+c$$로 근사하여:  
 
-$$ \mathrm{i\text{-}GELU}(x) = x\,\frac{1 + \mathrm{sgn}(x)\,[\,a(\,\mathrm{clip}(|x|,{-}b)+b)^2 + 1\,]}{2}, $$  
+$$ \mathrm{i\text{-}GELU}(x) = x\,\frac{1 + \mathrm{sgn}(x)[a(\mathrm{clip}(|x|,{-}b)+b)^2 + 1]}{2}, $$  
      
   여기서 $$a=-0.2888,\,b=-1.769$$.  
    - 평균 절대 오차 $$\ell_2=8.2\times10^{-3}$$, $$\ell_\infty=1.8\times10^{-2}$$.  
