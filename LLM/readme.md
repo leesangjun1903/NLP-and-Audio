@@ -88,3 +88,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - The Case for 4-Bit Precision: k-Bit Inference Scaling Laws
 - SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models
 - GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers
+- BiBERT: Accurate Fully Binarized BERT
