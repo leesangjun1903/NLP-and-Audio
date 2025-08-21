@@ -98,3 +98,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - TernaryBERT: Distillation-aware Ultra-low Bit BERT
 - GOBO: Quantizing Attention-Based NLP Models for Low Latency and Energy Efficient Inference
 - Q-BERT: Hessian Based Ultra Low Precision Quantization of BERT
+- Efficient 8-Bit Quantization of Transformer Neural Machine Language Translation Model
