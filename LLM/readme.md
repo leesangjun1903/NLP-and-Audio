@@ -91,3 +91,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - BiBERT: Accurate Fully Binarized BERT
 - Outlier Suppression: Pushing the Limit of Low-bit Transformer Language Models
 - LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale
+- ZeroQuant: Eﬃcient and Aﬀordable Post-Training Quantization for Large-Scale Transformers
