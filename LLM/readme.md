@@ -96,3 +96,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - BinaryBERT: Pushing the Limit of BERT Quantization
 - Understanding and Overcoming the Challenges of Efficient Transformer Quantization
 - TernaryBERT: Distillation-aware Ultra-low Bit BERT
+- GOBO: Quantizing Attention-Based NLP Models for Low Latency and Energy Efficient Inference
