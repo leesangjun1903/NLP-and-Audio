@@ -99,3 +99,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GOBO: Quantizing Attention-Based NLP Models for Low Latency and Energy Efficient Inference
 - Q-BERT: Hessian Based Ultra Low Precision Quantization of BERT
 - Efficient 8-Bit Quantization of Transformer Neural Machine Language Translation Model
+- Q8BERT: Quantized 8Bit BERT
