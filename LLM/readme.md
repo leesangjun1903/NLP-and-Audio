@@ -89,3 +89,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models
 - GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers
 - BiBERT: Accurate Fully Binarized BERT
+- Outlier Suppression: Pushing the Limit of Low-bit Transformer Language Models
