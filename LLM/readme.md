@@ -90,3 +90,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers
 - BiBERT: Accurate Fully Binarized BERT
 - Outlier Suppression: Pushing the Limit of Low-bit Transformer Language Models
+- LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale
