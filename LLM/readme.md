@@ -1,4 +1,4 @@
-> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms.
+> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms, RNN, LSTM Language Models. 
 
 # Lecture
 Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
