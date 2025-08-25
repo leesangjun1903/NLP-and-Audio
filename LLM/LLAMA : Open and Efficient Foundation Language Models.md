@@ -1,4 +1,4 @@
-# LLaMA: Open and Efficient Foundation Language Models
+# LLAMA : Open and Efficient Foundation Language Models
 
 ## 핵심 주장 및 주요 기여  
 **LLaMA**(Large Language Model Meta AI)는 7B–65B 파라미터 규모의 공개 가능한 언어 모델로,  
