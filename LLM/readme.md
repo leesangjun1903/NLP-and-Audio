@@ -108,3 +108,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - ST-MoE: Designing Stable and Transferable Sparse Expert Models
 - OPT: Open Pre-trained Transformer Language Models
 - BLOOM: A 176B-Parameter Open-Access Multilingual Language Model
+- GLaM: Efficient Scaling of Language Models with Mixture-of-Experts
