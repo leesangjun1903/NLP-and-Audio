@@ -101,3 +101,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Efficient 8-Bit Quantization of Transformer Neural Machine Language Translation Model
 - Q8BERT: Quantized 8Bit BERT
 - Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning
+- ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
