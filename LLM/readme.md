@@ -106,3 +106,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators
 - GLM-130B: An Open Bilingual Pre-trained Model
 - ST-MoE: Designing Stable and Transferable Sparse Expert Models
+- OPT: Open Pre-trained Transformer Language Models
