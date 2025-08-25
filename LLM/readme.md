@@ -114,3 +114,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Chinchilla : Training Compute-Optimal Large Language Models
 - LaMDA: Language Models for Dialog Applications
 - LLaMA: Open and Efficient Foundation Language Models
+- BloombergGPT: A Large Language Model for Finance
