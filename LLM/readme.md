@@ -105,3 +105,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - UNILM: Unified Language Model Pre-training for Natural Language Understanding and Generation
 - ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators
 - GLM-130B: An Open Bilingual Pre-trained Model
+- ST-MoE: Designing Stable and Transferable Sparse Expert Models
