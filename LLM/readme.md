@@ -117,3 +117,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - BloombergGPT: A Large Language Model for Finance
 - GPT-NeoX-20B: An Open-Source Autoregressive Language Model
 - PaLM 2 Technical Report
+- Llama 2: Open Foundation and Fine-Tuned Chat Models
