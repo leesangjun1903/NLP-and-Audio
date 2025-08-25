@@ -111,3 +111,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GLaM: Efficient Scaling of Language Models with Mixture-of-Experts
 - Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model
 - Scaling Language Models: Methods, Analysis & Insights from Training Gopher
+- Chinchilla : Training Compute-Optimal Large Language Models
