@@ -113,3 +113,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Scaling Language Models: Methods, Analysis & Insights from Training Gopher
 - Chinchilla : Training Compute-Optimal Large Language Models
 - LaMDA: Language Models for Dialog Applications
+- LLaMA: Open and Efficient Foundation Language Models
