@@ -121,3 +121,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Model Card and Evaluations for Claude Models
 - Is ChatGPT a General-Purpose Natural Language Processing Task Solver?
 - Benchmarking Large Language Models for News Summarization
+- FAIRSEQ: A Fast, Extensible Toolkit for Sequence Modeling
