@@ -119,3 +119,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - PaLM 2 Technical Report
 - Llama 2: Open Foundation and Fine-Tuned Chat Models
 - Model Card and Evaluations for Claude Models
+- Is ChatGPT a General-Purpose Natural Language Processing Task Solver?
