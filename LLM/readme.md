@@ -132,4 +132,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Emergent Abilities of Large Language Models
 - Is GPT-3 a Good Data Annotator?
 - Want To Reduce Labeling Cost? GPT-3 Can Help
+- GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation
 
