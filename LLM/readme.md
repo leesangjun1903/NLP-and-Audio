@@ -138,4 +138,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GPTScore: Evaluate as You Desire
 - Is ChatGPT a Good NLG Evaluator? A Preliminary Study
 - Prefix-Tuning: Optimizing Continuous Prompts for Generation
+- P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks
 
