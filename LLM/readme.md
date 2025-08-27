@@ -122,3 +122,4 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Is ChatGPT a General-Purpose Natural Language Processing Task Solver?
 - Benchmarking Large Language Models for News Summarization
 - News Summarization and Evaluation in the Era of GPT-3
+- Is ChatGPT A Good Translator? Yes With GPT-4 As The Engine
