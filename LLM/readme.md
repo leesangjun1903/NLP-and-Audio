@@ -135,4 +135,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation
 - ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks
 - G-EVAL: NLG Evaluation Using GPT-4 with Better Human Alignment
+- GPTScore: Evaluate as You Desire
 
