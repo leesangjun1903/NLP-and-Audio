@@ -130,4 +130,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Large Language Models Encode Clinical Knowledge
 - Scaling Laws for Neural Language Models
 - Emergent Abilities of Large Language Models
+- Is GPT-3 a Good Data Annotator?
 
