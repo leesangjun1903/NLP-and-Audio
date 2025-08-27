@@ -124,3 +124,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - News Summarization and Evaluation in the Era of GPT-3
 - Is ChatGPT A Good Translator? Yes With GPT-4 As The Engine
 - Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT
+- Atlas: Few-shot Learning with Retrieval Augmented Language Models
+
