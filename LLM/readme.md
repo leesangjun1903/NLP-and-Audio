@@ -133,4 +133,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Is GPT-3 a Good Data Annotator?
 - Want To Reduce Labeling Cost? GPT-3 Can Help
 - GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation
+- ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks
 
