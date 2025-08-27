@@ -127,4 +127,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Atlas: Few-shot Learning with Retrieval Augmented Language Models
 - Solving math word problems with process- and outcome-based feedback
 - Large Language Models Encode Clinical Knowledge
+- Scaling Laws for Neural Language Models
 
