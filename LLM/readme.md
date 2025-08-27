@@ -22,6 +22,7 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - (Survey) A Survey of Large Language Models : https://github.com/RUCAIBox/LLMSurvey?tab=readme-ov-file#table-of-contents , https://wikidocs.net/237619, https://arxiv.org/abs/2303.18223
 - Large Language Models: A Survey(2024) : https://velog.io/@sohtks/Paper-Review-Large-Language-Models-A-Survey, https://arxiv.org/abs/2402.06196
 - (Survey) A Survey on Large Language Model based Autonomous Agents
+- (Survey) Towards Reasoning in Large Language Models: A Survey
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations
 - AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2
