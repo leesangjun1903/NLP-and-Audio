@@ -136,4 +136,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks
 - G-EVAL: NLG Evaluation Using GPT-4 with Better Human Alignment
 - GPTScore: Evaluate as You Desire
+- Is ChatGPT a Good NLG Evaluator? A Preliminary Study
 
