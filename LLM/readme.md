@@ -131,4 +131,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Scaling Laws for Neural Language Models
 - Emergent Abilities of Large Language Models
 - Is GPT-3 a Good Data Annotator?
+- Want To Reduce Labeling Cost? GPT-3 Can Help
 
