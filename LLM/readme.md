@@ -128,4 +128,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Solving math word problems with process- and outcome-based feedback
 - Large Language Models Encode Clinical Knowledge
 - Scaling Laws for Neural Language Models
+- Emergent Abilities of Large Language Models
 
