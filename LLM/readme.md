@@ -153,4 +153,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - A General Language Assistant as a Laboratory for Alignment
 - Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback
 - Training Language Models to Follow Instructions with Human Feedback
+- Red Teaming Language Models with Language Models
 
