@@ -146,4 +146,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Calibrate Before Use: Improving Few-Shot Performance of Language Models
 - Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 - GPT-4 System Card
+- Finetuned Language Models Are Zero-Shot Learners
 
