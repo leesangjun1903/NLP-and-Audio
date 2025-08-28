@@ -144,4 +144,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM
 - Reducing Activation Recomputation in Large Transformer Models
 - Calibrate Before Use: Improving Few-Shot Performance of Language Models
+- Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
