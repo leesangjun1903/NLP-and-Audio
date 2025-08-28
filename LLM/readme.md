@@ -165,4 +165,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding
 - Evaluating Large Language Models Trained on Code
 - ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation
+- WebGPT: Browser-assisted Question-Answering with Human Feedback
 
