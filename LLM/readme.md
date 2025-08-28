@@ -141,4 +141,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks
 - ZeRO: Memory Optimizations Toward Training Trillion-Parameter Models
 - Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism
+- Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM
 
