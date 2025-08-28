@@ -159,4 +159,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis
 - SUPER-NATURALINSTRUCTIONS: Generalization via Declarative Instructions on 1600+ NLP Tasks
 - UL2: Unifying Language Learning Paradigms
+- Galactica: A Large Language Model for Science
 
