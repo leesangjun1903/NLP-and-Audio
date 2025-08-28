@@ -148,4 +148,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GPT-4 System Card
 - Finetuned Language Models Are Zero-Shot Learners
 - Cross-Task Generalization via Natural Language Crowdsourcing Instructions
+- Scaling Instruction-Finetuned Language Models
 
