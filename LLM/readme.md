@@ -162,4 +162,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Galactica: A Large Language Model for Science
 - CodeGeeX: A Pre-Trained Model for Code Generation with Multilingual Benchmarking on HumanEval-X
 - Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling
+- GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding
 
