@@ -166,4 +166,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Evaluating Large Language Models Trained on Code
 - ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation
 - WebGPT: Browser-assisted Question-Answering with Human Feedback
+- Competition-Level Code Generation with AlphaCode
 
