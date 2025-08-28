@@ -139,4 +139,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Is ChatGPT a Good NLG Evaluator? A Preliminary Study
 - Prefix-Tuning: Optimizing Continuous Prompts for Generation
 - P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks
+- ZeRO: Memory Optimizations Toward Training Trillion-Parameter Models
 
