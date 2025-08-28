@@ -157,5 +157,6 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Constitutional AI: Harmlessness from AI Feedback
 - SELF-INSTRUCT: Aligning Language Models with Self-Generated Instructions
 - CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis
-- SUPER-NATURALINSTRUCTIONS: Generalization via Declarative Instructions on 1600+ NLP Tasks 
+- SUPER-NATURALINSTRUCTIONS: Generalization via Declarative Instructions on 1600+ NLP Tasks
+- UL2: Unifying Language Learning Paradigms
 
