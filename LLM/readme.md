@@ -172,4 +172,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - DeepSpeed: System Optimizations Enable Training Deep Learning Models with Over 100 Billion Parameters
 - Deduplicating Training Data Makes Language Models Better
 - Deduplicating Training Data Mitigates Privacy Risks in Language Models
+- GLM: General Language Model Pretraining with Autoregressive Blank Infilling
 
