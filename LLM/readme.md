@@ -168,4 +168,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - WebGPT: Browser-assisted Question-Answering with Human Feedback
 - Competition-Level Code Generation with AlphaCode
 - Improving alignment of dialogue agents via targeted human judgements
+- Defending Against Neural Fake News
 
