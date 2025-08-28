@@ -149,4 +149,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Finetuned Language Models Are Zero-Shot Learners
 - Cross-Task Generalization via Natural Language Crowdsourcing Instructions
 - Scaling Instruction-Finetuned Language Models
+- OPT-IML : Scaling Language Model Instruction Meta Learning through the Lens of Generalization
 
