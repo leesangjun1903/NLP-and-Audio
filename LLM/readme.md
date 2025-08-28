@@ -147,4 +147,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 - GPT-4 System Card
 - Finetuned Language Models Are Zero-Shot Learners
+- Cross-Task Generalization via Natural Language Crowdsourcing Instructions
 
