@@ -186,4 +186,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - CodeT: Code Generation with Generated Tests
 - StarCoder: May the Source Be With You!
 - Language Models of Code are Few-Shot Commonsense Learners
+- Multi-Task Deep Neural Networks for Natural Language Understanding
 
