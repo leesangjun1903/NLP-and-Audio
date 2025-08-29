@@ -175,4 +175,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - GLM: General Language Model Pretraining with Autoregressive Blank Infilling
 - Switch Transformers: Scaling to Trillion Parameter Models with Simple and Eﬃcient Sparsity
 - Long Range Language Modeling via Gated State Spaces
+- Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
