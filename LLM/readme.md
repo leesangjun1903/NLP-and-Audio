@@ -179,4 +179,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation
 - VLLM : Efficient Memory Management for Large Language Model Serving with PagedAttention
 - What Language Model Architecture and Pretraining Objective Work Best for Zero-Shot Generalization?
+- Program Synthesis with Large Language Models
 
