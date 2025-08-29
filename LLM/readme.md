@@ -177,4 +177,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Long Range Language Modeling via Gated State Spaces
 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 - Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation
+- VLLM : Efficient Memory Management for Large Language Model Serving with PagedAttention
 
