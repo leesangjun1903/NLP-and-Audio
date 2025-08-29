@@ -173,4 +173,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Deduplicating Training Data Makes Language Models Better
 - Deduplicating Training Data Mitigates Privacy Risks in Language Models
 - GLM: General Language Model Pretraining with Autoregressive Blank Infilling
+- Switch Transformers: Scaling to Trillion Parameter Models with Simple and Eﬃcient Sparsity 
 
