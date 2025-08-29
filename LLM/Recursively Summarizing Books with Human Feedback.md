@@ -20,9 +20,9 @@
    - **보상 모델 학습**: 인간 비교 라벨 $$\{(y_i^A, y_i^B, r)\}$$로 보상 함수 $$R_\phi$$ 학습  
    - **RL 최적화**: PPO를 통해 요약 정책 $$\pi_\theta$$를  
 
-$$
+```math
        \max_\theta \mathbb{E}_{y\sim\pi_\theta}[R_\phi(y)] - \beta D_{\mathrm{KL}}(\pi_\theta \Vert \pi_{\text{BC}})
-     $$  
+```
    
    - $$\beta$$: KL 페널티 계수, $$\pi_{\text{BC}}$$: 행동 복제 초기 정책.[1]
 
