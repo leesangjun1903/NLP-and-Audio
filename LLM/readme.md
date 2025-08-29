@@ -189,4 +189,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Multi-Task Deep Neural Networks for Natural Language Understanding
 - Muppet: Massive Multi-task Representations with Pre-Finetuning
 - The Flan Collection: Designing Data and Methods for Eﬀective Instruction Tuning
+- LIMA: Less Is More for Alignment
 
