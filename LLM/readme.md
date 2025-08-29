@@ -188,4 +188,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Language Models of Code are Few-Shot Commonsense Learners
 - Multi-Task Deep Neural Networks for Natural Language Understanding
 - Muppet: Massive Multi-task Representations with Pre-Finetuning
+- The Flan Collection: Designing Data and Methods for Eﬀective Instruction Tuning
 
