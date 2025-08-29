@@ -182,4 +182,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Program Synthesis with Large Language Models
 - Show Your Work: Scratchpads for Intermediate Computation with Language Models
 - A Systematic Evaluation of Large Language Models of Code
+- InCoder: A Generative Model for Code Infilling and Synthesis
 
