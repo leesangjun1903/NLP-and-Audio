@@ -180,4 +180,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - VLLM : Efficient Memory Management for Large Language Model Serving with PagedAttention
 - What Language Model Architecture and Pretraining Objective Work Best for Zero-Shot Generalization?
 - Program Synthesis with Large Language Models
+- Show Your Work: Scratchpads for Intermediate Computation with Language Models
 
