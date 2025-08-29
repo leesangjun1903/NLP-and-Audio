@@ -184,4 +184,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - A Systematic Evaluation of Large Language Models of Code
 - InCoder: A Generative Model for Code Infilling and Synthesis
 - CodeT: Code Generation with Generated Tests
+- StarCoder: May the Source Be With You!
 
