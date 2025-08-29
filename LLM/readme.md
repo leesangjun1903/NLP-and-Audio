@@ -185,4 +185,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - InCoder: A Generative Model for Code Infilling and Synthesis
 - CodeT: Code Generation with Generated Tests
 - StarCoder: May the Source Be With You!
+- Language Models of Code are Few-Shot Commonsense Learners
 
