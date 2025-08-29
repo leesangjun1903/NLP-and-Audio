@@ -176,4 +176,5 @@ https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - Switch Transformers: Scaling to Trillion Parameter Models with Simple and Eﬃcient Sparsity
 - Long Range Language Modeling via Gated State Spaces
 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
+- Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation
 
