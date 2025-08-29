@@ -1,12 +1,8 @@
 > ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms, Metrics, RNN, LSTM Language Models. 
 
 # Lecture
-Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
-
-# PaLM + RLHF - Pytorch
-https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
-
-## LangChain
+- Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
+- PaLM + RLHF - Pytorch : https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
 - 랭체인(LangChain) 입문부터 응용까지 : https://wikidocs.net/book/14473  
 - <랭체인LangChain 노트> - LangChain 한국어 튜토리얼 :  https://wikidocs.net/book/14314  , https://github.com/teddylee777/langchain-kr?tab=readme-ov-file\
 - RAG From Scratch : https://github.com/langchain-ai/rag-from-scratch
