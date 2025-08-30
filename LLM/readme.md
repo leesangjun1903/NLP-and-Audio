@@ -196,4 +196,5 @@
 - Parameter-efficient Fine-tuning of Large-scale Pre-trained Language Models
 - AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning
 - LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-Initialized Attention
+- LLM-Adapters: An Adapter Family for Parameter-Efficient Fine-Tuning of Large Language Models
 
