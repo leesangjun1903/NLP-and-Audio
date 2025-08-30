@@ -204,4 +204,5 @@
 - Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity
 - An Explanation of In-context Learning as Implicit Bayesian Inference
 - Data Distributional Properties Drive Emergent In-Context Learning in Transformers
+- Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?
 
