@@ -214,4 +214,5 @@
 - Language Models are Multilingual Chain-of-Thought Reasoners
 - Least-to-Most Prompting Enables Complex Reasoning in Large Language Models
 - Multimodal Chain-of-Thought Reasoning in Language Models
+- Self-Consistency Improves Chain of Thought Reasoning in Language Models
 
