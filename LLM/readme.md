@@ -191,4 +191,5 @@
 - Parameter-Efficient Transfer Learning for NLP
 - MAD-X: An Adapter-Based Framework for Multi-Task Cross-Lingual Transfer
 - AUTOPROMPT: Eliciting Knowledge from Language Models with Automatically Generated Prompts
+- GPT Understands, Too
 
