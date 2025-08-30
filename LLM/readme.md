@@ -188,4 +188,5 @@
 - LIMA: Less Is More for Alignment
 - Fine-Tuning Language Models from Human Preferences
 - Teaching Language Models to Support Answers with Verified Quotes
+- Parameter-Efficient Transfer Learning for NLP
 
