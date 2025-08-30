@@ -218,4 +218,5 @@
 - Large Language Models Can Self-Improve
 - Training Verifiers to Solve Math Word Problems
 - Large Language Models are Better Reasoners with Self-Verification
+- Teaching Small Language Models to Reason
 
