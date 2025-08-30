@@ -209,4 +209,5 @@
 - Larger Language Models Do In-Context Learning Differently
 - Automatic Chain of Thought Prompting in Large Language Models
 - STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning
+- Large Language Models are Zero-Shot Reasoners
 
