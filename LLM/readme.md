@@ -220,4 +220,5 @@
 - Large Language Models are Better Reasoners with Self-Verification
 - Teaching Small Language Models to Reason
 - Large Language Models Are Reasoning Teachers
+- Minerva: Solving Quantitative Reasoning Problems with Language Models
 
