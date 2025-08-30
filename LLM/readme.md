@@ -189,4 +189,5 @@
 - Fine-Tuning Language Models from Human Preferences
 - Teaching Language Models to Support Answers with Verified Quotes
 - Parameter-Efficient Transfer Learning for NLP
+- MAD-X: An Adapter-Based Framework for Multi-Task Cross-Lingual Transfer
 
