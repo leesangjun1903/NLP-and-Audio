@@ -216,4 +216,5 @@
 - Multimodal Chain-of-Thought Reasoning in Language Models
 - Self-Consistency Improves Chain of Thought Reasoning in Language Models
 - Large Language Models Can Self-Improve
+- Training Verifiers to Solve Math Word Problems
 
