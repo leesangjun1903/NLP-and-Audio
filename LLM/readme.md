@@ -221,4 +221,5 @@
 - Teaching Small Language Models to Reason
 - Large Language Models Are Reasoning Teachers
 - Minerva: Solving Quantitative Reasoning Problems with Language Models
+- Challenging BIG-Bench tasks and whether chain-of-thought can solve them
 
