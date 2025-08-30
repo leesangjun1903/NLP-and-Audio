@@ -211,4 +211,5 @@
 - STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning
 - Large Language Models are Zero-Shot Reasoners
 - Complexity-Based Prompting for Multi-Step Reasoning
+- Language Models are Multilingual Chain-of-Thought Reasoners
 
