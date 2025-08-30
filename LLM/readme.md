@@ -205,4 +205,5 @@
 - An Explanation of In-context Learning as Implicit Bayesian Inference
 - Data Distributional Properties Drive Emergent In-Context Learning in Transformers
 - Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?
+- What learning algorithm is in-context learning? Investigations with linear models
 
