@@ -195,4 +195,5 @@
 - The Power of Scale for Parameter-Efficient Prompt Tuning
 - Parameter-efficient Fine-tuning of Large-scale Pre-trained Language Models
 - AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning
+- LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-Initialized Attention
 
