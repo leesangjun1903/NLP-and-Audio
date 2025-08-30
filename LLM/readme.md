@@ -201,4 +201,5 @@
 - What Makes Good In-Context Examples for GPT-3?
 - Learning To Retrieve Prompts for In-Context Learning
 - Active Example Selection for In-Context Learning
+- Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity
 
