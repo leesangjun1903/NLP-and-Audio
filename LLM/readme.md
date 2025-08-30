@@ -193,4 +193,5 @@
 - AUTOPROMPT: Eliciting Knowledge from Language Models with Automatically Generated Prompts
 - GPT Understands, Too
 - The Power of Scale for Parameter-Efficient Prompt Tuning
+- Parameter-efficient Fine-tuning of Large-scale Pre-trained Language Models
 
