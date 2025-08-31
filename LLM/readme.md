@@ -235,6 +235,7 @@
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools
 - OpenAssistant Conversations - Democratizing Large Language Model Alignment
 - Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena
+- Qwen2.5 Technical Report
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
