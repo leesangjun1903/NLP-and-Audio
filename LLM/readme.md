@@ -233,3 +233,5 @@
 - Faithful Chain-of-Thought Reasoning
 - LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
 
+## Agent
+- Generative Agents: Interactive Simulacra of Human Behavior
