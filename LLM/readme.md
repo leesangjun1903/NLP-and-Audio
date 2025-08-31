@@ -227,4 +227,5 @@
 - PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models
 - VOYAGER: An Open-Ended Embodied Agent with Large Language Models
 - Reflexion: Language Agents with Verbal Reinforcement Learning
+- Decomposed Prompting: A Modular Approach for Solving Complex Tasks
 
