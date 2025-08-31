@@ -229,4 +229,5 @@
 - Reflexion: Language Agents with Verbal Reinforcement Learning
 - Decomposed Prompting: A Modular Approach for Solving Complex Tasks
 - Toolformer: Language Models Can Teach Themselves to Use Tools
+- HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face
 
