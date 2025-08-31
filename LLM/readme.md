@@ -234,6 +234,7 @@
 - LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools
 - OpenAssistant Conversations - Democratizing Large Language Model Alignment
+- Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
