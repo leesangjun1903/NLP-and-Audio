@@ -231,4 +231,5 @@
 - Toolformer: Language Models Can Teach Themselves to Use Tools
 - HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face
 - Faithful Chain-of-Thought Reasoning
+- LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
 
