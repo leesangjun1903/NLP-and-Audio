@@ -228,4 +228,5 @@
 - VOYAGER: An Open-Ended Embodied Agent with Large Language Models
 - Reflexion: Language Agents with Verbal Reinforcement Learning
 - Decomposed Prompting: A Modular Approach for Solving Complex Tasks
+- Toolformer: Language Models Can Teach Themselves to Use Tools
 
