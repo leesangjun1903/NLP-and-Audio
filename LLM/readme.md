@@ -226,4 +226,5 @@
 - Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models
 - PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models
 - VOYAGER: An Open-Ended Embodied Agent with Large Language Models
+- Reflexion: Language Agents with Verbal Reinforcement Learning
 
