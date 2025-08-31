@@ -236,3 +236,5 @@
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
 - ReAct: Synergizing Reasoning and Acting in Language Models
+- Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents
+
