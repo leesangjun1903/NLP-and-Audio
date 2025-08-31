@@ -232,6 +232,7 @@
 - HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face
 - Faithful Chain-of-Thought Reasoning
 - LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
+- ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
