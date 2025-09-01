@@ -238,6 +238,7 @@
 - Qwen2.5 Technical Report
 - Improving Language Models by Retrieving from Trillions of Tokens
 - Mistral 7B
+- Regularizing and Optimizing LSTM Language Models
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
