@@ -237,6 +237,7 @@
 - Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena
 - Qwen2.5 Technical Report
 - Improving Language Models by Retrieving from Trillions of Tokens
+- Mistral 7B
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
