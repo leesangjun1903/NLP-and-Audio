@@ -241,6 +241,7 @@
 - Regularizing and Optimizing LSTM Language Models
 - Factorization Tricks for LSTM Networks
 - Understanding Back-Translation at Scale
+- Non-Autoregressive Neural Machine Translation
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
