@@ -243,6 +243,7 @@
 - Understanding Back-Translation at Scale
 - Non-Autoregressive Neural Machine Translation
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
+- Natural Language Inference over Interaction Space
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
