@@ -242,6 +242,7 @@
 - Factorization Tricks for LSTM Networks
 - Understanding Back-Translation at Scale
 - Non-Autoregressive Neural Machine Translation
+- Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
