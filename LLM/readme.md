@@ -244,6 +244,7 @@
 - Non-Autoregressive Neural Machine Translation
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
 - Natural Language Inference over Interaction Space
+- Convolutional Sequence to Sequence Learning
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
