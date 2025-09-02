@@ -245,6 +245,7 @@
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
 - Natural Language Inference over Interaction Space
 - Convolutional Sequence to Sequence Learning
+- Unsupervised Machine Translation Using Monolingual Corpora Only
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
