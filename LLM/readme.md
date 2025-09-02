@@ -240,6 +240,7 @@
 - Mistral 7B
 - Regularizing and Optimizing LSTM Language Models
 - Factorization Tricks for LSTM Networks
+- Understanding Back-Translation at Scale
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
