@@ -239,6 +239,7 @@
 - Improving Language Models by Retrieving from Trillions of Tokens
 - Mistral 7B
 - Regularizing and Optimizing LSTM Language Models
+- Factorization Tricks for LSTM Networks
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
