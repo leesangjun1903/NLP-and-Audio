@@ -87,3 +87,5 @@ Transformer는 **순수 어텐션**만으로도 순차 모델의 한계를 극�
 [1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/22370781/96d7c440-e2ed-40f4-8132-d87a01e2f603/1706.03762v7.pdf
 
 https://aistudy9314.tistory.com/m/63
+
+https://ratsgo.github.io/nlpbook/docs/language_model/transformers/#%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%8B%A0%EA%B2%BD%EB%A7%9D%EA%B3%BC-%EB%B9%84%EA%B5%90
