@@ -85,3 +85,5 @@ $$
 Transformer는 **순수 어텐션**만으로도 순차 모델의 한계를 극복하고, 빠른 학습 및 높은 일반화 성능을 증명함으로써 이후 **자연어처리** 및 **멀티모달 학습** 연구의 기반으로 자리잡았다. 앞으로는 **효율성·확장성·설명 가능성**을 균형 있게 고도화하는 방향이 중요하다.
 
 [1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/22370781/96d7c440-e2ed-40f4-8132-d87a01e2f603/1706.03762v7.pdf
+
+https://aistudy9314.tistory.com/m/63
