@@ -247,6 +247,7 @@
 - Convolutional Sequence to Sequence Learning
 - Unsupervised Machine Translation Using Monolingual Corpora Only
 - Unsupervised Neural Machine Translation with Weight Sharing
+- Language Models Are Realistic Tabular Data Generators
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
