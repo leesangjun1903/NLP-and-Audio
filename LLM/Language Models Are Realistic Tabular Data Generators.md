@@ -1,7 +1,7 @@
 # Language Models Are Realistic Tabular Data Generators
 
 **핵심 주장 및 기여**  
-이 논문은 **대규모 언어 모델(LLM)을 이종(heterogeneous) 탭ular 데이터 생성기로 전환**하는 새로운 패러다임인 **GReaT(Generation of Realistic Tabular data)**를 제안한다. 주요 기여는 다음과 같다.  
+이 논문은 **대규모 언어 모델(LLM)을 이종(heterogeneous) Tabular 데이터 생성기로 전환**하는 새로운 패러다임인 **GReaT(Generation of Realistic Tabular data)**를 제안한다. 주요 기여는 다음과 같다.  
 - **텍스트 인코딩**: 각 테이블 행(row)을 “속성 이름은 값이다” 형태의 문장으로 변환하여 수치·범주 데이터의 정보 손실 없이 표현.  
 - **무작위 특성 순열**: 특성(feature) 순서를 무작위로 섞어 학습함으로써 순서에 독립적인 임의 조건부 생성(arbitrary conditioning) 지원.  
 - **사전학습 활용**: 방대한 언어 데이터로 사전학습된 트랜스포머 디코더를 미세조정(fine-tuning)하여 문맥(contextual) 지식 활용.  
