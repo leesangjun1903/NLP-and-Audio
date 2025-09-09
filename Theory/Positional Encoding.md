@@ -329,3 +329,5 @@ RoPE는 쿼리/키를 위치별 회전시킵니다. 구현은 다음 논문을 �
 [39](https://www.youtube.com/watch?v=LlZL1X0n1FM)
 [40](https://asidefine.tistory.com/282)
 [41](https://tutorials.pytorch.kr/beginner/transformer_tutorial.html)
+
+https://skyjwoo.tistory.com/entry/positional-encoding%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80
