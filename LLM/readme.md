@@ -37,9 +37,9 @@
 - Transformer-Squared: Self-Adaptive LLMs | 2025 · 13회 인용
 - Titans: Learning to Memorize at Test Time | 2024 · 85회 인용
 - PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels | 2023 · 13회 인용
-- Parallelizing Linear Transformers with the Delta Rule over Sequence Length | 2024 · 111회 인용
-- DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float
-- Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | Quety classification
+- DeltaNet : Parallelizing Linear Transformers with the Delta Rule over Sequence Length | 2024 · 111회 인용
+- DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float | 2025 · 6회 인용
+- Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | 2015 · 521회 인용, Quety classification
 - Mitigating Language-Dependent Ethnic Bias in BERT
 - Learning to Summarize from Human Feedback
 - PaLM: Scaling Language Modeling with Pathways
