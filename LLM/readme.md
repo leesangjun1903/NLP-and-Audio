@@ -40,17 +40,17 @@
 - DeltaNet : Parallelizing Linear Transformers with the Delta Rule over Sequence Length | 2024 · 111회 인용
 - DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float | 2025 · 6회 인용
 - Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | 2015 · 521회 인용, Quety classification
-- Mitigating Language-Dependent Ethnic Bias in BERT
-- Learning to Summarize from Human Feedback
-- PaLM: Scaling Language Modeling with Pathways
-- A Length-Extrapolatable Transformer
-- Understanding R1-Zero-Like Training: A Critical Perspective
-- Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?
-- RoBERTa: A Robustly Optimized BERT Pretraining Approach
-- DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter
-- Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer
-- mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer
-- PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation
+- Ethnic Bias in BERT : Mitigating Language-Dependent Ethnic Bias in BERT | 2021 · 151회 인용
+- Summarize from Human Feedback : Learning to Summarize from Human Feedback | 2020 · 2737회 인용
+- PaLM: Scaling Language Modeling with Pathways | 2022 · 7437회 인용
+- LEX : A Length-Extrapolatable Transformer | 2022 · 198회 인용
+- Understanding R1-Zero : Understanding R1-Zero-Like Training: A Critical Perspective | 2025 · 246회 인용
+- Limet of Reinforcement Learning with Verifiable Rewards (RLVR) : Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model? | 2025 · 188회 인용
+- RoBERTa: A Robustly Optimized BERT Pretraining Approach | 2019 · 22034회 인용
+- DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter | 2019 · 10092회 인용
+- Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer | 2019 · 26734회 인용
+- mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer | 2020 · 3035회 인용
+- PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation | 2021 · 295회 인용
 - CPM-2: Large-scale Cost-effective Pre-trained Language Models
 - BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension
 - RoFormer: Enhanced Transformer with Rotary Position Embedding
