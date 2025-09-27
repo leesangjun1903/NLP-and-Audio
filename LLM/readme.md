@@ -33,7 +33,7 @@
 - DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models | 2024 · 1815회 인용
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System | 2024 · 5회 인용
 - DeepSeek-V3 Technical Report | 2024 · 1896회 인용 
-- DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+- DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning | 2025 · 3869회 인용
 - Transformer-Squared: Self-Adaptive LLMs
 - Titans: Learning to Memorize at Test Time
 - PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels
