@@ -53,21 +53,21 @@
 - PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation | 2021 · 295회 인용
 - CPM-2: Large-scale Cost-effective Pre-trained Language Models | 2021 · 102회 인용
 - BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension | 2019 · 14161회 인용
-- RoFormer: Enhanced Transformer with Rotary Position Embedding
-- Direct Preference Optimization: Your Language Model is Secretly a Reward Model
-- KTO: Model Alignment as Prospect Theoretic Optimization
-- Noise Contrastive Alignment of Language Models with Explicit Rewards
-- SpinQuant: LLM quantization with learned rotations
-- CBQ: Cross-Block Quantization for Large Language Models
-- LeanQuant: Accurate and Scalable Large Language Model Quantization with Loss-error-aware Grid
-- KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization
-- QBB: Quantization with Binary Bases for LLMs
-- ZipCache: Accurate and Efficient KV Cache Quantization with Salient Token Identification
-- DuQuant: Distributing Outliers via Dual Transformation Makes Stronger Quantized LLMs
-- KV Cache is 1 Bit Per Channel: Efficient Large Language Model Inference with Coupled Quantization
-- Evaluating Quantized Large Language Models
-- SqueezeLLM: Dense-and-Sparse Quantization
-- KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache
+- RoFormer: Enhanced Transformer with Rotary Position Embedding | 2021 · 3504회 인용
+- DPO : Direct Preference Optimization: Your Language Model is Secretly a Reward Model | 2023 · 5298회 인용
+- KTO: Model Alignment as Prospect Theoretic Optimization | 2024 · 628회 인용
+- Noise Contrastive Alignment of Language Models with Explicit Rewards | 2024 · 58회 인용
+- SpinQuant: LLM quantization with learned rotations | 2024 · 181회 인용
+- CBQ: Cross-Block Quantization for Large Language Models | 2023 · 22회 인용
+- LeanQuant: Accurate and Scalable Large Language Model Quantization with Loss-error-aware Grid | 2024 · 6회 인용
+- KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization | 2024 · 268회 인용
+- QBB: Quantization with Binary Bases for LLMs | 2024 · 3회 인용
+- ZipCache: Accurate and Efficient KV Cache Quantization with Salient Token Identification | 2024 · 38회 인용
+- DuQuant: Distributing Outliers via Dual Transformation Makes Stronger Quantized LLMs | 2024 · 67회 인용
+- KV Cache is 1 Bit Per Channel: Efficient Large Language Model Inference with Coupled Quantization | 2024 · 43회 인용
+- qllm_eval : Evaluating Quantized Large Language Models | 2024 · 107회 인용
+- SqueezeLLM: Dense-and-Sparse Quantization | 2023 · 289회 인용
+- KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache | 2024 · 265회 인용
 - AQLM : Extreme Compression of Large Language Models via Additive Quantization
 - BiLLM: Pushing the Limit of Post-Training Quantization for LLMs
 - OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models
