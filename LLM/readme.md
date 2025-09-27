@@ -31,8 +31,8 @@
 - GPT-3 : Language Models are Few-Shot Learners | 2020 · 54787회 인용
 - GPT-4 Technical Report | 2023 · 18158회 인용
 - DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models | 2024 · 1815회 인용
-- PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
-- DeepSeek-V3 Technical Report
+- PAS: Data-Efficient Plug-and-Play Prompt Augmentation System | 2024 · 5회 인용
+- DeepSeek-V3 Technical Report | 2024 · 1896회 인용 
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
 - Transformer-Squared: Self-Adaptive LLMs
 - Titans: Learning to Memorize at Test Time
