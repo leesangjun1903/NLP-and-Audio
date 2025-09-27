@@ -30,7 +30,7 @@
 - GPT-2: Language Models are Unsupervised Multitask Learners | 2019 . 18593회 인용
 - GPT-3 : Language Models are Few-Shot Learners | 2020 · 54787회 인용
 - GPT-4 Technical Report | 2023 · 18158회 인용
-- DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models
+- DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models | 2024 · 1815회 인용
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
 - DeepSeek-V3 Technical Report
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
