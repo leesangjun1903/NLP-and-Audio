@@ -68,47 +68,47 @@
 - qllm_eval : Evaluating Quantized Large Language Models | 2024 · 107회 인용
 - SqueezeLLM: Dense-and-Sparse Quantization | 2023 · 289회 인용
 - KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache | 2024 · 265회 인용
-- AQLM : Extreme Compression of Large Language Models via Additive Quantization
-- BiLLM: Pushing the Limit of Post-Training Quantization for LLMs
-- OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models
-- LoftQ: LoRA-Fine-Tuning-Aware Quantization for Large Language Models
-- SpQR: Near-Lossless LLM Weight Compression
-- QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models
-- LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models
-- IR-QLoRA : Accurate LoRA-Finetuning Quantization of LLMs via Information Retention
-- QuIP: 2-Bit Quantization of Large Language Models With Guarantees
-- Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization
-- Atom: Low-bit Quantization for Efficient and Accurate LLM Serving
-- AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration
-- LLM-QAT: Data-Free Quantization Aware Training for Large Language Models
-- Outlier Suppression+: Accurate quantization of large language models by equivalent and effective shifting and scaling
-- RPTQ: Reorder-based Post-training Quantization for Large Language Models
-- The Case for 4-Bit Precision: k-Bit Inference Scaling Laws
-- SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models
-- GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers
-- BiBERT: Accurate Fully Binarized BERT
-- Outlier Suppression: Pushing the Limit of Low-bit Transformer Language Models
-- LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale
-- ZeroQuant: Eﬃcient and Aﬀordable Post-Training Quantization for Large-Scale Transformers
-- Compression of Generative Pre-trained Language Models via Quantization
-- BinaryBERT: Pushing the Limit of BERT Quantization
-- Understanding and Overcoming the Challenges of Efficient Transformer Quantization
-- TernaryBERT: Distillation-aware Ultra-low Bit BERT
-- GOBO: Quantizing Attention-Based NLP Models for Low Latency and Energy Efficient Inference
-- Q-BERT: Hessian Based Ultra Low Precision Quantization of BERT
-- Efficient 8-Bit Quantization of Transformer Neural Machine Language Translation Model
-- Q8BERT: Quantized 8Bit BERT
-- Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning
-- ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
-- UNILM: Unified Language Model Pre-training for Natural Language Understanding and Generation
-- ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators
-- GLM-130B: An Open Bilingual Pre-trained Model
-- ST-MoE: Designing Stable and Transferable Sparse Expert Models
-- OPT: Open Pre-trained Transformer Language Models
-- BLOOM: A 176B-Parameter Open-Access Multilingual Language Model
-- GLaM: Efficient Scaling of Language Models with Mixture-of-Experts
-- Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model
-- Scaling Language Models: Methods, Analysis & Insights from Training Gopher
+- AQLM : Extreme Compression of Large Language Models via Additive Quantization | 2024 · 125회 인용
+- BiLLM: Pushing the Limit of Post-Training Quantization for LLMs | 2024 · 141회 인용
+- OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models | 2023 · 365회 인용
+- LoftQ: LoRA-Fine-Tuning-Aware Quantization for Large Language Models | 2023 · 238회 인용
+- SpQR: Near-Lossless LLM Weight Compression | 2023 · 314회 인용
+- QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models | 2023 · 231회 인용
+- LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models | 2022 · 171회 인용
+- IR-QLoRA : Accurate LoRA-Finetuning Quantization of LLMs via Information Retention | 2024 · 117회 인용
+- QuIP: 2-Bit Quantization of Large Language Models With Guarantees | 2023 · 276회 인용
+- PEQA : Memory-Efficient Fine-Tuning of Compressed Large Language Models via sub-4-bit Integer Quantization | 2023 · 146회 인용
+- Atom: Low-bit Quantization for Efficient and Accurate LLM Serving | 2023 · 207회 인용
+- AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration | 2023 · 1334회 인용
+- LLM-QAT: Data-Free Quantization Aware Training for Large Language Models | 2023 · 394회 인용
+- Outlier Suppression+: Accurate quantization of large language models by equivalent and effective shifting and scaling | 2023 · 165회 인용
+- RPTQ: Reorder-based Post-training Quantization for Large Language Models | 2023 · 142회 인용
+- The Case for 4-Bit Precision: k-Bit Inference Scaling Laws | 2022 · 275회 인용
+- SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models | 2022 · 1409회 인용
+- GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers | 2022 · 1720회 인용
+- BiBERT: Accurate Fully Binarized BERT | 2022 · 152회 인용
+- Outlier Suppression: Pushing the Limit of Low-bit Transformer Language Models | 2022 · 204회 인용
+- LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale | 2022 · 1485회 인용
+- ZeroQuant: Eﬃcient and Aﬀordable Post-Training Quantization for Large-Scale Transformers | 2022 · 589회 인용
+- Compression of Generative Pre-trained Language Models via Quantization | 2022 · 109회 인용
+- BinaryBERT: Pushing the Limit of BERT Quantization | 2020 · 289회 인용
+- Transformer Quantization : Understanding and Overcoming the Challenges of Efficient Transformer Quantization | 2021 · 191회 인용
+- TernaryBERT: Distillation-aware Ultra-low Bit BERT | 2020 · 244회 인용
+- GOBO: Quantizing Attention-Based NLP Models for Low Latency and Energy Efficient Inference | 2020 · 253회 인용
+- Q-BERT: Hessian Based Ultra Low Precision Quantization of BERT | 2019 · 700회 인용
+- Efficient 8-Bit Quantization of Transformer Neural Machine Language Translation Model | 2019 · 165회 인용
+- Q8BERT: Quantized 8Bit BERT | 2019 · 660회 인용
+- T-Few : Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning | 2022 · 1207회 인용
+- ALBERT: A Lite BERT for Self-supervised Learning of Language Representations | 2019 · 9440회 인용
+- UNILM: Unified Language Model Pre-training for Natural Language Understanding and Generation | 2019 · 2049회 인용
+- ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators | 2020 · 5240회 인용
+- GLM-130B: An Open Bilingual Pre-trained Model | 2022 · 852회 인용
+- ST-MoE: Designing Stable and Transferable Sparse Expert Models | 2022 · 293회 인용
+- OPT: Open Pre-trained Transformer Language Models | 2022 · 3784회 인용
+- BLOOM: A 176B-Parameter Open-Access Multilingual Language Model | 2022 · 2132회 인용
+- GLaM: Efficient Scaling of Language Models with Mixture-of-Experts | 2021 · 922회 인용
+- Megatron-DeepSpeed : Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model | 2022 · 779회 인용 : https://github.com/deepspeedai/Megatron-DeepSpeed
+- Scaling Language Models: Methods, Analysis & Insights from Training Gopher | 2021 · 1422회 인용
 - Chinchilla : Training Compute-Optimal Large Language Models
 - LaMDA: Language Models for Dialog Applications
 - LLaMA: Open and Efficient Foundation Language Models
@@ -248,6 +248,8 @@
 - Unsupervised Machine Translation Using Monolingual Corpora Only
 - Unsupervised Neural Machine Translation with Weight Sharing
 - Language Models Are Realistic Tabular Data Generators
+- KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
+- KoBART : https://github.com/SKT-AI/KoBART
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
