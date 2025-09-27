@@ -51,8 +51,8 @@
 - Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer | 2019 · 26734회 인용
 - mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer | 2020 · 3035회 인용
 - PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation | 2021 · 295회 인용
-- CPM-2: Large-scale Cost-effective Pre-trained Language Models
-- BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension
+- CPM-2: Large-scale Cost-effective Pre-trained Language Models | 2021 · 102회 인용
+- BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension | 2019 · 14161회 인용
 - RoFormer: Enhanced Transformer with Rotary Position Embedding
 - Direct Preference Optimization: Your Language Model is Secretly a Reward Model
 - KTO: Model Alignment as Prospect Theoretic Optimization
