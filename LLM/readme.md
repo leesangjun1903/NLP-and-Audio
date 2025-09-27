@@ -9,7 +9,7 @@
 
 ## papers
 ### Main Architecture : Transformers
-- Transformer : Attention Is All You Need
+- Transformer : Attention Is All You Need | 2017 · 195827회 인용
 : https://github.com/huggingface/transformers/tree/main
 
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models :  https://wikidocs.net/237419
@@ -21,15 +21,15 @@
 - (Survey) Towards Reasoning in Large Language Models: A Survey
 - (Survey) Reasoning with Language Model Prompting: A Survey
 
-- AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations
-- AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2
-- LoRA: Low-Rank Adaptation of Large Language Models | LLM, Fine-tuning, Mathematical Reasoning
-- LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | Instruction Following, Fine-tuning, Question answering
-- iVQA : Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | Question answering, Reinforcement Learning
-- GPT-1 : Improving Language Understanding by Generative Pre-Training
-- GPT-2: Language Models are Unsupervised Multitask Learners
-- GPT-3 : Language Models are Few-Shot Learners
-- GPT-4 Technical Report
+- AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations | 2024 · 662회 인용
+- AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2 | 2025 · 35회 인용
+- LoRA: Low-Rank Adaptation of Large Language Models | 2021 · 18787회 인용, LLM, Fine-tuning, Mathematical Reasoning
+- LongLoRA: Efficient Fine-tuning of Long-Context Large Language Models | 2023 · 473회 인용, Instruction Following, Fine-tuning, Question answering
+- iVQA : Inverse Visual Question Answering: A New Benchmark and VQA Diagnosis Tool | 2018 · 30회 인용, Question answering, Reinforcement Learning
+- GPT-1 : Improving Language Understanding by Generative Pre-Training | 2018 . 15874회 인용
+- GPT-2: Language Models are Unsupervised Multitask Learners | 2019 . 18593회 인용
+- GPT-3 : Language Models are Few-Shot Learners | 2020 · 54787회 인용
+- GPT-4 Technical Report | 2023 · 18158회 인용
 - DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models
 - PAS: Data-Efficient Plug-and-Play Prompt Augmentation System
 - DeepSeek-V3 Technical Report
