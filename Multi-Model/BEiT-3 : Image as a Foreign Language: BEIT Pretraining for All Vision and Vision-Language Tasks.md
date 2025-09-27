@@ -1,4 +1,4 @@
-# Image as a Foreign Language: BEIT Pretraining for All Vision and Vision-Language Tasks
+# BEiT-3 : Image as a Foreign Language: BEIT Pretraining for All Vision and Vision-Language Tasks
 
 **핵심 주장 및 주요 기여**  
 이 논문은 **이미지를 외국어(“Imglish”)로 간주**하여, 이미지·텍스트·이미지-텍스트 쌍을 통일된 마스크-예측(mask-and-predict) 방식으로 전처리·학습하는 BEIT-3 모델을 제안한다. Multiway Transformer 기반의 **단일 백본(shared backbone)**과 단일 사전학습(task)으로 다양한 비전 및 비전-언어 과제에서 기존 최첨단 성능을 일괄적으로 경신한 것이 주요 기여이다.
