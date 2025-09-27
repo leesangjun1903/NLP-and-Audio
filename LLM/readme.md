@@ -36,7 +36,7 @@
 - DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning | 2025 · 3869회 인용
 - Transformer-Squared: Self-Adaptive LLMs | 2025 · 13회 인용
 - Titans: Learning to Memorize at Test Time | 2024 · 85회 인용
-- PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels
+- PolySketchFormer: Fast Transformers via Sketching Polynomial Kernels | 2023 · 13회 인용
 - Parallelizing Linear Transformers with the Delta Rule over Sequence Length
 - DFloat11 : 70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float
 - Representation Learning Using Multi-Task Deep Neural Networks for Semantic Classification and Information Retrieval | Quety classification
