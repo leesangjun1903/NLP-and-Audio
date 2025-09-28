@@ -109,11 +109,11 @@
 - GLaM: Efficient Scaling of Language Models with Mixture-of-Experts | 2021 · 922회 인용
 - Megatron-DeepSpeed : Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model | 2022 · 779회 인용 : https://github.com/deepspeedai/Megatron-DeepSpeed
 - Scaling Language Models: Methods, Analysis & Insights from Training Gopher | 2021 · 1422회 인용
-- Chinchilla : Training Compute-Optimal Large Language Models
-- LaMDA: Language Models for Dialog Applications
-- LLaMA: Open and Efficient Foundation Language Models
-- BloombergGPT: A Large Language Model for Finance
-- GPT-NeoX-20B: An Open-Source Autoregressive Language Model
+- Chinchilla : Training Compute-Optimal Large Language Models | 2022 · 2804회 인용
+- LaMDA: Language Models for Dialog Applications | 2022 · 1979회 인용
+- LLaMA: Open and Efficient Foundation Language Models | 2023 · 19904회 인용
+- BloombergGPT: A Large Language Model for Finance | 2023 · 1335회 인용
+- GPT-NeoX-20B: An Open-Source Autoregressive Language Model | 2022 · 1026회 인용
 - PaLM 2 Technical Report
 - Llama 2: Open Foundation and Fine-Tuned Chat Models
 - Model Card and Evaluations for Claude Models
