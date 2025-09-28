@@ -117,12 +117,12 @@
 - PaLM 2 Technical Report | 2023 · 2059회 인용
 - Llama 2: Open Foundation and Fine-Tuned Chat Models | 2023 · 18311회 인용
 - Model Card and Evaluations for Claude Models
-- Is ChatGPT a General-Purpose Natural Language Processing Task Solver?
-- Benchmarking Large Language Models for News Summarization
-- News Summarization and Evaluation in the Era of GPT-3
-- Is ChatGPT A Good Translator? Yes With GPT-4 As The Engine
-- Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT
-- Atlas: Few-shot Learning with Retrieval Augmented Language Models
+- Is ChatGPT a General-Purpose Natural Language Processing Task Solver? | 2023 · 917회 인용
+- Benchmarking Large Language Models for News Summarization | 2023 · 707회 인용
+- News Summarization and Evaluation in the Era of GPT-3 | 2022 · 508회 인용
+- Is ChatGPT A Good Translator? Yes With GPT-4 As The Engine | 2023 · 433회 인용
+- Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT | 2023 · 398회 인용
+- Atlas: Few-shot Learning with Retrieval Augmented Language Models | 2022 · 594회 인용
 - Solving math word problems with process- and outcome-based feedback
 - Large Language Models Encode Clinical Knowledge
 - Scaling Laws for Neural Language Models
