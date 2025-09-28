@@ -114,8 +114,8 @@
 - LLaMA: Open and Efficient Foundation Language Models | 2023 · 19904회 인용
 - BloombergGPT: A Large Language Model for Finance | 2023 · 1335회 인용
 - GPT-NeoX-20B: An Open-Source Autoregressive Language Model | 2022 · 1026회 인용
-- PaLM 2 Technical Report
-- Llama 2: Open Foundation and Fine-Tuned Chat Models
+- PaLM 2 Technical Report | 2023 · 2059회 인용
+- Llama 2: Open Foundation and Fine-Tuned Chat Models | 2023 · 18311회 인용
 - Model Card and Evaluations for Claude Models
 - Is ChatGPT a General-Purpose Natural Language Processing Task Solver?
 - Benchmarking Large Language Models for News Summarization
