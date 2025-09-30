@@ -123,10 +123,10 @@
 - Is ChatGPT A Good Translator? Yes With GPT-4 As The Engine | 2023 · 433회 인용
 - Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT | 2023 · 398회 인용
 - Atlas: Few-shot Learning with Retrieval Augmented Language Models | 2022 · 594회 인용
-- Solving math word problems with process- and outcome-based feedback
-- Large Language Models Encode Clinical Knowledge
-- Scaling Laws for Neural Language Models
-- Emergent Abilities of Large Language Models
+- Solving math word problems with process- and outcome-based feedback | 2022 · 416회 인용
+- Large Language Models Encode Clinical Knowledge | 2023 · 3140회 인용
+- Scaling Laws for Neural Language Models | 2020 · 4656회 인용
+- Emergent Abilities of Large Language Models | 2022 · 4005회 인용
 - Is GPT-3 a Good Data Annotator?
 - Want To Reduce Labeling Cost? GPT-3 Can Help
 - GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation
