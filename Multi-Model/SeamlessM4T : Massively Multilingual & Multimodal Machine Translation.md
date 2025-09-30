@@ -1,4 +1,4 @@
-# SeamlessM4T—Massively Multilingual & Multimodal Machine Translation
+# SeamlessM4T : Massively Multilingual & Multimodal Machine Translation
 
 ## 1. 핵심 주장과 주요 기여 요약  
 SeamlessM4T는 단일 모델로 100개 언어의 음성-음성(S2ST), 음성-텍스트(S2TT), 텍스트-텍스트(T2TT), 텍스트-음성(T2ST), 자동음성인식(ASR)을 모두 지원하는 **세계 최초의 대규모 다국어·다중모달 기계번역 시스템**이다.  
