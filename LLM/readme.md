@@ -127,127 +127,127 @@
 - Large Language Models Encode Clinical Knowledge | 2023 · 3140회 인용
 - Scaling Laws for Neural Language Models | 2020 · 4656회 인용
 - Emergent Abilities of Large Language Models | 2022 · 4005회 인용
-- Is GPT-3 a Good Data Annotator?
-- Want To Reduce Labeling Cost? GPT-3 Can Help
-- GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation
-- ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks
-- G-EVAL: NLG Evaluation Using GPT-4 with Better Human Alignment
-- GPTScore: Evaluate as You Desire
-- Is ChatGPT a Good NLG Evaluator? A Preliminary Study
-- Prefix-Tuning: Optimizing Continuous Prompts for Generation
-- P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks
-- ZeRO: Memory Optimizations Toward Training Trillion-Parameter Models
-- Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism
-- Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM
-- Reducing Activation Recomputation in Large Transformer Models
-- Calibrate Before Use: Improving Few-Shot Performance of Language Models
-- Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
-- GPT-4 System Card
-- Finetuned Language Models Are Zero-Shot Learners
-- Cross-Task Generalization via Natural Language Crowdsourcing Instructions
-- Scaling Instruction-Finetuned Language Models
-- OPT-IML : Scaling Language Model Instruction Meta Learning through the Lens of Generalization
-- A General Language Assistant as a Laboratory for Alignment
-- Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback
-- Training Language Models to Follow Instructions with Human Feedback
-- Red Teaming Language Models with Language Models
-- Constitutional AI: Harmlessness from AI Feedback
-- SELF-INSTRUCT: Aligning Language Models with Self-Generated Instructions
-- CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis
-- SUPER-NATURALINSTRUCTIONS: Generalization via Declarative Instructions on 1600+ NLP Tasks
-- UL2: Unifying Language Learning Paradigms
-- Galactica: A Large Language Model for Science
-- CodeGeeX: A Pre-Trained Model for Code Generation with Multilingual Benchmarking on HumanEval-X
-- Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling
-- GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding
-- Evaluating Large Language Models Trained on Code
-- ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation
-- WebGPT: Browser-assisted Question-Answering with Human Feedback
-- Competition-Level Code Generation with AlphaCode
-- Improving alignment of dialogue agents via targeted human judgements
-- Defending Against Neural Fake News
-- DeepSpeed: System Optimizations Enable Training Deep Learning Models with Over 100 Billion Parameters
-- Deduplicating Training Data Makes Language Models Better
-- Deduplicating Training Data Mitigates Privacy Risks in Language Models
-- GLM: General Language Model Pretraining with Autoregressive Blank Infilling
-- Switch Transformers: Scaling to Trillion Parameter Models with Simple and Eﬃcient Sparsity
-- Long Range Language Modeling via Gated State Spaces
-- Hungry Hungry Hippos: Towards Language Modeling with State Space Models
-- Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation
-- VLLM : Efficient Memory Management for Large Language Model Serving with PagedAttention
-- What Language Model Architecture and Pretraining Objective Work Best for Zero-Shot Generalization?
-- Program Synthesis with Large Language Models
-- Show Your Work: Scratchpads for Intermediate Computation with Language Models
-- A Systematic Evaluation of Large Language Models of Code
-- InCoder: A Generative Model for Code Infilling and Synthesis
-- CodeT: Code Generation with Generated Tests
-- StarCoder: May the Source Be With You!
-- Language Models of Code are Few-Shot Commonsense Learners
-- Multi-Task Deep Neural Networks for Natural Language Understanding
-- Muppet: Massive Multi-task Representations with Pre-Finetuning
-- The Flan Collection: Designing Data and Methods for Eﬀective Instruction Tuning
-- LIMA: Less Is More for Alignment
-- Fine-Tuning Language Models from Human Preferences
-- Teaching Language Models to Support Answers with Verified Quotes
-- Parameter-Efficient Transfer Learning for NLP
-- MAD-X: An Adapter-Based Framework for Multi-Task Cross-Lingual Transfer
-- AUTOPROMPT: Eliciting Knowledge from Language Models with Automatically Generated Prompts
-- GPT Understands, Too
-- The Power of Scale for Parameter-Efficient Prompt Tuning
-- Parameter-efficient Fine-tuning of Large-scale Pre-trained Language Models
-- AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning
-- LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-Initialized Attention
-- LLM-Adapters: An Adapter Family for Parameter-Efficient Fine-Tuning of Large Language Models
-- An Information-theoretic Approach to Prompt Engineering Without Ground Truth Labels
-- What Makes Good In-Context Examples for GPT-3?
-- Learning To Retrieve Prompts for In-Context Learning
-- Active Example Selection for In-Context Learning
-- Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity
-- An Explanation of In-context Learning as Implicit Bayesian Inference
-- Data Distributional Properties Drive Emergent In-Context Learning in Transformers
-- Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?
-- What learning algorithm is in-context learning? Investigations with linear models
-- Larger Language Models Do In-Context Learning Differently
-- Automatic Chain of Thought Prompting in Large Language Models
-- STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning
-- Large Language Models are Zero-Shot Reasoners
-- Complexity-Based Prompting for Multi-Step Reasoning
-- Language Models are Multilingual Chain-of-Thought Reasoners
-- Least-to-Most Prompting Enables Complex Reasoning in Large Language Models
-- Multimodal Chain-of-Thought Reasoning in Language Models
-- Self-Consistency Improves Chain of Thought Reasoning in Language Models
-- Large Language Models Can Self-Improve
-- Training Verifiers to Solve Math Word Problems
-- Large Language Models are Better Reasoners with Self-Verification
-- Teaching Small Language Models to Reason
-- Large Language Models Are Reasoning Teachers
-- Minerva: Solving Quantitative Reasoning Problems with Language Models
-- Challenging BIG-Bench tasks and whether chain-of-thought can solve them
-- Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models
-- PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models
-- VOYAGER: An Open-Ended Embodied Agent with Large Language Models
-- Reflexion: Language Agents with Verbal Reinforcement Learning
-- Decomposed Prompting: A Modular Approach for Solving Complex Tasks
-- Toolformer: Language Models Can Teach Themselves to Use Tools
-- HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face
-- Faithful Chain-of-Thought Reasoning
-- LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
-- ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools
-- OpenAssistant Conversations - Democratizing Large Language Model Alignment
-- Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena
-- Qwen2.5 Technical Report
-- Improving Language Models by Retrieving from Trillions of Tokens
-- Mistral 7B
-- Regularizing and Optimizing LSTM Language Models
-- Factorization Tricks for LSTM Networks
-- Understanding Back-Translation at Scale
-- Non-Autoregressive Neural Machine Translation
+- Is GPT-3 a Good Data Annotator? | 2022 · 329회 인용
+- Want To Reduce Labeling Cost? GPT-3 Can Help | 2021 · 344회 인용
+- GPT3Mix: Leveraging Large-scale Language Models for Text Augmentation | 2021 · 301회 인용
+- ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks | 2023 · 1451회 인용
+- G-EVAL: NLG Evaluation Using GPT-4 with Better Human Alignment | 2023 · 1658회 인용
+- GPTScore: Evaluate as You Desire | 2023 · 705회 인용
+- Is ChatGPT a Good NLG Evaluator? A Preliminary Study | 2023 · 492회 인용
+- Prefix-Tuning: Optimizing Continuous Prompts for Generation | 2021 · 5539회 인용
+- P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks | 2021 · 1786회 인용
+- ZeRO: Memory Optimizations Toward Training Trillion-Parameter Models | 2019 · 1906회 인용
+- Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism | 2019 · 2609회 인용
+- Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM | 2021 · 1099회 인용
+- Reducing Activation Recomputation in Large Transformer Models | 2022 · 368회 인용
+- Calibrate Before Use: Improving Few-Shot Performance of Language Models | 2021 · 1708회 인용
+- Do Prompt-Based Models Really Understand the Meaning of Their Prompts? | 2021 · 459회 인용
+- GPT-4o System Card | 2024 · 2177회 인용
+- Finetuned Language Models Are Zero-Shot Learners | 2021 · 4689회 인용
+- Cross-Task Generalization via Natural Language Crowdsourcing Instructions | 2021 · 830회 인용
+- Scaling Instruction-Finetuned Language Models | 2022 · 4723회 인용
+- OPT-IML : Scaling Language Model Instruction Meta Learning through the Lens of Generalization | 2022 · 132회 인용
+- A General Language Assistant as a Laboratory for Alignment | 2021 · 384회 인용
+- Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback | 2022 · 2808회 인용
+- Training Language Models to Follow Instructions with Human Feedback | 2022 · 18040회 인용
+- Red Teaming Language Models with Language Models | 2022 · 875회 인용
+- Constitutional AI: Harmlessness from AI Feedback | 2022 · 2102회 인용
+- SELF-INSTRUCT: Aligning Language Models with Self-Generated Instructions | 2022 · 2633회 인용
+- CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis | 2022 · 1478회 인용
+- SUPER-NATURALINSTRUCTIONS: Generalization via Declarative Instructions on 1600+ NLP Tasks | 2022 · 738회 인용
+- UL2: Unifying Language Learning Paradigms | 2022 · 413회 인용
+- Galactica: A Large Language Model for Science | 2022 · 954회 인용
+- CodeGeeX: A Pre-Trained Model for Code Generation with Multilingual Benchmarking on HumanEval-X | 2023 · 577회 인용
+- Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling | 2023 · 1450회 인용
+- GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding | 2020 · 1593회 인용
+- Evaluating Large Language Models Trained on Code | 2021 · 6313회 인용
+- ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation | 2021 · 685회 인용
+- WebGPT: Browser-assisted Question-Answering with Human Feedback | 2021 · 1608회 인용
+- Competition-Level Code Generation with AlphaCode | 2022 · 1705회 인용
+- Improving alignment of dialogue agents via targeted human judgements | 2022 · 615회 인용
+- Defending Against Neural Fake News | 2019 · 1421회 인용
+- DeepSpeed: System Optimizations Enable Training Deep Learning Models with Over 100 Billion Parameters | 2020 · 1743회 인용
+- Deduplicating Training Data Makes Language Models Better | 2021 · 802회 인용
+- Deduplicating Training Data Mitigates Privacy Risks in Language Models | 2022 · 363회 인용
+- GLM: General Language Model Pretraining with Autoregressive Blank Infilling | 2021 · 1900회 인용
+- Switch Transformers: Scaling to Trillion Parameter Models with Simple and Eﬃcient Sparsity | 2021 · 3020회 인용
+- Long Range Language Modeling via Gated State Spaces | 2022 · 349회 인용
+- Hungry Hungry Hippos: Towards Language Modeling with State Space Models | 2022 · 677회 인용
+- Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation | 2021 · 929회 인용
+- VLLM : Efficient Memory Management for Large Language Model Serving with PagedAttention | 2023 · 3203회 인용
+- What Language Model Architecture and Pretraining Objective Work Best for Zero-Shot Generalization? | 2022 · 242회 인용
+- Program Synthesis with Large Language Models | 2021 · 2311회 인용
+- Show Your Work: Scratchpads for Intermediate Computation with Language Models | 2021 · 825회 인용
+- A Systematic Evaluation of Large Language Models of Code | 2022 · 901회 인용
+- InCoder: A Generative Model for Code Infilling and Synthesis | 2022 · 834회 인용
+- CodeT: Code Generation with Generated Tests | 2022 · 443회 인용
+- StarCoder: May the Source Be With You! | 2023 · 1244회 인용
+- Language Models of Code are Few-Shot Commonsense Learners | 2022 · 239회 인용
+- Multi-Task Deep Neural Networks for Natural Language Understanding | 2019 · 1602회 인용
+- Muppet: Massive Multi-task Representations with Pre-Finetuning | 2021 · 318회 인용
+- The Flan Collection: Designing Data and Methods for Eﬀective Instruction Tuning | 2023 · 932회 인용
+- LIMA: Less Is More for Alignment | 2023 · 1494회 인용
+- Fine-Tuning Language Models from Human Preferences | 2019 · 2243회 인용
+- Teaching Language Models to Support Answers with Verified Quotes | 2022 · 290회 인용
+- Parameter-Efficient Transfer Learning for NLP | 2019 · 6129회 인용
+- MAD-X: An Adapter-Based Framework for Multi-Task Cross-Lingual Transfer | 2020 · 714회 인용
+- AUTOPROMPT: Eliciting Knowledge from Language Models with Automatically Generated Prompts | 2020 · 2331회 인용
+- GPT Understands, Too | 2021 · 1594회 인용
+- The Power of Scale for Parameter-Efficient Prompt Tuning | 2021 · 5252회 인용
+- Parameter-efficient Fine-tuning of Large-scale Pre-trained Language Models | 2023 · 1136회 인용
+- AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning | 2023 · 858회 인용
+- LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-Initialized Attention | 2023 · 941회 인용
+- LLM-Adapters: An Adapter Family for Parameter-Efficient Fine-Tuning of Large Language Models | 2023 · 288회 인용
+- An Information-theoretic Approach to Prompt Engineering Without Ground Truth Labels | 2022 · 209회 인용
+- What Makes Good In-Context Examples for GPT-3? | 2021 · 1660회 인용
+- Learning To Retrieve Prompts for In-Context Learning | 2021 · 798회 인용
+- Active Example Selection for In-Context Learning | 2022 · 243회 인용
+- Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity | 2021 · 1382회 인용
+- An Explanation of In-context Learning as Implicit Bayesian Inference | 2021 · 948회 인용
+- Data Distributional Properties Drive Emergent In-Context Learning in Transformers | 2022 · 411회 인용
+- Rethinking the Role of Demonstrations: What Makes In-Context Learning Work? | 2022 · 1733회 인용
+- What learning algorithm is in-context learning? Investigations with linear models | 2022 · 628회 인용
+- Larger Language Models Do In-Context Learning Differently | 2023 · 418회 인용
+- Automatic Chain of Thought Prompting in Large Language Models | 2022 · 1343회 인용
+- STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning | 2022 · 971회 인용
+- Large Language Models are Zero-Shot Reasoners | 2022 · 6382회 인용
+- Complexity-Based Prompting for Multi-Step Reasoning | 2022 · 509회 인용
+- Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
+- Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
+- Multimodal Chain-of-Thought Reasoning in Language Models | 2023 · 710회 인용
+- Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
+- Large Language Models Can Self-Improve | 2022 · 716회 인용
+- Training Verifiers to Solve Math Word Problems | 2021 · 5310회 인용
+- Large Language Models are Better Reasoners with Self-Verification | 2022 · 272회 인용
+- Teaching Small Language Models to Reason | 2022 · 333회 인용
+- Large Language Models Are Reasoning Teachers | 2022 · 406회 인용
+- Minerva: Solving Quantitative Reasoning Problems with Language Models | 2022 · 1085회 인용
+- Challenging BIG-Bench tasks and whether chain-of-thought can solve them | 2022 · 1033회 인용
+- Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models | 2023 · 343회 인용
+- PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models | 2022 · 1053회 인용
+- VOYAGER: An Open-Ended Embodied Agent with Large Language Models | 2023 · 1326회 인용
+- Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
+- Decomposed Prompting: A Modular Approach for Solving Complex Tasks | 2022 · 601회 인용
+- Toolformer: Language Models Can Teach Themselves to Use Tools | 2023 · 2325회 인용
+- HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face | 2023 · 1492회 인용
+- Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
+- LLM+P: Empowering Large Language Models with Optimal Planning Proficiency | 2023 · 574회 인용
+- ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
+- OpenAssistant Conversations - Democratizing Large Language Model Alignment | 2023 · 716회 인용
+- Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena | 2023 · 5464회 인용
+- Qwen2.5 Technical Report | 2024 · 3175회 인용
+- Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
+- Mistral 7B | 2023 · 2772회 인용
+- Regularizing and Optimizing LSTM Language Models | 2017 · 1455회 인용
+- Factorization Tricks for LSTM Networks | 2017 · 181회 인용
+- Understanding Back-Translation at Scale | 2018 · 1514회 인용
+- Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
-- Natural Language Inference over Interaction Space
-- Convolutional Sequence to Sequence Learning
-- Unsupervised Machine Translation Using Monolingual Corpora Only
-- Unsupervised Neural Machine Translation with Weight Sharing
-- Language Models Are Realistic Tabular Data Generators
+- Natural Language Inference over Interaction Space | 2017 · 230회 인용
+- Convolutional Sequence to Sequence Learning | 2017 · 4671회 인용
+- Unsupervised Machine Translation Using Monolingual Corpora Only | 2017 · 1356회 인용
+- Unsupervised Neural Machine Translation with Weight Sharing | 2018 · 153회 인용
+- Language Models Are Realistic Tabular Data Generators | 2022 · 356회 인용
 - KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
 - KoBART : https://github.com/SKT-AI/KoBART
 
