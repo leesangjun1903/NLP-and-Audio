@@ -257,6 +257,7 @@
 - On the Sentence Embeddings from Pre-trained Language Models | 2020 · 834회 인용
 - Balanced Multimodal Learning via On-the-fly Gradient Modulation | 2022 · 360회 인용
 - Pre-training Multilingual Neural Machine Translation by Leveraging Alignment Information | 2020 · 142회 인용
+- MARGE : Pre-training via Paraphrasing | 2020 · 177회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
