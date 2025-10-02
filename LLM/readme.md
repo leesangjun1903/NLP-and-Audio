@@ -251,6 +251,7 @@
 - KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
 - KoBART : https://github.com/SKT-AI/KoBART
 - CPM: A Large-scale Generative Chinese Pre-trained Language Model | 2020 · 139회 인용
+- Multilingual Alignment of Contextual Word Representations | 2020 · 206회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
