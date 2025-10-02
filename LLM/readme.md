@@ -255,6 +255,7 @@
 - TABERT: Pretraining for Joint Understanding of Textual and Tabular Data | 2020 · 759회 인용
 - TAPAS: Weakly Supervised Table Parsing via Pre-training | 2020 · 837회 인용
 - On the Sentence Embeddings from Pre-trained Language Models | 2020 · 834회 인용
+- Balanced Multimodal Learning via On-the-fly Gradient Modulation | 2022 · 360회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
