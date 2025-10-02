@@ -253,6 +253,7 @@
 - CPM: A Large-scale Generative Chinese Pre-trained Language Model | 2020 · 139회 인용
 - Multilingual Alignment of Contextual Word Representations | 2020 · 206회 인용
 - TABERT: Pretraining for Joint Understanding of Textual and Tabular Data | 2020 · 759회 인용
+- TAPAS: Weakly Supervised Table Parsing via Pre-training | 2020 · 837회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
