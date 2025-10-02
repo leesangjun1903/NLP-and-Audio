@@ -260,6 +260,7 @@
 - MARGE : Pre-training via Paraphrasing | 2020 · 177회 인용
 - ConvBERT: Improving BERT with Span-based Dynamic Convolution | 2020 · 248회 인용
 - DeeBERT: Dynamic Early Exiting for Accelerating BERT Inference | 2020 · 469회 인용
+- BERT-of-Theseus: Compressing BERT by Progressive Module Replacing | 2020 · 243회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
