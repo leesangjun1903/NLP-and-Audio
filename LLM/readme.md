@@ -262,6 +262,7 @@
 - DeeBERT: Dynamic Early Exiting for Accelerating BERT Inference | 2020 · 469회 인용
 - BERT-of-Theseus: Compressing BERT by Progressive Module Replacing | 2020 · 243회 인용
 - When BERT Plays the Lottery, All Tickets Are Winning | 2020 · 225회 인용
+- Funnel-Transformer: Filtering out Sequential Redundancy for Efficient Language Processing | 2020 · 278회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
