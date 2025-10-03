@@ -7,10 +7,11 @@
 # Awesome LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
 - Awesome-Code-LLM : https://github.com/codefuse-ai/Awesome-Code-LLM?tab=readme-ov-file#1-surveys
-- Awesome LLM Inference : https://github.com/DefTruth/Awesome-LLM-Inference
+- Awesome LLM Inference : https://github.com/xlite-dev/Awesome-LLM-Inference
+- BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
+
 - Awesome-Education-LLM : https://github.com/Geralt-Targaryen/Awesome-Education-LLM?tab=readme-ov-file#llm-for-exercise-generation
 - Awesome Vision-and-Language : https://github.com/sangminwoo/awesome-vision-and-language
-- BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
 
 # Prompt Engineering
 https://www.kaggle.com/whitepaper-prompt-engineering
