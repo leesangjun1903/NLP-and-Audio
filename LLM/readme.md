@@ -264,6 +264,7 @@
 - When BERT Plays the Lottery, All Tickets Are Winning | 2020 · 225회 인용
 - Funnel-Transformer: Filtering out Sequential Redundancy for Efficient Language Processing | 2020 · 278회 인용
 - DynaBERT: Dynamic BERT with Adaptive Width and Depth | 2020 · 379회 인용
+- BERT Loses Patience: Fast and Robust Inference with Early Exit | 2020 · 424회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
