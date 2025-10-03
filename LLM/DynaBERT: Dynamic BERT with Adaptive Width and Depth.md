@@ -6,7 +6,7 @@ DynaBERT은 BERT 모델을 **가변적 너비(width)**와 **가변적 깊이(dep
 **주요 기여**  
 1. **Adaptive Width & Depth**: Transformer의 각 레이어에서 주의(attention) 헤드 수 $$N_H$$와 FFN 중간층 뉴런 수 $$d_{ff}$$를 조절하여 너비를, 레이어 수 $$L$$를 조절하여 깊이를 동적으로 변경 가능하도록 설계.[1]
 2. **Two-Stage Distillation**:  
-   a. 너비 적응 전용 모델 DynaBERT$$_W$$를 먼저 훈련하고, 이로부터 가변 너비·깊이 모델 DynaBERT로 지식 증류(distillation)를 수행.[1]
+   a. 너비 적응 전용 모델 $$DynaBERT_\text{W}$$를 먼저 훈련하고, 이로부터 가변 너비·깊이 모델 DynaBERT로 지식 증류(distillation)를 수행.[1]
    b. 중요도가 높은 헤드·뉴런을 더 많은 서브네트워크가 공유하도록 **network rewiring** 기법을 적용.[1]
 3. **No Per-Subnetwork Fine-Tuning**: 최종 훈련 이후 서브네트워크별 추가 미세조정 없이 바로 배포 가능.[1]
 4. **Regularization 효과**: 훈련 난이도 증가가 오히려 일반화 성능 향상에 기여함을 실험적으로 확인.[1]
