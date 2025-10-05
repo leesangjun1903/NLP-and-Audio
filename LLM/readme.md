@@ -274,6 +274,7 @@
 - CogLTX: Applying BERT to Long Texts | 2020 · 198회 인용
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
+- HybridQA: A Dataset of Multi-Hop Question Answering over Tabular and Textual Data | 2020 · 378회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
