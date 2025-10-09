@@ -281,6 +281,7 @@
 - Baichuan 2: Open Large-scale Language Models | 2023 · 727회 인용
 - Mixtral of Experts | 2024 · 2345회 인용
 - DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models | 2024 · 531회 인용
+- Gemma: Open Models Based on Gemini Research and Technology | 2024 · 1914회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
