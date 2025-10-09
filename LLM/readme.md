@@ -276,6 +276,7 @@
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
 - HybridQA: A Dataset of Multi-Hop Question Answering over Tabular and Textual Data | 2020 · 378회 인용
 - Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
+- OLMo: Accelerating the Science of Language Models | 2024 · 337회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
