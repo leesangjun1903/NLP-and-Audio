@@ -278,6 +278,7 @@
 - Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
 - OLMo: Accelerating the Science of Language Models | 2024 · 337회 인용
 - Textbooks Are All You Need II: phi-1.5 | 2023 · 583회 인용
+- Baichuan 2: Open Large-scale Language Models | 2023 · 727회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
