@@ -291,6 +291,7 @@
 - Qwen2 Technical Report | 2024 · 3552회 인용
 - GPT-4o System Card | 2024 · 2371회 인용
 - Phi-4 Technical Report | 2024 · 2236회 인용
+- SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
