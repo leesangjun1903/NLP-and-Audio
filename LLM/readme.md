@@ -288,6 +288,7 @@
 - COLD Decoding: Energy-based Constrained Text Generation with Langevin Dynamics | 2022 · 188회 인용
 - Nemotron-4 340B Technical Report | 2024 · 138회 인용
 - Gemma 2: Improving Open Language Models at a Practical Size | 2024 · 1382회 인용
+- Qwen2 Technical Report | 2024 · 3552회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
