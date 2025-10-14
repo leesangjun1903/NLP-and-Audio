@@ -286,6 +286,7 @@
 - Phi-3 Technical Report | 2024 · 2188회 인용
 - SEDD : Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution | 2023 · 207회 인용
 - COLD Decoding: Energy-based Constrained Text Generation with Langevin Dynamics | 2022 · 188회 인용
+- Nemotron-4 340B Technical Report | 2024 · 138회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
