@@ -289,8 +289,6 @@
 - Nemotron-4 340B Technical Report | 2024 · 138회 인용
 - Gemma 2: Improving Open Language Models at a Practical Size | 2024 · 1382회 인용
 - Qwen2 Technical Report | 2024 · 3552회 인용
-- GPT-4o System Card | 2024 · 2371회 인용
-- Phi-4 Technical Report | 2024 · 2236회 인용
 - SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 
 ## Agent
