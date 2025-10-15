@@ -294,6 +294,7 @@
 - CodeGemma: Open Code Models Based on Gemma | 2024 · 144회 인용
 - DeepSeek-Coder-V2: Breaking the Barrier of Closed-Source Models in Code Intelligence | 2024 · 313회 인용
 - Qwen2.5-Coder Technical Report | 2024 · 738회 인용
+- Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
