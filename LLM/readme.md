@@ -292,6 +292,7 @@
 - SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 - Qwen3 Technical Report | 2025 · 3552회 인용
 - CodeGemma: Open Code Models Based on Gemma | 2024 · 144회 인용
+- DeepSeek-Coder-V2: Breaking the Barrier of Closed-Source Models in Code Intelligence | 2024 · 313회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
