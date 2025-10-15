@@ -2,17 +2,22 @@
 - NLP 학회 논문 : https://m.blog.naver.com/pianadev/222965217320
 - 
 
-- Awesome AI Agents : https://github.com/e2b-dev/awesome-ai-agents?tab=readme-ov-file
-
-# Awesome LLM
+# Awesome Series
+## LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
 - Awesome-Code-LLM : https://github.com/codefuse-ai/Awesome-Code-LLM?tab=readme-ov-file#1-surveys
 - Awesome LLM Inference : https://github.com/xlite-dev/Awesome-LLM-Inference
-- BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
-- Awesome Multimodal Machine Learning : https://github.com/pliang279/awesome-multimodal-ml
-
 - Awesome-Education-LLM : https://github.com/Geralt-Targaryen/Awesome-Education-LLM?tab=readme-ov-file#llm-for-exercise-generation
+
+## BERT
+- BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
+
+## Multi-Modal
+- Awesome Multimodal Machine Learning : https://github.com/pliang279/awesome-multimodal-ml
 - Awesome Vision-and-Language : https://github.com/sangminwoo/awesome-vision-and-language
+
+## Agents
+- Awesome AI Agents : https://github.com/e2b-dev/awesome-ai-agents?tab=readme-ov-file
 
 # Prompt Engineering
 https://www.kaggle.com/whitepaper-prompt-engineering
