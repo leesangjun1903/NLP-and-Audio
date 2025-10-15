@@ -296,6 +296,7 @@
 - Qwen2.5-Coder Technical Report | 2024 · 738회 인용
 - Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
 - CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
+- GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
 
 ## Agent
 - Generative Agents: Interactive Simulacra of Human Behavior
