@@ -8,6 +8,7 @@
 - Awesome-Code-LLM : https://github.com/codefuse-ai/Awesome-Code-LLM?tab=readme-ov-file#1-surveys
 - Awesome LLM Inference : https://github.com/xlite-dev/Awesome-LLM-Inference
 - Awesome-Education-LLM : https://github.com/Geralt-Targaryen/Awesome-Education-LLM?tab=readme-ov-file#llm-for-exercise-generation
+- PromptPapers : https://github.com/thunlp/PromptPapers
 
 ## BERT
 - BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
