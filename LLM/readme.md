@@ -298,6 +298,7 @@
 - CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
 - IntelliCode Compose: Code Generation using Transformer | 2020 · 677회 인용
+- XLNet: Generalized Autoregressive Pretraining for Language Understanding | 2019 · 12031회 인용
 
 
 ## Agent
