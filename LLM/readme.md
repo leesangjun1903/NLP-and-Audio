@@ -299,6 +299,8 @@
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
 - IntelliCode Compose: Code Generation using Transformer | 2020 · 677회 인용
 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | 2019 · 12031회 인용
+- Cerebras-GPT: Open Compute-Optimal Language Models Trained on the Cerebras Wafer-Scale Cluster | 2023 · 119회 인용
+- LLaMA: Open and Efficient Foundation Language Models | 2023 · 21294회 인용
 
 
 ## Agent
