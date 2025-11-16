@@ -2,9 +2,11 @@
 # Lecture
 
 ##
+- LLM course : https://github.com/mlabonne/llm-course
 - Deep Learning Bible - 8. Large Language Models : https://wikidocs.net/book/14965
-- PaLM + RLHF - Pytorch : https://github.com/lucidrains/PaLM-rlhf-pytorch/tree/main?tab=readme-ov-file
+- PaLM + RLHF - Pytorch : https://github.com/lucidrains/PaLM-rlhf-pytorch
 - RAG From Scratch : https://github.com/langchain-ai/rag-from-scratch
+
 
 
 ## Natural Language Understanding with Python, Deborah A. Dahl
