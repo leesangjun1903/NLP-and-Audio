@@ -8,6 +8,8 @@
 
 - PromptPapers : https://github.com/thunlp/PromptPapers
 
+- Awesome GPT Prompt Engineering : https://github.com/snwfdhmp/awesome-gpt-prompt-engineering
+
 ## Models
 ### LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
