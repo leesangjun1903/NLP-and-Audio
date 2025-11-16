@@ -10,6 +10,9 @@
 
 - Awesome GPT Prompt Engineering : https://github.com/snwfdhmp/awesome-gpt-prompt-engineering
 
+##
+- 프롬프트 엔지니어링 가이드 : https://www.promptingguide.ai/kr 
+
 ## Models
 ### LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
