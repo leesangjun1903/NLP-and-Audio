@@ -21,6 +21,7 @@
 
 - Awesome-Code-LLM : https://github.com/codefuse-ai/Awesome-Code-LLM
 
+- Awesome-Graph-LLM : https://github.com/XiaoxinHe/Awesome-Graph-LLM
 
 
 - Awesome-Education-LLM : https://github.com/Geralt-Targaryen/Awesome-Education-LLM
