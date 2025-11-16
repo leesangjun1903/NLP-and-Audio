@@ -8,10 +8,11 @@
 
 - PromptPapers : https://github.com/thunlp/PromptPapers
 
-
 ## Models
 ### LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
+
+- Open LLMs : https://github.com/eugeneyan/open-llms
 - LLMSurvey : https://github.com/RUCAIBox/LLMSurvey
 
 - The Practical Guides for Large Language Models : https://github.com/Mooler0410/LLMsPracticalGuide
@@ -23,6 +24,9 @@
 
 
 - Awesome-Education-LLM : https://github.com/Geralt-Targaryen/Awesome-Education-LLM
+
+#### Generate JSON
+- using Large Language Models (LLMs) to generate JSON or other structured outputs. : https://github.com/imaurer/awesome-llm-json
 
 
 ### BERT
