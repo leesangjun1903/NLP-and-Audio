@@ -44,6 +44,18 @@
 # Prompt Engineering
 https://www.kaggle.com/whitepaper-prompt-engineering
 
+# Chatbot
+- Chatgpt
+- Perplexity
+- Gemini : https://gemini.google.com/app
+- Deepseekcode : https://chat.deepseek.com/
+- Claude
+- Qwen : https://chat.qwen.ai/
+- 에이닷 : https://adot.ai/search/
+- Mistral : https://chat.mistral.ai/chat
+- Kimi : https://www.kimi.com/
+- GPT OSS : https://openai.com/ko-KR/open-models/, https://gpt-oss.com/
+
 ## Studies
 - Deep learning Bible : https://wikidocs.net/177759
 - 딥 러닝을 이용한 자연어 처리 입문 https://wikidocs.net/book/2155
