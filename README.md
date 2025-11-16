@@ -12,7 +12,9 @@
 ## Models
 ### LLM
 - Awesome LLM(E) : https://github.com/Hannibal046/Awesome-LLM
+- LLMSurvey : https://github.com/RUCAIBox/LLMSurvey
 
+- The Practical Guides for Large Language Models : https://github.com/Mooler0410/LLMsPracticalGuide
 
 - Awesome LLM Inference : https://github.com/xlite-dev/Awesome-LLM-Inference
 
