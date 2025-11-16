@@ -15,7 +15,7 @@
 - (Survey) A Survey of Resource-efficient LLM and Multimodal Foundation Models :  https://wikidocs.net/237419
 - (Survey) Parameter-Efficient Fine-Tuning for Large Models : A Comprehensive Survey
 - (Survey) Parameter-Efficient Fine-Tuning Methods for Pretrained Language Models: A Critical Review and Assessment
-- (Survey) A Survey of Large Language Models : https://github.com/RUCAIBox/LLMSurvey?tab=readme-ov-file#table-of-contents , https://wikidocs.net/237619, https://arxiv.org/abs/2303.18223
+- (Survey) A Survey of Large Language Models : https://github.com/RUCAIBox/LLMSurvey , https://wikidocs.net/237619, https://arxiv.org/abs/2303.18223
 - Large Language Models: A Survey(2024) : https://velog.io/@sohtks/Paper-Review-Large-Language-Models-A-Survey, https://arxiv.org/abs/2402.06196
 - (Survey) A Survey on Large Language Model based Autonomous Agents
 - (Survey) Towards Reasoning in Large Language Models: A Survey
