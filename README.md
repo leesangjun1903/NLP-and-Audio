@@ -38,6 +38,9 @@
 ### BERT
 - BERT-related Papers : https://github.com/tomohideshibata/BERT-related-papers?tab=readme-ov-file
 
+### RNN
+- Awesome Recurrent Neural Networks https://github.com/kjw0612/awesome-rnn
+
 ## Agents
 - Awesome AI Agents : https://github.com/e2b-dev/awesome-ai-agents?tab=readme-ov-file
 
