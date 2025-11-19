@@ -296,6 +296,7 @@
 - LLaMA: Open and Efficient Foundation Language Models | 2023 · 21294회 인용
 - CodeT5+: Open Code Large Language Models for Code Understanding and Generation | 2023 · 737회 인용
 - BERTweet: A pre-trained language model for English Tweets | 2020 · 1252회 인용
+- rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
 
 
 ## Agent
