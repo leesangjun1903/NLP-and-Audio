@@ -299,6 +299,7 @@
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
 - Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
 - Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
+- CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
 
 
 ## Agent
