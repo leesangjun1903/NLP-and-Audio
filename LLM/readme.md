@@ -298,6 +298,7 @@
 - BERTweet: A pre-trained language model for English Tweets | 2020 · 1252회 인용
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
 - Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
+- Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
 
 
 ## Agent
