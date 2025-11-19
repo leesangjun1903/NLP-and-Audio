@@ -12,5 +12,8 @@
 ### DemoGPT
 - From Demo to Product: The All-in-One Agent Library : https://github.com/melih-unsal/DemoGPT
 
+#### LIPS(LLM-based Inequality Prover with Symbolic reasoning)
+- Proving Olympiad Inequalities by Synergizing LLMs and Symbolic Reasoning
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
