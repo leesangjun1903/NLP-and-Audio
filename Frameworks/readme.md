@@ -15,5 +15,8 @@
 #### LIPS(LLM-based Inequality Prover with Symbolic reasoning)
 - Proving Olympiad Inequalities by Synergizing LLMs and Symbolic Reasoning
 
+#### SAFE
+- Automated Proof Generation for Rust Code via Self-Evolution
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
