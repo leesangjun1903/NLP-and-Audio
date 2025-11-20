@@ -302,6 +302,7 @@
 - CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
 - AutoVerus: Automated Proof Generation for Rust Code | 2024 · 17회 인용
 - SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
+- Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
 
 
 ## Agent
