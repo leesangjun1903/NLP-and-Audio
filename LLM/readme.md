@@ -301,6 +301,7 @@
 - Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
 - CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
 - AutoVerus: Automated Proof Generation for Rust Code | 2024 · 17회 인용
+- SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
 
 
 ## Agent
