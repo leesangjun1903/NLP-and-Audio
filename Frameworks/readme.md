@@ -18,5 +18,8 @@
 #### SAFE
 - Automated Proof Generation for Rust Code via Self-Evolution
 
+### Alchemy
+- Alchemy: Amplifying Theorem-Proving Capability through Symbolic Mutation
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
