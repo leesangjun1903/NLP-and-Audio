@@ -386,20 +386,6 @@ Microsoft의 후속 연구 VALL-E 2는 **인간과 동등한 수준**의 성능�
 
 ## 참고문헌 범위
 
- 원본 논문: "Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers" (VALL-E)[1]
- StyleTTS-ZS (2024): 시간 변동 스타일 디퓨전 기반 효율적 제로샷 TTS[2]
- Mega-TTS (2023): 규모 확장과 고유 귀납 편향[3]
- 계층적 운율 모델링 (2024): 표현력 있는 제로샷 음성 합성[4]
- FireRedTTS (2024): 산업 수준 생성 음성 응용 프레임워크[5]
- ZMM-TTS (2024): 다중언어 제로샷 음성 합성[12]
- SpeechX (2024): 신경 코덱 언어 모델의 다중 작업 활용[6]
- VALL-E 2 (2024): 인간 수준의 성능 달성[7]
- VALL-E R (2024): 단조적 정렬을 통한 강인성 개선[9]
- UNO (2024): 인간 피드백 통합 최적화[27]
- ERVQ (2024): 잔차 벡터 양자화 개선[22]
- 인-컨텍스트 학습 일반화 연구 (2025)[25]
- 인-컨텍스트 학습 음성 인식 적용 (2025)[26]
-
 [1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/4bcb0980-0385-4e19-88ee-3041cf8525b2/2301.02111v1.pdf)
 [2](https://arxiv.org/abs/2409.10058)
 [3](https://arxiv.org/pdf/2306.03509.pdf)
