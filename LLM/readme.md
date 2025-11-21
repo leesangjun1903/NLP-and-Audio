@@ -307,6 +307,7 @@
 - DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 - Instruction Tuning with GPT-4 | 2023 · 1237회 인용
 - Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
+- Mathematical discoveries from program search with large language models | 2024 · 857회 인용
 
 
 ## Agent
