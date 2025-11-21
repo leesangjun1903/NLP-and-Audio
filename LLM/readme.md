@@ -304,6 +304,7 @@
 - SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
 - Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
 - Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures | 2025 · 29회 인용
+- DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 
 
 ## Agent
