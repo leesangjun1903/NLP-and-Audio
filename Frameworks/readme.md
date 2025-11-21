@@ -21,5 +21,8 @@
 ### Alchemy
 - Alchemy: Amplifying Theorem-Proving Capability through Symbolic Mutation
 
+### ToolLLM
+- ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
