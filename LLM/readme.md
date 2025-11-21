@@ -1,4 +1,4 @@
-> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms, Metrics, RNN, LSTM Language Models. 
+> ## Building Large Language Models and Lightweight Language Models, Language Models Algorithms.
 
 ## papers
 ### Main Architecture : Transformers
