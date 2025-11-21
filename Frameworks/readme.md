@@ -24,5 +24,8 @@
 ### ToolLLM
 - ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs
 
+### MetaGPT
+- MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
