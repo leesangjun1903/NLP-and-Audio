@@ -309,6 +309,7 @@
 - Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
 - Mathematical discoveries from program search with large language models | 2024 · 857회 인용
 - Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
+- Reward Design with Language Models | 2023 · 394회 인용
 
 
 ## Agent
