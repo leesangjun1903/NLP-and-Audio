@@ -311,6 +311,7 @@
 - Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
 - Reward Design with Language Models | 2023 · 394회 인용
 - Retroformer: Retrospective Large Language Agents with Policy Gradient Optimization | 2023 · 113회 인용
+- Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters | 2024 · 1002회 인용
 
 
 ## Agent
