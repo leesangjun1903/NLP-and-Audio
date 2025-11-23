@@ -27,5 +27,8 @@
 ### MetaGPT
 - MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
 
+## AGI (Artificial General Intelligence)
+- Levels of AGI for Operationalizing Progress on the Path to AGI
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
