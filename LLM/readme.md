@@ -313,6 +313,7 @@
 - Retroformer: Retrospective Large Language Agents with Policy Gradient Optimization | 2023 · 113회 인용
 - Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters | 2024 · 1002회 인용
 - Gemma 3 Technical Report | 2025 · 718회 인용
+- Let's Verify Step by Step | 2023 · 2011회 인용
 
 
 ## Agent
