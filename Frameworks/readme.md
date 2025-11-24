@@ -32,3 +32,6 @@
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
+
+# Metrics
+- Measuring AI Ability to Complete Long Tasks
