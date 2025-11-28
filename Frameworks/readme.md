@@ -30,6 +30,7 @@
 ## AI Agent Research
 - MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
 - Agent0: Unleashing Self-Evolving Agents from Zero Data via Tool-Integrated Reasoning
+- General Agentic Memory Via Deep Research
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
