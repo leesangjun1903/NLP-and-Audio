@@ -30,6 +30,8 @@
 ## AGI (Artificial General Intelligence)
 - Levels of AGI for Operationalizing Progress on the Path to AGI
 
+## AI Agent Research
+
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
 
