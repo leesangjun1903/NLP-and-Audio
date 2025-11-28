@@ -24,13 +24,13 @@
 ### ToolLLM
 - ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs
 
-### MetaGPT
-- MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
-
 ## AGI (Artificial General Intelligence)
 - Levels of AGI for Operationalizing Progress on the Path to AGI
 
 ## AI Agent Research
+### MetaGPT
+- MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
