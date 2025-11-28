@@ -28,9 +28,8 @@
 - Levels of AGI for Operationalizing Progress on the Path to AGI
 
 ## AI Agent Research
-### MetaGPT
 - MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
-
+- Agent0: Unleashing Self-Evolving Agents from Zero Data via Tool-Integrated Reasoning
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
