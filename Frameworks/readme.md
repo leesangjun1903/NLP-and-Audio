@@ -36,6 +36,7 @@
 - General Agentic Memory Via Deep Research
 - MobiAgent: A Systematic Framework for Customizable Mobile Agents
 - TradingAgents: Multi-Agents LLM Financial Trading Framework
+- Agent Lightning: Train ANY AI Agents with Reinforcement Learning
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
