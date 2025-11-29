@@ -316,6 +316,7 @@
 - Let's Verify Step by Step | 2023 · 2011회 인용
 - FAPO: Flawed-Aware Policy Optimization for Efficient and Reliable Reasoning
 - DR Tulu: Reinforcement Learning with Evolving Rubrics for Deep Research
+- DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning
 
 
 ## Agent
