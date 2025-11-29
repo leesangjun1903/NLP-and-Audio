@@ -38,6 +38,7 @@
 - TradingAgents: Multi-Agents LLM Financial Trading Framework
 - Agent Lightning: Train ANY AI Agents with Reinforcement Learning
 - DeepAnalyze: Agentic Large Language Models for Autonomous Data Science
+- MIRIX: Multi-Agent Memory System for LLM-Based Agents
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
