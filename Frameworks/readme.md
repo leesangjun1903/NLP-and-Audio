@@ -24,6 +24,9 @@
 ### ToolLLM
 - ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs
 
+### LLAMAFACTORY
+- LLAMAFACTORY: Unified Efficient Fine-Tuning of 100+ Language Models
+
 ## AGI (Artificial General Intelligence)
 - Levels of AGI for Operationalizing Progress on the Path to AGI
 
