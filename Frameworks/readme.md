@@ -35,6 +35,7 @@
 - Agent0: Unleashing Self-Evolving Agents from Zero Data via Tool-Integrated Reasoning
 - General Agentic Memory Via Deep Research
 - MobiAgent: A Systematic Framework for Customizable Mobile Agents
+- TradingAgents: Multi-Agents LLM Financial Trading Framework
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
