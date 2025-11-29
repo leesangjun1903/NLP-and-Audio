@@ -37,6 +37,7 @@
 - MobiAgent: A Systematic Framework for Customizable Mobile Agents
 - TradingAgents: Multi-Agents LLM Financial Trading Framework
 - Agent Lightning: Train ANY AI Agents with Reinforcement Learning
+- DeepAnalyze: Agentic Large Language Models for Autonomous Data Science
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
