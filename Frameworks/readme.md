@@ -40,6 +40,7 @@
 - DeepAnalyze: Agentic Large Language Models for Autonomous Data Science
 - MIRIX: Multi-Agent Memory System for LLM-Based Agents
 - Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory
+- Lumine: An Open Recipe for Building Generalist Agents in 3D Open Worlds
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
