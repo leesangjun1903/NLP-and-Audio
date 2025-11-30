@@ -41,6 +41,7 @@
 - MIRIX: Multi-Agent Memory System for LLM-Based Agents
 - Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory
 - Lumine: An Open Recipe for Building Generalist Agents in 3D Open Worlds
+- Fara-7B: An Efficient Agentic Model for Computer Use
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
