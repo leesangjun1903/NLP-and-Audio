@@ -49,6 +49,7 @@
 - UI-S1: Advancing GUI Automation via Semi-online Reinforcement Learning
 - PC-Agent: A Hierarchical Multi-Agent Collaboration Framework for Complex Task Automation on PC
 - Look Before You Leap: A GUI-Critic-R1 Model for Pre-Operative Error Diagnosis in GUI Automation
+- Mobile-Agent-v3: Fundamental Agents for GUI Automation
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
