@@ -27,6 +27,9 @@
 ### LLAMAFACTORY
 - LLAMAFACTORY: Unified Efficient Fine-Tuning of 100+ Language Models
 
+### Language Model Council
+- Language Model Council: Democratically Benchmarking Foundation Models on Highly Subjective Tasks
+
 ## AGI (Artificial General Intelligence)
 - Levels of AGI for Operationalizing Progress on the Path to AGI
 
