@@ -47,6 +47,7 @@
 - Fara-7B: An Efficient Agentic Model for Computer Use
 - MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling
 - UI-S1: Advancing GUI Automation via Semi-online Reinforcement Learning
+- PC-Agent: A Hierarchical Multi-Agent Collaboration Framework for Complex Task Automation on PC
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
