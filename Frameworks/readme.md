@@ -54,6 +54,7 @@
 - Look Before You Leap: A GUI-Critic-R1 Model for Pre-Operative Error Diagnosis in GUI Automation
 - Mobile-Agent-v3: Fundamental Agents for GUI Automation
 - Zep: A Temporal Knowledge Graph Architecture for Agent Memory
+- Agent S2: A Compositional Generalist-Specialist Framework for Computer Use Agents
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
