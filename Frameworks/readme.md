@@ -55,6 +55,7 @@
 - Mobile-Agent-v3: Fundamental Agents for GUI Automation
 - Zep: A Temporal Knowledge Graph Architecture for Agent Memory
 - Agent S2: A Compositional Generalist-Specialist Framework for Computer Use Agents
+- PaperDebugger: A Plugin-Based Multi-Agent System for In-Editor Academic Writing, Review, and Editing
 
 # DataBase
 - LanceDB : https://github.com/lancedb/vectordb-recipes
