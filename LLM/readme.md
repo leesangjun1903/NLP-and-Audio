@@ -318,6 +318,7 @@
 - DR Tulu: Reinforcement Learning with Evolving Rubrics for Deep Research
 - DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning
 - DiLoCo: Distributed Low-Communication Training of Language Models | 2023 · 95회 인용
+- Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
 
 
 ## Agent
