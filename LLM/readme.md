@@ -319,6 +319,7 @@
 - DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning
 - DiLoCo: Distributed Low-Communication Training of Language Models | 2023 · 95회 인용
 - Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
+- Distributed On-Device LLM Inference With Over-the-Air Computation | 2025 · 3회 인용
 
 
 ## Agent
