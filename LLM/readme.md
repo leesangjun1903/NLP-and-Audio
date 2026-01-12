@@ -324,6 +324,7 @@
 - Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity | 2025 · 4회 인용
 - GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models | 2025 · 100회 인용
 - The Llama 3 Herd of Models | 2024 · 4166회 인용
+- LLM Post-Training: A Deep Dive into Reasoning Large Language Models | 2025 · 130회 인용
 
 
 ## Agent
