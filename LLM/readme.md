@@ -321,6 +321,7 @@
 - Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
 - Distributed On-Device LLM Inference With Over-the-Air Computation | 2025 · 3회 인용
 - Model-Distributed Inference for Large Language Models at the Edge | 2025 · 2회 인용
+- Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity | 2025 · 4회 인용
 
 
 ## Agent
