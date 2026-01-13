@@ -14,7 +14,8 @@
 - (Survey) Towards Reasoning in Large Language Models: A Survey
 - (Survey) Reasoning with Language Model Prompting: A Survey
 - (Survey) LLM Post-Training: A Deep Dive into Reasoning Large Language Models
-- 
+- (Survey) Large Language Models Post-training: Surveying Techniques from Alignment to Reasoning
+
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations | 2024 · 662회 인용
 - AlphaGeometry2 : Gold-medalist Performance in Solving Olympiad Geometry with AlphaGeometry2 | 2025 · 35회 인용
