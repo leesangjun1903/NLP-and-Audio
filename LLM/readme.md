@@ -310,25 +310,36 @@
 - Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures | 2025 · 29회 인용
 - DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 - Instruction Tuning with GPT-4 | 2023 · 1237회 인용
-- Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
-- Mathematical discoveries from program search with large language models | 2024 · 857회 인용
-- Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
-- Reward Design with Language Models | 2023 · 394회 인용
-- Retroformer: Retrospective Large Language Agents with Policy Gradient Optimization | 2023 · 113회 인용
-- Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters | 2024 · 1002회 인용
+
+
 - Gemma 3 Technical Report | 2025 · 718회 인용
-- Let's Verify Step by Step | 2023 · 2011회 인용
-- FAPO: Flawed-Aware Policy Optimization for Efficient and Reliable Reasoning
-- DR Tulu: Reinforcement Learning with Evolving Rubrics for Deep Research
+
+
+
 - DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning
 - DiLoCo: Distributed Low-Communication Training of Language Models | 2023 · 95회 인용
-- Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
-- Distributed On-Device LLM Inference With Over-the-Air Computation | 2025 · 3회 인용
+
 - Model-Distributed Inference for Large Language Models at the Edge | 2025 · 2회 인용
-- Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity | 2025 · 4회 인용
+
 - GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models | 2025 · 100회 인용
 - The Llama 3 Herd of Models | 2024 · 4166회 인용
-- LLM Post-Training: A Deep Dive into Reasoning Large Language Models | 2025 · 130회 인용
+
+## Techniques
+- Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity | 2025 · 4회 인용
+- Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
+- Let's Verify Step by Step | 2023 · 2011회 인용 , Process Supervision, Process-based Reward Model(PRM)
+- Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters | 2024 · 1002회 인용
+- Mathematical discoveries from program search with large language models | 2024 · 857회 인용, FunSearch(Evolution through Large Language Models), Iterative Evolution, Bin Packing Problem Solved
+
+### RLHF (Reinforcement Learning for Human Feedback)
+- Is DPO Superior to PPO for LLM Alignment? A Comprehensive Study | 2024 · 238회 인용
+- DR Tulu: Reinforcement Learning with Evolving Rubrics for Deep Research
+- FAPO: Flawed-Aware Policy Optimization for Efficient and Reliable Reasoning
+- Retroformer: Retrospective Large Language Agents with Policy Gradient Optimization | 2023 · 113회 인용
+- Reward Design with Language Models | 2023 · 394회 인용
+- Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
+- Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
+
 
 
 ## Agent
