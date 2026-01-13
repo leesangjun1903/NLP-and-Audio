@@ -15,6 +15,7 @@
 - (Survey) Reasoning with Language Model Prompting: A Survey
 - (Survey) LLM Post-Training: A Deep Dive into Reasoning Large Language Models
 - (Survey) Large Language Models Post-training: Surveying Techniques from Alignment to Reasoning
+- (Survey) A Survey on Progress in LLM Alignment from the Perspective of Reward Design
 
 
 - AlphaGeometry : Solving Olympiad Geometry without Human Demonstrations | 2024 · 662회 인용
