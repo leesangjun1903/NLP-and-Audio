@@ -303,13 +303,13 @@
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
 - Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
 - Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
-- CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
+
+
 - AutoVerus: Automated Proof Generation for Rust Code | 2024 · 17회 인용
-- SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
-- Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
+
+
 - Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures | 2025 · 29회 인용
-- DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
-- Instruction Tuning with GPT-4 | 2023 · 1237회 인용
+
 
 
 - Gemma 3 Technical Report | 2025 · 718회 인용
@@ -330,6 +330,16 @@
 - Let's Verify Step by Step | 2023 · 2011회 인용 , Process Supervision, Process-based Reward Model(PRM)
 - Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters | 2024 · 1002회 인용
 - Mathematical discoveries from program search with large language models | 2024 · 857회 인용, FunSearch(Evolution through Large Language Models), Iterative Evolution, Bin Packing Problem Solved
+- DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
+- CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
+
+
+
+### Post-Training : Supervised Fine-Tuning
+
+
+### Instruction Tuning
+- Instruction Tuning with GPT-4 | 2023 · 1237회 인용
 
 ### RLHF (Reinforcement Learning for Human Feedback)
 - Is DPO Superior to PPO for LLM Alignment? A Comprehensive Study | 2024 · 238회 인용
@@ -339,7 +349,11 @@
 - Reward Design with Language Models | 2023 · 394회 인용
 - Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
 - Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
+- KTO: Model Alignment as Prospect Theoretic Optimization | 2024 · 770회 인용
 
+### Research
+- Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
+- SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
 
 
 ## Agent
