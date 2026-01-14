@@ -350,6 +350,7 @@
 - Grounding Large Language Models in Interactive Environments with Online Reinforcement Learning | 2023 · 296회 인용
 - Eureka: Human-Level Reward Design via Coding Large Language Models | 2023 · 590회 인용
 - KTO: Model Alignment as Prospect Theoretic Optimization | 2024 · 770회 인용
+- RS-DPO: A Hybrid Rejection Sampling and Direct Preference Optimization Method for Alignment of Large Language Models | 2024 · 56회 인용
 
 ### Research
 - Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
