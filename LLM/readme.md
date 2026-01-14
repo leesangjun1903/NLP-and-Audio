@@ -297,12 +297,15 @@
 - IntelliCode Compose: Code Generation using Transformer | 2020 · 677회 인용
 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | 2019 · 12031회 인용
 - Cerebras-GPT: Open Compute-Optimal Language Models Trained on the Cerebras Wafer-Scale Cluster | 2023 · 119회 인용
+
+
 - LLaMA: Open and Efficient Foundation Language Models | 2023 · 21294회 인용
+
+
 - CodeT5+: Open Code Large Language Models for Code Understanding and Generation | 2023 · 737회 인용
+
 - BERTweet: A pre-trained language model for English Tweets | 2020 · 1252회 인용
-- rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
-- Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
-- Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
+
 
 
 - AutoVerus: Automated Proof Generation for Rust Code | 2024 · 17회 인용
@@ -324,6 +327,7 @@
 - GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models | 2025 · 100회 인용
 - The Llama 3 Herd of Models | 2024 · 4166회 인용
 
+
 ## Techniques
 - Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity | 2025 · 4회 인용
 - Distributed Inference and Fine-tuning of Large Language Models Over The Internet | 2023 · 97회 인용
@@ -333,6 +337,12 @@
 - DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 - CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
 
+### sLM Techniques
+- rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
+
+### Enhancing mathematical abilities
+- Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
+- Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
 
 
 ### Post-Training : Supervised Fine-Tuning
