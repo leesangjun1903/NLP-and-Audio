@@ -374,7 +374,7 @@
 - SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
 - Thoughts Are All Over the Place: On the Underthinking of o1-Like LLMs | 2025 · 89회 인용
 - O1 Replication Journey: A Strategic Progress Report – Part 1 | 2024 · 127회 인용
-- O1 Replication Journey – Part 2: Surpassing O1-preview through Simple Distillation Big Progress or Bitter Lesson? | 
+- O1 Replication Journey – Part 2: Surpassing O1-preview through Simple Distillation Big Progress or Bitter Lesson? | 2024 · 100회 인용
 
 
 ## Agent
