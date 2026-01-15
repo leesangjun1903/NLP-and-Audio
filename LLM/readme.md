@@ -336,6 +336,7 @@
 - Mathematical discoveries from program search with large language models | 2024 · 857회 인용, FunSearch(Evolution through Large Language Models), Iterative Evolution, Bin Packing Problem Solved
 - DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 - CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
+- s1: Simple Test-Time Scaling | 2025 · 838회 인용
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
