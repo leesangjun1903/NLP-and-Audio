@@ -294,6 +294,8 @@
 - Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
 - CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
+
+
 - IntelliCode Compose: Code Generation using Transformer | 2020 · 677회 인용
 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | 2019 · 12031회 인용
 - Cerebras-GPT: Open Compute-Optimal Language Models Trained on the Cerebras Wafer-Scale Cluster | 2023 · 119회 인용
@@ -368,6 +370,7 @@
 ### Research
 - Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
 - SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training | 2025 · 342회 인용
+- Thoughts Are All Over the Place: On the Underthinking of o1-Like LLMs | 2025 · 89회 인용
 
 
 ## Agent
