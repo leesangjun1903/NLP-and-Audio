@@ -230,7 +230,7 @@
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
 - LLM+P: Empowering Large Language Models with Optimal Planning Proficiency | 2023 · 574회 인용
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
-- OpenAssistant Conversations - Democratizing Large Language Model Alignment | 2023 · 716회 인용
+
 
 
 
