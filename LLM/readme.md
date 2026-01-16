@@ -242,20 +242,16 @@
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
 - Natural Language Inference over Interaction Space | 2017 · 230회 인용
 - Convolutional Sequence to Sequence Learning | 2017 · 4671회 인용
-- Unsupervised Machine Translation Using Monolingual Corpora Only | 2017 · 1356회 인용
-- Unsupervised Neural Machine Translation with Weight Sharing | 2018 · 153회 인용
-- Language Models Are Realistic Tabular Data Generators | 2022 · 356회 인용
+
+
+
+
+
 - KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
-- KoBART : https://github.com/SKT-AI/KoBART
+- KoBART (KoBART(Korean Bidirectional and Auto-Regressive Transformers)) : https://github.com/SKT-AI/KoBART
 - CPM: A Large-scale Generative Chinese Pre-trained Language Model | 2020 · 139회 인용
-- Multilingual Alignment of Contextual Word Representations | 2020 · 206회 인용
 - TABERT: Pretraining for Joint Understanding of Textual and Tabular Data | 2020 · 759회 인용
 - TAPAS: Weakly Supervised Table Parsing via Pre-training | 2020 · 837회 인용
-- On the Sentence Embeddings from Pre-trained Language Models | 2020 · 834회 인용
-
-
-
-
 - OLMo: Accelerating the Science of Language Models | 2024 · 337회 인용
 - Textbooks Are All You Need II: phi-1.5 | 2023 · 583회 인용
 - Baichuan 2: Open Large-scale Language Models | 2023 · 727회 인용
@@ -319,6 +315,11 @@
 - ConvBERT: Improving BERT with Span-based Dynamic Convolution | 2020 · 248회 인용
 - MARGE : Pre-training via Paraphrasing | 2020 · 177회 인용
 - Pre-training Multilingual Neural Machine Translation by Leveraging Alignment Information | 2020 · 142회 인용
+- On the Sentence Embeddings from Pre-trained Language Models | 2020 · 834회 인용
+- Multilingual Alignment of Contextual Word Representations | 2020 · 206회 인용
+- Language Models Are Realistic Tabular Data Generators | 2022 · 356회 인용
+- Unsupervised Neural Machine Translation with Weight Sharing | 2018 · 153회 인용
+- Unsupervised Machine Translation Using Monolingual Corpora Only | 2017 · 1356회 인용
 
 
 ### RAG
