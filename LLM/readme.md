@@ -239,8 +239,7 @@
 - Factorization Tricks for LSTM Networks | 2017 · 181회 인용
 - Understanding Back-Translation at Scale | 2018 · 1514회 인용
 - Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
-- Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
-- Natural Language Inference over Interaction Space | 2017 · 230회 인용
+- Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets | 2017 · 233회 인용
 
 
 
@@ -319,6 +318,7 @@
 - Language Models Are Realistic Tabular Data Generators | 2022 · 356회 인용
 - Unsupervised Neural Machine Translation with Weight Sharing | 2018 · 153회 인용
 - Unsupervised Machine Translation Using Monolingual Corpora Only | 2017 · 1356회 인용
+- Natural Language Inference over Interaction Space | 2017 · 230회 인용
 
 
 ### RAG
