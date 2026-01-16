@@ -219,19 +219,12 @@
 - Teaching Small Language Models to Reason | 2022 · 333회 인용
 - Large Language Models Are Reasoning Teachers | 2022 · 406회 인용
 - Minerva: Solving Quantitative Reasoning Problems with Language Models | 2022 · 1085회 인용
-- Challenging BIG-Bench tasks and whether chain-of-thought can solve them | 2022 · 1033회 인용
-- Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models | 2023 · 343회 인용
-- PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models | 2022 · 1053회 인용
-- VOYAGER: An Open-Ended Embodied Agent with Large Language Models | 2023 · 1326회 인용
-- Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
-- Decomposed Prompting: A Modular Approach for Solving Complex Tasks | 2022 · 601회 인용
+
+
+
+
+
 - Toolformer: Language Models Can Teach Themselves to Use Tools | 2023 · 2325회 인용
-
-
-
-
-
-
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
 - Qwen2.5 Technical Report | 2024 · 3175회 인용
 - Mistral 7B | 2023 · 2772회 인용
@@ -313,6 +306,12 @@
 - Understanding Back-Translation at Scale | 2018 · 1514회 인용
 
 
+## Prompting
+- Decomposed Prompting: A Modular Approach for Solving Complex Tasks | 2022 · 601회 인용
+- PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models | 2022 · 1053회 인용
+- Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models | 2023 · 343회 인용
+
+
 ### RAG
 - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks | 2020 · 14893회 인용
 - Retrieval-Augmented Generation with Graphs (GraphRAG) | 2024 · 182회 인용
@@ -373,4 +372,6 @@
 - Generative Agents: Interactive Simulacra of Human Behavior
 - ReAct: Synergizing Reasoning and Acting in Language Models
 - Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents
+- Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
+- VOYAGER: An Open-Ended Embodied Agent with Large Language Models | 2023 · 1326회 인용
 
