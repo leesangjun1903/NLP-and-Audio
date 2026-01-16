@@ -260,8 +260,6 @@
 - BERT-of-Theseus: Compressing BERT by Progressive Module Replacing | 2020 · 243회 인용
 - When BERT Plays the Lottery, All Tickets Are Winning | 2020 · 225회 인용
 - Funnel-Transformer: Filtering out Sequential Redundancy for Efficient Language Processing | 2020 · 278회 인용
-- DynaBERT: Dynamic BERT with Adaptive Width and Depth | 2020 · 379회 인용
-- BERT Loses Patience: Fast and Robust Inference with Early Exit | 2020 · 424회 인용
 
 
 
@@ -321,6 +319,7 @@
 - The Lottery Ticket Hypothesis for Pre-trained BERT Networks | 2020 · 451회 인용
 - Perturbed Masking: Parameter-free Probing for Analyzing and Interpreting BERT | 2020 · 237회 인용
 - Dense Passage Retrieval for Open-Domain Question Answering | 2020 · 5468회 인용
+- BERT Loses Patience: Fast and Robust Inference with Early Exit | 2020 · 424회 인용
 
 
 ### RAG
