@@ -273,6 +273,10 @@
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
 - HybridQA: A Dataset of Multi-Hop Question Answering over Tabular and Textual Data | 2020 · 378회 인용
 - Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
+
+
+
+
 - OLMo: Accelerating the Science of Language Models | 2024 · 337회 인용
 - Textbooks Are All You Need II: phi-1.5 | 2023 · 583회 인용
 - Baichuan 2: Open Large-scale Language Models | 2023 · 727회 인용
@@ -281,56 +285,33 @@
 - Gemma: Open Models Based on Gemini Research and Technology | 2024 · 1914회 인용
 - Yi: Open Foundation Models by 01.AI | 2024 · 600회 인용
 - Phi-3 Technical Report | 2024 · 2188회 인용
-- SEDD : Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution | 2023 · 207회 인용
-- COLD Decoding: Energy-based Constrained Text Generation with Langevin Dynamics | 2022 · 188회 인용
 - Nemotron-4 340B Technical Report | 2024 · 138회 인용
 - Gemma 2: Improving Open Language Models at a Practical Size | 2024 · 1382회 인용
 - Qwen2 Technical Report | 2024 · 3552회 인용
-- SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 - Qwen3 Technical Report | 2025 · 3552회 인용
 - CodeGemma: Open Code Models Based on Gemma | 2024 · 144회 인용
 - DeepSeek-Coder-V2: Breaking the Barrier of Closed-Source Models in Code Intelligence | 2024 · 313회 인용
 - Qwen2.5-Coder Technical Report | 2024 · 738회 인용
-- Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
-- CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
-
-
 - IntelliCode Compose: Code Generation using Transformer | 2020 · 677회 인용
 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | 2019 · 12031회 인용
 - Cerebras-GPT: Open Compute-Optimal Language Models Trained on the Cerebras Wafer-Scale Cluster | 2023 · 119회 인용
-
-
 - LLaMA: Open and Efficient Foundation Language Models | 2023 · 21294회 인용
-
-
 - CodeT5+: Open Code Large Language Models for Code Understanding and Generation | 2023 · 737회 인용
-
 - BERTweet: A pre-trained language model for English Tweets | 2020 · 1252회 인용
-
-
-
 - AutoVerus: Automated Proof Generation for Rust Code | 2024 · 17회 인용
-
-
 - Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures | 2025 · 29회 인용
-
-
-
 - Gemma 3 Technical Report | 2025 · 718회 인용
-
-
-
 - DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning
 - DiLoCo: Distributed Low-Communication Training of Language Models | 2023 · 95회 인용
-
 - Model-Distributed Inference for Large Language Models at the Edge | 2025 · 2회 인용
-
 - GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models | 2025 · 100회 인용
 - The Llama 3 Herd of Models | 2024 · 4166회 인용
 - o1-Coder: an o1 Replication for Coding | 2024 · 74회 인용
 
 ## sLMs
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
+- CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
+- SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 
 
 ## Techniques
@@ -342,6 +323,13 @@
 - DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature | 2023 · 929회 인용
 - CPL: Critical Plan Step Learning Boosts LLM Generalization in Reasoning Tasks | 2024 · 8회 인용
 - s1: Simple Test-Time Scaling | 2025 · 838회 인용
+- Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
+- COLD Decoding: Energy-based Constrained Text Generation with Langevin Dynamics | 2022 · 188회 인용
+- SEDD : Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution | 2023 · 207회 인용
+
+
+### RAG
+- Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks | 2020 · 14893회 인용
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
