@@ -228,15 +228,13 @@
 - Toolformer: Language Models Can Teach Themselves to Use Tools | 2023 · 2325회 인용
 - HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face | 2023 · 1492회 인용
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
-- LLM+P: Empowering Large Language Models with Optimal Planning Proficiency | 2023 · 574회 인용
+
+
+
+
+
+
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
-
-
-
-
-
-
-
 - Qwen2.5 Technical Report | 2024 · 3175회 인용
 - Mistral 7B | 2023 · 2772회 인용
 - KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
