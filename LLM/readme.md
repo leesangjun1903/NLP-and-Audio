@@ -264,8 +264,6 @@
 - BERT Loses Patience: Fast and Robust Inference with Early Exit | 2020 · 424회 인용
 - Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
 - Perturbed Masking: Parameter-free Probing for Analyzing and Interpreting BERT | 2020 · 237회 인용
-- Birds have four legs?! NumerSense: Probing Numerical Commonsense Knowledge of Pre-trained Language Models | 2020 · 178회 인용
-- The Lottery Ticket Hypothesis for Pre-trained BERT Networks | 2020 · 451회 인용
 
 
 
@@ -322,6 +320,7 @@
 - Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
 - Recall and Learn: Fine-tuning Deep Pretrained Language Models with Less Forgetting | 2020 · 256회 인용
 - Don’t Stop Pretraining: Adapt Language Models to Domains and Tasks | 2020 · 3020회 인용
+- The Lottery Ticket Hypothesis for Pre-trained BERT Networks | 2020 · 451회 인용
 
 
 ### RAG
