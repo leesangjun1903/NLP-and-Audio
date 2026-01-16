@@ -271,8 +271,6 @@
 - CogLTX: Applying BERT to Long Texts | 2020 · 198회 인용
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
-- HybridQA: A Dataset of Multi-Hop Question Answering over Tabular and Textual Data | 2020 · 378회 인용
-- Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
 
 
 
@@ -326,6 +324,7 @@
 - Learning and Evaluating Contextual Embedding of Source Code | 2019 · 551회 인용
 - COLD Decoding: Energy-based Constrained Text Generation with Langevin Dynamics | 2022 · 188회 인용
 - SEDD : Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution | 2023 · 207회 인용
+- Principle-Driven Self-Alignment of Language Models from Scratch with Minimal Human Supervision | 2023 · 425회 인용
 
 
 ### RAG
