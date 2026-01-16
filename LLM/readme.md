@@ -327,6 +327,7 @@
 - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks | 2020 · 14893회 인용
 - Retrieval-Augmented Generation with Graphs (GraphRAG) | 2024 · 182회 인용
 - REALM: Retrieval-Augmented Language Model Pre-Training | 2020 · 3136회 인용
+- Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering | 2020 · 1797회 인용
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
