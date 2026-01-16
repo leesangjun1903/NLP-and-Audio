@@ -252,8 +252,6 @@
 - TABERT: Pretraining for Joint Understanding of Textual and Tabular Data | 2020 · 759회 인용
 - TAPAS: Weakly Supervised Table Parsing via Pre-training | 2020 · 837회 인용
 - On the Sentence Embeddings from Pre-trained Language Models | 2020 · 834회 인용
-- Balanced Multimodal Learning via On-the-fly Gradient Modulation | 2022 · 360회 인용
-- Pre-training Multilingual Neural Machine Translation by Leveraging Alignment Information | 2020 · 142회 인용
 
 
 
@@ -320,6 +318,7 @@
 - DeeBERT: Dynamic Early Exiting for Accelerating BERT Inference | 2020 · 469회 인용
 - ConvBERT: Improving BERT with Span-based Dynamic Convolution | 2020 · 248회 인용
 - MARGE : Pre-training via Paraphrasing | 2020 · 177회 인용
+- Pre-training Multilingual Neural Machine Translation by Leveraging Alignment Information | 2020 · 142회 인용
 
 
 ### RAG
@@ -328,6 +327,7 @@
 - REALM: Retrieval-Augmented Language Model Pre-Training | 2020 · 3136회 인용
 - Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering | 2020 · 1797회 인용
 - Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection | 2023 · 1489회 인용
+- Corrective Retrieval Augmented Generation | 2024 · 357회 인용
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
