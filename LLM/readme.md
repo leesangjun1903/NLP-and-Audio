@@ -235,7 +235,6 @@
 - Qwen2.5 Technical Report | 2024 · 3175회 인용
 - Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
 - Mistral 7B | 2023 · 2772회 인용
-- Regularizing and Optimizing LSTM Language Models | 2017 · 1455회 인용
 
 
 
