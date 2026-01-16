@@ -212,18 +212,15 @@
 - Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
 - Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
 - Multimodal Chain-of-Thought Reasoning in Language Models | 2023 · 710회 인용
-- Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
-- Large Language Models Can Self-Improve | 2022 · 716회 인용
-- Training Verifiers to Solve Math Word Problems | 2021 · 5310회 인용
-- Large Language Models are Better Reasoners with Self-Verification | 2022 · 272회 인용
-- Teaching Small Language Models to Reason | 2022 · 333회 인용
-- Large Language Models Are Reasoning Teachers | 2022 · 406회 인용
+
+
+
+
+
+
+
+
 - Minerva: Solving Quantitative Reasoning Problems with Language Models | 2022 · 1085회 인용
-
-
-
-
-
 - Toolformer: Language Models Can Teach Themselves to Use Tools | 2023 · 2325회 인용
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
 - Qwen2.5 Technical Report | 2024 · 3175회 인용
@@ -323,15 +320,22 @@
 
 ## Chain-of-Thought(CoT)
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
+- Large Language Models Are Reasoning Teachers | 2022 · 406회 인용
+- Large Language Models are Better Reasoners with Self-Verification | 2022 · 272회 인용
+- Large Language Models Can Self-Improve | 2022 · 716회 인용
+- Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
 
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
+- Teaching Small Language Models to Reason | 2022 · 333회 인용
+
 
 ### Enhancing mathematical abilities
 - Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
 - Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
+- Training Verifiers to Solve Math Word Problems | 2021 · 5310회 인용
 
 
 ### Post-Training : Supervised Fine-Tuning
