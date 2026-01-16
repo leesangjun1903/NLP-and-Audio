@@ -205,7 +205,6 @@
 - Rethinking the Role of Demonstrations: What Makes In-Context Learning Work? | 2022 · 1733회 인용
 - What learning algorithm is in-context learning? Investigations with linear models | 2022 · 628회 인용
 - Larger Language Models Do In-Context Learning Differently | 2023 · 418회 인용
-- Automatic Chain of Thought Prompting in Large Language Models | 2022 · 1343회 인용
 
 
 
@@ -324,6 +323,7 @@
 - Large Language Models Can Self-Improve | 2022 · 716회 인용
 - Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
 - Large Language Models are Zero-Shot Reasoners | 2022 · 6382회 인용
+- Automatic Chain of Thought Prompting in Large Language Models | 2022 · 1343회 인용
 
 
 ### sLM Techniques
