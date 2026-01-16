@@ -269,8 +269,6 @@
 - Don’t Stop Pretraining: Adapt Language Models to Domains and Tasks | 2020 · 3020회 인용
 - Recall and Learn: Fine-tuning Deep Pretrained Language Models with Less Forgetting | 2020 · 256회 인용
 - CogLTX: Applying BERT to Long Texts | 2020 · 198회 인용
-- Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
-- Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
 
 
 
@@ -336,6 +334,7 @@
 ### Enhancing mathematical abilities
 - Neuro-Symbolic Data Generation for Math Reasoning | 2024 · 25회 인용
 - Autoformalizing Mathematical Statements by Symbolic Equivalence and Semantic Consistency | 2024 · 24회 인용
+- Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
 
 
 ### Post-Training : Supervised Fine-Tuning
@@ -363,6 +362,10 @@
 - O1 Replication Journey: A Strategic Progress Report – Part 1 | 2024 · 127회 인용
 - O1 Replication Journey – Part 2: Surpassing O1-preview through Simple Distillation Big Progress or Bitter Lesson? | 2024 · 100회 인용
 - O1 Replication Journey – Part 3: Inference-time Scaling for Medical Reasoning | 2025 · 34회 인용
+
+
+### Frameworks
+- Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
 
 
 ## Agent
