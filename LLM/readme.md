@@ -226,8 +226,6 @@
 - Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
 - Decomposed Prompting: A Modular Approach for Solving Complex Tasks | 2022 · 601회 인용
 - Toolformer: Language Models Can Teach Themselves to Use Tools | 2023 · 2325회 인용
-- HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face | 2023 · 1492회 인용
-- Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
 
 
 
@@ -324,6 +322,8 @@
 - Corrective Retrieval Augmented Generation | 2024 · 357회 인용
 - Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
 
+## Chain-of-Thought(CoT)
+- Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
 
 
 ### sLM Techniques
