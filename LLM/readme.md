@@ -262,7 +262,6 @@
 - Funnel-Transformer: Filtering out Sequential Redundancy for Efficient Language Processing | 2020 · 278회 인용
 - DynaBERT: Dynamic BERT with Adaptive Width and Depth | 2020 · 379회 인용
 - BERT Loses Patience: Fast and Robust Inference with Early Exit | 2020 · 424회 인용
-- Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
 
 
 
@@ -361,6 +360,7 @@
 - O1 Replication Journey: A Strategic Progress Report – Part 1 | 2024 · 127회 인용
 - O1 Replication Journey – Part 2: Surpassing O1-preview through Simple Distillation Big Progress or Bitter Lesson? | 2024 · 100회 인용
 - O1 Replication Journey – Part 3: Inference-time Scaling for Medical Reasoning | 2025 · 34회 인용
+- Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
 
 
 ### Frameworks
