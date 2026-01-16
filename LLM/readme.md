@@ -241,7 +241,6 @@
 - Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
 - Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets
 - Natural Language Inference over Interaction Space | 2017 · 230회 인용
-- Convolutional Sequence to Sequence Learning | 2017 · 4671회 인용
 
 
 
