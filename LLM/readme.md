@@ -206,12 +206,8 @@
 - What learning algorithm is in-context learning? Investigations with linear models | 2022 · 628회 인용
 - Larger Language Models Do In-Context Learning Differently | 2023 · 418회 인용
 - Automatic Chain of Thought Prompting in Large Language Models | 2022 · 1343회 인용
-- STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning | 2022 · 971회 인용
-- Large Language Models are Zero-Shot Reasoners | 2022 · 6382회 인용
-- Complexity-Based Prompting for Multi-Step Reasoning | 2022 · 509회 인용
-- Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
-- Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
-- Multimodal Chain-of-Thought Reasoning in Language Models | 2023 · 710회 인용
+
+
 
 
 
@@ -301,12 +297,15 @@
 - Natural Language Inference over Interaction Space | 2017 · 230회 인용
 - Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
 - Understanding Back-Translation at Scale | 2018 · 1514회 인용
+- Complexity-Based Prompting for Multi-Step Reasoning | 2022 · 509회 인용
+- STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning | 2022 · 971회 인용
 
 
 ## Prompting
 - Decomposed Prompting: A Modular Approach for Solving Complex Tasks | 2022 · 601회 인용
 - PROGPROMPT: Generating Situated Robot Task Plans using Large Language Models | 2022 · 1053회 인용
 - Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models | 2023 · 343회 인용
+- Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
 
 
 ### RAG
@@ -324,6 +323,7 @@
 - Large Language Models are Better Reasoners with Self-Verification | 2022 · 272회 인용
 - Large Language Models Can Self-Improve | 2022 · 716회 인용
 - Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
+- Large Language Models are Zero-Shot Reasoners | 2022 · 6382회 인용
 
 
 ### sLM Techniques
@@ -364,6 +364,7 @@
 - O1 Replication Journey – Part 2: Surpassing O1-preview through Simple Distillation Big Progress or Bitter Lesson? | 2024 · 100회 인용
 - O1 Replication Journey – Part 3: Inference-time Scaling for Medical Reasoning | 2025 · 34회 인용
 - Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
+- Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
 
 
 ### Frameworks
