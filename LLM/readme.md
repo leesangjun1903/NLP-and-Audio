@@ -231,15 +231,14 @@
 - LLM+P: Empowering Large Language Models with Optimal Planning Proficiency | 2023 · 574회 인용
 - ChatGLM: A Family of Large Language Models from GLM-130B to GLM-4 All Tools | 2024 · 828회 인용
 - OpenAssistant Conversations - Democratizing Large Language Model Alignment | 2023 · 716회 인용
-- Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena | 2023 · 5464회 인용
+
+
+
+
+
+
 - Qwen2.5 Technical Report | 2024 · 3175회 인용
-- Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
 - Mistral 7B | 2023 · 2772회 인용
-
-
-
-
-
 - KoBERT : Korean BERT pre-trained cased (KoBERT) : https://github.com/SKTBrain/KoBERT?tab=readme-ov-file#kobert
 - KoBART (KoBART(Korean Bidirectional and Auto-Regressive Transformers)) : https://github.com/SKT-AI/KoBART
 - CPM: A Large-scale Generative Chinese Pre-trained Language Model | 2020 · 139회 인용
@@ -325,6 +324,9 @@
 - Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering | 2020 · 1797회 인용
 - Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection | 2023 · 1489회 인용
 - Corrective Retrieval Augmented Generation | 2024 · 357회 인용
+- Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
+
+
 
 ### sLM Techniques
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
