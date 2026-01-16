@@ -236,10 +236,6 @@
 - Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
 - Mistral 7B | 2023 · 2772회 인용
 - Regularizing and Optimizing LSTM Language Models | 2017 · 1455회 인용
-- Factorization Tricks for LSTM Networks | 2017 · 181회 인용
-- Understanding Back-Translation at Scale | 2018 · 1514회 인용
-- Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
-- Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets | 2017 · 233회 인용
 
 
 
@@ -319,6 +315,8 @@
 - Unsupervised Neural Machine Translation with Weight Sharing | 2018 · 153회 인용
 - Unsupervised Machine Translation Using Monolingual Corpora Only | 2017 · 1356회 인용
 - Natural Language Inference over Interaction Space | 2017 · 230회 인용
+- Non-Autoregressive Neural Machine Translation | 2017 · 975회 인용
+- Understanding Back-Translation at Scale | 2018 · 1514회 인용
 
 
 ### RAG
