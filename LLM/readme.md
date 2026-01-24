@@ -298,6 +298,7 @@
 - Understanding Back-Translation at Scale | 2018 · 1514회 인용
 - Complexity-Based Prompting for Multi-Step Reasoning | 2022 · 509회 인용
 - STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning | 2022 · 971회 인용
+- Retentive Network: A Successor to Transformer for Large Language Models | 2023 · 665회 인용
 
 
 ## Prompting
@@ -355,6 +356,7 @@
 - KTO: Model Alignment as Prospect Theoretic Optimization | 2024 · 770회 인용
 - RS-DPO: A Hybrid Rejection Sampling and Direct Preference Optimization Method for Alignment of Large Language Models | 2024 · 56회 인용
 - UNA: Unifying Alignments of RLHF/PPO, DPO and KTO by a Generalized Implicit Reward Function | 2024 · 4회 인용
+
 
 ### Research
 - Inside-Out: Hidden Factual Knowledge in LLMs | 2025 · 15회 인용
