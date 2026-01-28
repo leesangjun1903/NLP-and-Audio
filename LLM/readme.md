@@ -367,6 +367,7 @@
 - O1 Replication Journey – Part 3: Inference-time Scaling for Medical Reasoning | 2025 · 34회 인용
 - Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
 - Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
+- A model of errors in transformers
 
 
 ### Frameworks
