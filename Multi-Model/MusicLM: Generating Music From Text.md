@@ -1,316 +1,940 @@
+
 # MusicLM: Generating Music From Text
 
-### 1. 핵심 주장 및 주요 기여
+## 요약 및 핵심 기여
 
-**MusicLM의 핵심 주장**은 자연언어 텍스트 설명으로부터 고충실도 음악을 생성할 수 있다는 것입니다. "차분한 바이올린 멜로디에 왜곡된 기타 리프가 배경"과 같은 텍스트 설명에서 24 kHz로 여러 분 동안 일관성 있게 음악을 생성합니다.[1]
+**MusicLM**은 Google Research에서 2023년 1월 발표한 텍스트 기반 음악 생성 모델로, "차분한 바이올린 선율에 왜곡된 기타 리프를 곁들인" 같은 자연 언어 설명으로부터 24 kHz의 고충실도 음악을 생성한다. 이 연구의 세 가지 핵심 기여는 다음과 같다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-**주요 기여**는 다음과 같습니다:[1]
+1. **계층적 시퀀스-투-시퀀스 모델링**으로 수 분에 걸쳐 일관성 있는 고충실도 음악 생성 달성
+2. **다중 조건화 지원** - 텍스트와 멜로디(휘파람, 허밍)의 결합 조건화
+3. **MusicCaps 데이터셋 공개** - 음악 전문가가 작성한 5.5k 음악-텍스트 쌍
 
-1. **고품질 장시간 음악 생성**: 텍스트 조건부 신호에 충실하면서 24 kHz에서 24시간 이상 지속되는 고품질 음악을 생성하는 MusicLM 모델 제시
-
-2. **다중 모달 조건화**: 텍스트뿐만 아니라 휘파람, 흥얼림 같은 멜로디도 조건으로 사용 가능하며, 텍스트 프롬프트로 설명된 스타일로 멜로디를 변환할 수 있는 능력
-
-3. **고품질 평가 데이터셋**: 음악 전문가가 수작업으로 큐레이션한 5.5k 음악-텍스트 쌍으로 구성된 MusicCaps 데이터셋 공개
+이러한 접근은 이전 모델들(Mubert, Riffusion)을 음질과 텍스트 충실도 모두에서 능가하며, 인간 평가에서 312번 승리(총 600회 비교, 312승)를 기록했다. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
 ***
 
-### 2. 문제 정의 및 해결 방법
+## 해결하고자 하는 문제
 
-**해결하고자 하는 문제**:[1]
+### 기본 도전과제
 
-기존 음성 생성 모델들(TTS, MIDI 기반 합성)은 조건 신호와 오디오 출력 간에 시간적 정렬을 가정합니다. 반면 텍스트-음악 생성은 시퀀스 전체에 걸친 고수준 캡션으로부터 부드러운 음악 진행을 생성해야 하며, 이는 다음과 같은 어려움이 있습니다:
+텍스트-음악 생성은 텍스트-이미지 생성과 달리 본질적으로 어려운 문제를 제시한다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-- **데이터 부족**: 이미지 도메인과 달리 음악-텍스트 쌍 데이터가 극도로 부족
-- **장시간 일관성**: 음악의 장기적 구조와 여러 악기 성분의 합성 필요
-- **음악 설명의 어려움**: 이미지보다 음악의 음정, 리듬, 음색을 정확히 언어로 표현하기 어려움
+1. **쌍을 이룬 데이터의 심각한 부족** - 이미지 도메인의 대규모 데이터셋과 달리 음악-텍스트 쌍이 극히 드물다
+2. **음악의 다층적 표현 어려움** - 멜로디, 리듬, 팀브르, 악기 조합을 명확하게 캡션화하기 어렵다
+3. **시간적 차원의 복잡성** - 음악은 시간 축을 따라 구조화되어 있어 단일 캡션의 정보 밀도가 이미지보다 훨씬 낮다
+4. **장기 일관성과 고품질 간의 트레이드오프** - 이전 연구(Jukebox, PerceiverAR)는 두 가지를 동시에 달성하지 못했다
 
-**제안하는 방법**:[1]
+MusicLM은 이러한 문제들을 해결하기 위해 **MuLan(음악-텍스트 결합 임베딩 모델)**을 활용하여 훈련 중에는 음악 임베딩, 추론 중에는 텍스트 임베딩을 공유 임베딩 공간에서 사용함으로써 쌍을 이룬 데이터 필요성을 제거했다. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-MusicLM은 계층적 시퀀스-투-시퀀스 모델링으로 조건부 음악 생성을 구성합니다. 세 가지 독립적으로 사전 학습된 모델을 활용합니다:
+***
 
-#### 2.1 음성 토큰화
+## 제안하는 방법 및 수식
 
-**SoundStream (음향 토큰)**:[1]
-- 24 kHz 모노 음성에 RVQ (Residual Vector Quantization) 적용
-- 12개의 벡터 양자화기, 각각 1024 어휘 크기
-- 결과: 6 kbps 비트레이트로 초당 600개 토큰 생성 ($$A$$ 표기)
+### 아키텍처 개요
 
-**w2v-BERT (의미론적 토큰)**:[1]
-- 600M 파라미터 w2v-BERT의 7번째 중간 계층에서 추출
-- k-means 양자화 (1024 클러스터, 25 Hz 샘플링)
-- 결과: 초당 25개의 의미 토큰 ($$S$$ 표기)
+MusicLM의 시스템은 세 가지 독립적으로 사전훈련된 구성 요소로 이루어진다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-**MuLan (조건 임베딩)**:[1]
-- 음악-텍스트 공동 임베딩 모델로 128차원 임베딩 생성
-- 10초 오디오 윈도우에서 추출 (1초 스트라이드)
-- RVQ로 12개 MuLan 토큰으로 이산화 ($$M_A$$ 학습 중, $$M_T$$ 추론 중)
+#### 1. **SoundStream** (음향 토큰화)
+24 kHz 모노 오디오의 신경망 코덱으로, 잔차 벡터 양자화(RVQ)를 사용:
 
-#### 2.2 계층적 생성 모델
+$$A_t \in \{1, \ldots, 1024\}^{12} \quad \text{(12개의 RVQ 양자화기)}$$
 
-MusicLM은 세 단계의 오토레그레시브 모델을 순차적으로 적용합니다:
+- 50 Hz 임베딩, 초당 600개 토큰 생성
+- 6 kbps 비트레이트로 고충실도 재구성
 
-**단계 1: 의미론적 모델링**[1]
-$$p(S_t|S_{<t}, M_A)$$
+#### 2. **w2v-BERT** (의미론적 토큰)
+자기지도 학습 기반 의미 표현 추출:
 
-MuLan 오디오 토큰 $$M_A$$에서 의미 토큰 $$S$$를 예측합니다. 30초 크롭된 시퀀스로 학습.
+$$S_t = \text{argmin}_k \|\mathbf{h}_t - \mathbf{c}_k\|_2 \quad \text{where } k \in \{1, \ldots, 1024\}$$
 
-**단계 2: 음향 모델링 (조회 및 미세)**[1]
-$$p(A_t|A_{<t}, S, M_A)$$
+- 600M 파라미터 w2v-BERT의 7번째 계층 특성 추출
+- 1024개 k-means 클러스터로 양자화
+- 25 Hz 샘플링 (초당 25개의 의미론적 토큰)
 
-의미 토큰과 MuLan 토큰 모두를 조건으로 음향 토큰 $$A$$를 예측합니다.
-- **조회 단계**: SoundStream RVQ의 처음 4개 레벨 (10초 크롭)
-- **미세 단계**: 나머지 8개 레벨 (3초 크롭)
+#### 3. **MuLan** (음악-텍스트 공유 임베딩)
+128차원 임베딩 공간에서 음악과 텍스트를 연결:
 
-#### 2.3 모델 아키텍처[1]
+$$M_A = \text{RVQ}_{\text{MuLan}}(\text{MuLan}_{\text{audio}}(x_{10s})) \quad \text{(훈련)}$$
+$$M_T = \text{RVQ}_{\text{MuLan}}(\text{MuLan}_{\text{text}}(c)) \quad \text{(추론)}$$
 
-각 단계는 동일한 구조의 디코더 전용 Transformer:
+- 10초 오디오 윈도우 처리 (1초 스트라이드)
+- 12개 RVQ 양자화기, 어휘 크기 1024
+- 각 오디오/텍스트에 대해 12개의 MuLan 토큰 생성
+
+### 계층적 생성 프로세스
+
+MusicLM은 세 단계의 계층적 자동회귀 모델링을 사용한다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+#### **1단계: 의미론적 모델링**
+
+$$p(S_t | S_{ < t}, M_A)$$
+
+- MuLan 오디오 토큰($M_A$)을 조건으로 하여 의미론적 토큰 시퀀스 생성
+- 음악의 장기 구조(멜로디, 화성 진행) 포착
+- **decoder-only Transformer** 사용 (24개 계층, 16개 어텐션 헤드)
+
+#### **2단계A: 거친 음향 모델링 (Coarse Acoustic Modeling)**
+
+$$p(A^{1:Q'}_{t} | A^{1:Q'}_{<t}, S, M_A)$$
+
+- SoundStream RVQ의 첫 4개 계층($Q'=4$) 예측
+- 의미론적 토큰과 MuLan 토큰으로 조건화
+- 악기/성악 특성, 음향 환경 포착
+
+#### **2단계B: 세밀한 음향 모델링 (Fine Acoustic Modeling)**
+
+$$p(A^{Q'+1:Q}_{t} | A^{Q'+1:Q}_{<t}, A^{1:Q'}_t)$$
+
+- 남은 8개 RVQ 계층 예측
+- 거친 음향 토큰으로만 조건화 (의미론적 토큰 불필요)
+- 고충실도 음향 세부사항 추가
+
+### 각 단계의 모델 구조 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+모든 단계에서 동일한 decoder-only Transformer 사용:
+
+$$\mathbf{h}^{(l)} = \text{TransformerLayer}(\mathbf{h}^{(l-1)})$$
+
+**아키텍처 사양:**
 - 24개 계층
-- 16개 어텐션 헤드
-- 1024 임베딩 차원
-- 4096 피드포워드 차원
-- 0.1 드롭아웃
+- 16개 멀티-헤드 어텐션
+- 임베딩 차원: 1024
+- 피드포워드 차원: 4096
+- 드롭아웃: 0.1
 - 상대 위치 임베딩
-- **총 430M 파라미터 (단계당)**
+- **단계별 430M 파라미터**
 
-#### 2.4 추론 시 조건 대체[1]
+### 훈련 설정 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-학습 중에는 오디오의 MuLan 임베딩($$M_A$$)을 조건으로 사용하지만, 추론 시에는 텍스트 프롬프트의 MuLan 임베딩($$M_T$$)으로 대체합니다. 이를 통해 **쌍을 이룬 데이터 없이도 학습** 가능합니다.
+**데이터셋:**
+- 5백만 개 오디오 클립
+- 280,000 시간의 24 kHz 음악
+- 여러 번 데이터 순회
 
-#### 2.5 온도 샘플링[1]
+**입력 크롭 길이:**
+- 의미론적 단계: 30초 (장기 구조 학습)
+- 거친 음향 단계: 10초
+- 세밀한 음향 단계: 3초 (로컬 세부사항)
 
-생성 다양성과 시간적 일관성 간 균형을 위해 단계별 다른 온도 사용:
-- 의미 모델링: $$\tau = 1.0$$
-- 조회 음향 모델링: $$\tau = 0.95$$
-- 미세 음향 모델링: $$\tau = 0.4$$
+**추론 설정:**
+온도 샘플링으로 다양성과 일관성 균형:
 
-***
+$$p_{\text{sampled}}(x_t) \propto p(x_t)^{1/\tau}$$
 
-### 3. 성능 평가 및 향상
-
-#### 3.1 평가 메트릭[1]
-
-**음질 평가**:
-
-- **Fréchet Audio Distance (FAD)**: Trill 임베딩(음성 지향)과 VGGish 임베딩(YouTube-8M 이벤트 기반)으로 측정
-
-**텍스트 충실도 평가**:
-
-- **KL Divergence (KLD)**: LEAF 분류기의 다중 라벨 예측 분포 비교로 생성 음악과 참조 음악의 음향 특성 유사성 측정
-
-- **MuLan Cycle Consistency (MCC)**: 텍스트 임베딩과 생성 음악 임베딩 간 코사인 유사도
-
-**인간 평가**:
-
-5점 Likert 척도의 A-vs-B 비교 테스트 (1,200개 등급, 각 모델당 600개 쌍 비교)
-
-#### 3.2 정량적 결과[1]
-
-| 모델 | FAD_Trill ↓ | FAD_VGG ↓ | KLD ↓ | MCC ↑ | 승리 ↑ |
-|------|------------|----------|-------|-------|--------|
-| Riffusion | 0.76 | 13.4 | 1.19 | 0.34 | 158 |
-| Mubert | 0.45 | 9.6 | 1.58 | 0.32 | 97 |
-| **MusicLM** | **0.44** | **4.0** | **1.01** | **0.51** | **312** |
-| MusicCaps (참조) | - | - | - | - | 472 |
-
-**해석**:[1]
-- MusicLM은 FAD_VGG에서 Mubert 대비 79.2% 개선 (13.4 → 4.0)
-- KLD에서 36.1% 개선 (1.58 → 1.01)
-- MCC에서 59.4% 개선 (0.32 → 0.51)
-- 인간 평가에서 Mubert의 212% 더 많은 "승리"
-
-#### 3.3 의미 토큰의 중요성[1]
-
-의미 모델링 단계 제거 시 성능 저하:
-- FAD_Trill: 0.44 → 0.42 (미소한 변화)
-- KLD: 1.01 → 1.05 (3.96% 악화)
-- MCC: 0.51 → 0.49 (3.92% 악화)
-- 장기 구조 악화 관찰
-
-의미 토큰은 **텍스트 설명 준수와 장기 일관성** 유지에 중요함을 확인합니다.
-
-#### 3.4 토큰 정보 분석[1]
-
-**고정 의미 토큰, 변수 음향 토큰**:
-- 같은 의미·텍스트 토큰으로 여러 번 생성 시 다양한 음성 품질 특성(리버브, 왜곡도) 변화
-- 악기는 유사하지만 다른 버전 생성 가능
-
-**모두 변수**:
-- 더 높은 다양성: 멜로디와 리듬 특성 변화
-- 텍스트와 일관성 유지
+- 의미론적 단계: $\tau = 1.0$ (최대 다양성)
+- 거친 음향: $\tau = 0.95$ (균형)
+- 세밀한 음향: $\tau = 0.4$ (일관성 우선)
 
 ***
 
-### 4. 모델의 한계
+## 모델 구조의 기술적 세부사항
 
-#### 4.1 기본적 한계[1]
+### 토큰화 전략의 혁신성
 
-**부정형 미이해**: 모델이 "...없는"과 같은 부정형을 제대로 처리하지 못함
+MusicLM의 핵심 혁신은 **세 가지 유형의 토큰을 계층적으로 분리**하는 것이다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-**시간 순서 미표현**: 음악의 시간적 순서(예: "먼저 피아노, 그 다음 기타")를 설명하는 텍스트 이해 부족
+| 토큰 유형 | 생성 방식 | 시간 해상도 | 목적 |
+|---------|---------|-----------|------|
+| **MuLan (M_A/M_T)** | 결합 임베딩 → RVQ | 0.1 Hz (10s마다) | 텍스트-음악 정렬 |
+| **의미론적 (S)** | w2v-BERT → k-means | 25 Hz | 음악 구조 (멜로디/화성) |
+| **음향 (A)** | SoundStream | 50 Hz (거침), 50 Hz (세밀) | 세부 음질 |
 
-**복잡한 설명**: 5개 이상의 악기나 비음악 요소("바람, 사람들 말소리")를 포함한 복잡한 캡션 처리 어려움
+이 분리는 조건부 독립성 가정을 반영한다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-#### 4.2 MuLan 의존성 문제[1]
+$$p(S_t | S_{<t}, y_t) \approx p(S_t | S_{<t})$$
+$$p(A^{\text{fine}}_t | A^{\text{fine}}_{<t}, S) \approx p(A^{\text{fine}}_t | A^{\text{fine}}_{<t}, A^{\text{coarse}}_t)$$
 
-MCC 메트릭 자체가 MuLan에 의존하므로 객관적인 평가에 한계. 논문에서 저자들도 인정하며 "향후 정량적 평가 개선이 필요"하다고 언급
+이를 통해 계산 복잡성을 크게 감소시키면서도 정보 손실을 최소화한다.
 
-#### 4.3 오버피팅 위험[1]
+### 멜로디 조건화 확장 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-5.5k MusicCaps 데이터셋의 한정된 규모로 인해:
-- 특정 장르나 악기 조합에 편향 가능성
-- 학습 데이터에 없는 음악 스타일 생성 성능 저하 가능성
+MusicLM의 주목할 만한 확장은 멜로디 입력(휘파람, 허밍) 지원이다:
 
-***
+1. **멜로디 임베딩 모델** 학습:
+   - 같은 멜로디의 다양한 버전(커버, 악기별, 성악 등) 수집
+   - 반경-경계 삼중손실(semi-hard triplet loss) 사용
+   - 음향 특성에 불변한 멜로디 표현 학습
 
-### 5. 모델 일반화 성능 강화 가능성
-
-#### 5.1 현재 상태의 일반화 문제[2][3][1]
-
-**데이터 불균형**: MusicCaps는 클래식(13.7%), 전자음악(15.6%), 록음악(10.5%)에 치우쳐 있음
-
-**장르 편향**: 소수 문화권의 음악(전통음악, 아프리카 음악 등)이 3-4% 정도로 심각하게 저표현됨
-
-**사전학습 편향**: w2v-BERT와 SoundStream이 특정 음악 도메인에 사전학습되어 다른 음악 스타일에 부정적 전이 가능
-
-#### 5.2 일반화 개선 방향[4][5][6][2]
-
-**1. 데이터 강화 전략**[5]
-
-- 멀티모달 데이터 통합: 이미지, 비디오 정보를 음악 설명과 함께 활용
-- 합성 데이터 생성: LLM을 이용해 기존 음악 메타데이터에서 풍부한 텍스트 설명 자동 생성
-- 언어 다양성 확대: 영어뿐 아니라 다양한 언어의 음악 설명 포함
-
-**2. 매개변수 효율적 전이학습(PETL)**[6]
-
-최근 연구는 음악 파운데이션 모델의 PETL 방법 효과를 입증:
-- 어댑터 기반 방법
-- 프롬프트 기반 방법
-- 재매개변수화 방법
-
-이들은 **전체 미세조정의 계산 비용 대폭 감소** 하면서 비슷한 성능 달성
-
-**3. 도메인 특정 특성 활용**[3][2]
-
-최신 연구는 도메인 불변 특성만이 아닌 **도메인 특정 특성도 중요**함을 강조. MusicLM 확장에서:
-- 장르별 토큰 임베딩 분리
-- 악기 세트별 조건 추가
-- 문화권 특정 음악 특성 명시적 모델링
-
-**4. 강화학습 기반 미세조정**[4]
-
-2024년 Meta의 MusicRL 접근:
-- 인간 피드백으로부터 보상 모델 학습
-- 텍스트 준수와 음악 품질 간 균형 최적화
-- **주관적 음악성 개선**
-
-**5. 제로샷 및 퓨샷 적응**[2]
-
-계단식 확산 모델(MeLoDy) 같은 경량 아키텍처:
-- 기본 모델의 일반화 유지하면서 실시간 생성
-- 추가 데이터 없이 새로운 악기/스타일 적응 가능
-
-#### 5.3 특정 도메인 성능 향상 연구[7]
-
-최신 연구는 저표현 음악 장르의 생성 개선을 다룸:
-- 전이학습으로 이란 전통 음악 같은 OOD 장르 적응
-- MusicVAE 같은 모델도 조합 창의성 접근으로 개선 가능 입증
-- 적응형 미세조정으로 **언더리소스 음악 스타일 생성** 가능
+2. **조건화 결합**:
+   $$[M_T \parallel M_{\text{melody}}] \rightarrow \text{Semantic Modeling}$$
+   
+   텍스트 기반 MuLan 토큰과 멜로디 토큰을 연결하여 입력
 
 ***
 
-### 6. 현재 연구 환경 및 발전 방향
+## 성능 향상 및 평가 결과
 
-#### 6.1 최신 경쟁 모델들[8][9][10][11][4]
+### 평가 지표 설계 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-**MusicGen (Meta, 2023)**[11][8]
+MusicLM은 음질과 텍스트-음악 정렬을 종합적으로 평가하기 위해 여러 지표 사용:
 
-- 단일 단계 오토레그레시브 Transformer
-- 20,000시간 라이선스 음악으로 학습
-- MusicLM보다 효율적이면서도 경쟁력 있는 성능
-- 오픈소스로 공개되어 확장성 우수
+#### **음질 평가**
 
-**MeLoDy (2023)**[2]
+**Fréchet Audio Distance (FAD)**: 두 가지 변형
 
-- LM 가이드 확산 모델
-- MusicLM 대비 95.7-99.6% 계산 과정 감소
-- 실시간 생성 가능
+$$\text{FAD} = \|\mu_r - \mu_g\|^2 + \text{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r\Sigma_g)^{1/2})$$
 
-**MuMu-LLaMA (2024)**[3]
+- **FAD_TRILL**: Trill 음성 임베딩 기반 (음성 품질)
+- **FAD_VGGish**: VGGish 임베딩 기반 (일반 음향 품질)
 
-- 멀티모달 음악 이해 및 생성
-- AudioLDM 2와 MusicGen 통합
-- 멀티모달 입력 기반 생성
+#### **텍스트 정렬 평가**
 
-**MusiConGen (2024)**[10]
+**Kullback-Leibler Divergence (KLD)**:
 
-- 리듬과 코드 조건화 추가
-- MusicGen 기반 미세조정
-- **정밀한 시간적 제어** 실현
+$$\text{KLD}(p \parallel q) = \sum_i p(i) \log\frac{p(i)}{q(i)}$$
 
-#### 6.2 평가 방법론의 진화[12]
+- LEAF 분류기(AudioSet 사전훈련)를 사용하여 생성 음악과 참조 음악의 클래스 분포 비교
+- 낮은 KLD = 높은 텍스트-음악 일관성
 
-최신 조사에서 기존 FAD 기반 평가의 한계 지적:
+**MuLan Cycle Consistency (MCC)**:
 
-- **Gaussian 분포 가정 문제**: KAD (Kernel Audio Distance)와 MAD (MAUVE Audio Divergence) 제안
-- **작은 샘플 크기에서 높은 신뢰성**: MERT 자감독 임베딩 활용
-- **인간 선호도와의 상관성 개선**
+$$\text{MCC} = \cos(\text{MuLan}\_{\text{text}}(c), \text{MuLan}_{\text{audio}}(\hat{x}))$$
 
-#### 6.3 미래 연구 과제[5][4][1]
+- 텍스트 임베딩과 생성 음악 임베딩 간의 코사인 유사도
+- 직접적인 텍스트-음악 정렬 측정
 
-**가사 생성 통합**: 텍스트 기반 가사 자동 생성 후 음악 합성
+#### **인간 평가**
 
-**고수준 음악 구조 모델링**: 도입부(Intro), 절(Verse), 후렴(Chorus) 같은 곡 구조 명시적 표현
+- 1200개 평가 (각 모델당 600개 비교 쌍)
+- 5점 Likert 척도로 선호도 평가
+- 음질이 아닌 **텍스트 일치성에만 집중**
 
-**고샘플링 레이트 생성**: 현재 24 kHz에서 48 kHz 이상으로 확장
+### 벤치마크 결과 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-**성악 품질 개선**: 보컬 합성의 자연성 및 발음 정확성 증대
+<table>
+<thead>
+<tr>
+<th>모델</th>
+<th>FAD_TRILL ↓</th>
+<th>FAD_VGGish ↓</th>
+<th>KLD ↓</th>
+<th>MCC ↑</th>
+<th>승리 (600회 중)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Riffusion</strong></td>
+<td>0.76</td>
+<td>13.4</td>
+<td>1.19</td>
+<td>0.34</td>
+<td>158</td>
+</tr>
+<tr>
+<td><strong>Mubert</strong></td>
+<td>0.45</td>
+<td>9.6</td>
+<td>1.58</td>
+<td>0.32</td>
+<td>97</td>
+</tr>
+<tr>
+<td><strong>MusicLM</strong></td>
+<td>0.44</td>
+<td><strong>4.0</strong></td>
+<td><strong>1.01</strong></td>
+<td><strong>0.51</strong></td>
+<td><strong>312</strong></td>
+</tr>
+<tr>
+<td>MusicCaps (참조)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>472</td>
+</tr>
+</tbody>
+</table>
 
-**음악 편집 기능**: 생성 후 특정 구간 수정 및 스타일 변환
+**해석:**
+- **음질**: MusicLM의 FAD_VGGish (4.0)는 Mubert (9.6)의 2.4배 우수
+- **텍스트 충실도**: KLD에서 MusicLM (1.01) < Mubert (1.58), MCC에서 MusicLM (0.51) > Mubert (0.32)
+- **인간 평가**: MusicLM이 Mubert의 3배 이상 선호됨
 
-**저자원 언어/문화권 음악**: 데이터 부족 환경에서의 생성 능력 확대
+### 절제 연구 (Ablation Studies) [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+#### **1. 의미론적 토큰의 중요성**
+
+의미론적 모델링을 제거하고 MuLan 토큰에서 직접 음향 토큰 예측:
+
+$$p(A_t | A_{ < t}, M_A) \quad \text{vs.} \quad p(A_t | A_{ < t}, S, M_A)$$
+
+**결과:**
+- KLD: 1.01 → 1.05 (약화)
+- MCC: 0.51 → 0.49 (감소)
+- **결론**: 의미론적 토큰이 텍스트 일관성과 장기 구조 유지에 필수적
+
+#### **2. 토큰이 인코딩하는 정보**
+
+**실험 1 - 고정 조건:**
+- MuLan + 의미론적 토큰 고정, 음향 토큰만 생성
+- **결과**: 장르/리듬은 동일하지만 음향 특성(리버브, 왜곡)과 악기 선택 다양화
+
+**실험 2 - 소량 고정:**
+- MuLan 토큰만 고정, 의미론적+음향 토큰 생성
+- **결과**: 멜로디, 리듬, 악기 선택까지 높은 다양성 유지
+
+**해석**: 의미론적 토큰은 고수준 음악 구조를, 음향 토큰은 세부 특성을 담당
 
 ***
 
-### 7. 결론
+## 모델의 일반화 성능 향상 가능성
 
-MusicLM은 텍스트-음악 생성 분야의 획기적 진전을 이룬 모델입니다. 계층적 토큰화와 다단계 생성이라는 혁신적 아키텍처로 장시간 일관된 고충실도 음악 생성을 실현했습니다.[1]
+### 현재 강점
 
-하지만 부정형 처리, 시간 순서 이해, 복잡한 설명 처리 등의 한계와 제한된 데이터셋으로 인한 일반화 문제는 여전합니다. 향후 연구는 **강화학습 기반 미세조정**, **매개변수 효율적 전이학습**, **멀티모달 통합**, **평가 메트릭 개선**에 집중할 것으로 예상됩니다.[6][12][4][3][2][1]
+MusicLM의 설계는 여러 방식으로 일반화 성능을 지원한다: [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
 
-시장은 연 25% 성장률로 확대되고 있으며, MusicGen 같은 경쟁 모델들이 다양한 접근을 시도 중입니다. 음악 생성 AI의 미래는 **더 정밀한 제어**, **음악적 구조 이해**, **저자원 도메인 적응**에 달려있을 것입니다.[13][11]
+1. **대규모 다양한 훈련 데이터**
+   - 280,000시간 음악 (5백만 클립)
+   - MusicCaps 통해 다양한 장르 커버 (23개 장르, Electronic 15.6%부터 Funk 1.8%까지)
 
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/579ae294-5123-4ece-bf1c-2e0940f22b8b/2301.11325v1.pdf)
-[2](https://arxiv.org/pdf/2305.15719.pdf)
-[3](https://arxiv.org/html/2412.06660v1)
-[4](https://arxiv.org/pdf/2402.04229.pdf)
-[5](https://www.studocu.vn/vn/document/university-of-information-technology/khoa-luan-tot-nghiep/ai-enabled-text-to-music-generation-acomprehensive-reviewof-methods-frameworksand-future-directions-25/130135611)
-[6](https://arxiv.org/abs/2411.19371)
-[7](https://arxiv.org/abs/2306.00281)
-[8](https://arxiv.org/pdf/2306.05284.pdf)
-[9](http://arxiv.org/pdf/2405.18386.pdf)
-[10](https://arxiv.org/html/2407.15060v1)
-[11](https://www.pragnakalp.com/generate-music-using-metas-musicgen-on-colab/)
-[12](https://arxiv.org/html/2509.00051v1)
-[13](https://www.datainsightsmarket.com/reports/ai-music-generation-service-1961592)
-[14](https://arxiv.org/pdf/2301.11325.pdf)
-[15](https://arxiv.org/html/2409.02845v2)
-[16](https://arxiv.org/html/2501.08809v1)
-[17](http://arxiv.org/pdf/2501.09972.pdf)
-[18](https://musiclm.com)
-[19](https://arxiv.org/abs/2301.11325)
-[20](https://aclanthology.org/2024.acl-long.437/)
-[21](https://arxiv.org/html/2509.23364v1)
-[22](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0283103)
-[23](https://aclanthology.org/2025.findings-acl.360.pdf)
-[24](https://arxiv.org/html/2311.11255v3)
-[25](http://arxiv.org/pdf/2410.20478.pdf)
-[26](https://arxiv.org/html/2410.02084v1)
-[27](http://arxiv.org/pdf/2405.15863.pdf)
-[28](http://arxiv.org/pdf/2406.00626.pdf)
-[29](https://aclanthology.org/2024.emnlp-main.1.pdf)
-[30](https://musicbusinessresearch.wordpress.com/2024/04/29/ai-in-the-music-industry-part-13-text-to-music-generators-music-lm-stable-audio-riffusion-and-musicgen/)
-[31](https://www.emergentmind.com/topics/mirex-2025-symbolic-music-generation-challenge)
-[32](https://arxiv.org/html/2505.24346v1)
-[33](https://musicgen.com)
-[34](https://openreview.net/forum?id=bajTv_cvkI)
-[35](https://github.com/BlueBash/Musicgen-Text-to-Music)
+2. **계층적 아키텍처의 모듈성**
+   - 의미론적/음향 단계의 분리로 각 수준의 독립적 최적화 가능
+   - 새로운 도메인(예: 고해상도 오디오)에 대한 세밀한 조정 용이
+
+3. **메모리화 최소화**
+   - 정확한 일치: <0.2% (10초 프롬프트 포함)
+   - 근사 일치: ~1% (저 임계값)
+   - **결론**: 모델이 신규 조합을 생성하는 경향
+
+4. **텍스트-음악 임베딩 공간의 강건성**
+   - MuLan은 약하게 관련된 음악-텍스트 쌍으로도 학습 가능
+   - 44백만개 온라인 음악 비디오에서 사전훈련
+   - 이는 노이즈가 있는 실제 데이터에서의 일반화 능력 향상
+
+### 현재 한계 및 개선 방향
+
+#### **1. 텍스트 이해의 한계** [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+**문제:**
+- 부정어 처리 미흡: "기타 없이"라는 지시 무시
+- 시간적 순서 이해 부족: "빠른 도입부 다음 느린 섹션" 형식의 지시 어려움
+
+**원인:** MuLan이 약한 정렬 기반으로 훈련되어 정교한 의미론적 뉘앙스 포착 부족
+
+**개선 방향:**
+- 더 강력한 텍스트 인코더 사용 (예: 사전훈련된 대형 언어 모델)
+- 명시적 부정/시간적 지시를 위한 특수 토큰 추가
+- 두 단계 접근: 자연 언어 → 구조화된 음악 설명 변환
+
+#### **2. 복잡한 악기 조합** [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+**문제:**
+- 5개 이상의 악기 설명 시 성능 저하
+- "금관악기 섹션과 현악기, 피아노 독주"와 같은 복잡한 배치 어려움
+
+**원인:** 의미론적 토큰이 5개 이상의 별개 요소를 동시에 모델링하기 어려움
+
+**개선 방향:**
+- 다중 음악 트랙 생성으로 확장 (각 악기별 별도 트랙)
+- 악기별 조건화 모듈 추가
+- 더 큰 의미론적 토큰 어휘 (현재 1024 → 4096+)
+
+#### **3. 성악 품질** [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+**문제:**
+- 인간 성악 생성 품질 낮음
+- 가사 생성 불가능 (설계상 불가)
+
+**원인:** 훈련 데이터의 성악 곡 제한, 성음 변화의 미세한 모델링 부족
+
+**개선 방향:**
+- 성악-텍스트 정렬 전문 데이터셋 추가
+- 별도의 보컬 합성 모듈
+- 가사 생성을 위한 텍스트-음악 시퀀스 모델 통합
+
+#### **4. 높은 표본 해상도** [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+**문제:**
+- 현재 24 kHz (음악 표준 44.1/48 kHz보다 낮음)
+
+**원인:** SoundStream 아키텍처의 계산 복잡도, 메모리 제약
+
+**개선 방향:**
+- EnCodec 등 더 효율적인 코덱 사용
+- 다단계 업샘플링 추가
+- 고해상도 오디오 훈련 가능한 더 큰 모델 구축
+
+#### **5. 고수준 음악 구조** [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+**문제:**
+- 도입부-절-후렴부 같은 노래 구조 표현 어려움
+- 멀티 섹션 구조적 지시 미지원
+
+**원인:** 의미론적 토큰이 프레임 수준(25 Hz)에서 작동하여 분 단위 패턴 모델링 어려움
+
+**개선 방향:**
+- 다중 시간 스케일 토큰화 (프레임, 비트, 소절, 섹션)
+- 별도의 음악 구조 인코더
+- 심볼릭 표현(MIDI 스타일) 조건화
+
+### 미래 일반화 성능 향상 전략
+
+$$\text{GeneralizationScore} = \alpha \cdot \text{DataDiversity} + \beta \cdot \text{ModelCapacity} + \gamma \cdot \text{TextUnderstanding}$$
+
+**단기 (1-2년):**
+- 더 큰 다양한 음악 데이터셋 (현 280k → 1M+ 시간)
+- 향상된 텍스트 전처리 (LLM 기반)
+- 다중 트랙 생성 능력 추가
+
+**중기 (2-3년):**
+- 조건부 독립성 가정 완화
+- 어댑티브 모델 크기 (프롬프트 복잡도에 따라)
+- 다중 모달리티 입력 (텍스트 + 이미지 + 스케치)
+
+**장기 (3+ 년):**
+- 엔드-투-엔드 학습으로 개별 컴포넌트 통합 최적화
+- 사용자 피드백 기반 강화학습
+- 실시간 음악 편집 및 반복 세정
+
+***
+
+## 한계 및 책임 있는 개발
+
+### 기술적 한계 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+1. **음악 저작권 문제**: 모델이 훈련 데이터의 특성 학습으로 인한 잠재적 표절 위험
+   - 해결책: 엄격한 메모리화 분석 적용 (논문에서 입증: <0.2% 정확한 일치)
+
+2. **문화적 편향**: 훈련 데이터가 특정 장르/문화에 편중 가능
+   - 미해결: 저대표 음악 문화를 위한 성능 개선 필요
+
+3. **윤리적 우려**: AI 생성 음악의 창작자 권리, 수익 배분 불명확
+
+### 관련 위험 요소
+
+- 음악 전문가 실직 우려
+- 저작권자의 보상 없는 학습
+- 합성 음악의 저품질 악용 가능성
+
+***
+
+## 앞으로의 연구에 미치는 영향과 고려사항
+
+### 학술적 영향 [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+#### **1. 다중 모달 생성의 새 기준**
+
+MusicLM은 다음 세 가지 면에서 벤치마크를 제시한다:
+- **약한 정렬 학습**: MuLan처럼 불완전한 쌍 데이터에서도 효과적 학습 가능 입증
+- **계층적 분해**: 의미-음향 분리가 다른 도메인(비디오, 3D 형상 등)에 적용 가능
+- **평가 메트릭**: MusicCaps와 FAD/KLD/MCC 조합이 음악 생성 벤치마크 표준화
+
+#### **2. 오토레그레시브 vs. 확산 모델 패러다임**
+
+MusicLM의 성공(2023년 발표)에 이어 MusicGen(Meta, 6월 2023)과 MusicLDM(8월 2023)이 대안 접근법 제시:
+
+| 접근법 | MusicLM | MusicGen | MusicLDM |
+|--------|---------|----------|----------|
+| **기본** | 자동회귀 | 자동회귀 | 확산 |
+| **구조** | 3단계 계층 | 단일 단계 | 잠재 공간 |
+| **훈련 데이터** | 280k 시간 | 20k 시간 | 466 시간 |
+| **토큰화** | SoundStream + w2v-BERT + MuLan | EnCodec | VAE + 잠재 |
+| **성능** | KLD 1.01, MCC 0.51 | 비슷하거나 우수 | 혁신성 중시 |
+
+→ **영향**: 단일 접근법 우월성 부재, 문제 정의에 따른 선택 필요
+
+#### **3. 산업 애플리케이션의 가능성**
+
+- **음악 제작**: 비전문가도 배경음악, 테마곡 자동 생성
+- **게임/VR**: 동적 환경 맞춤 배경음악 실시간 생성
+- **영상 제작**: 스토리보드 설명에서 즉시 음악 생성
+- **음악 치료**: 개인 감정 맞춤 음악 생성
+
+***
+
+### 향후 연구 시 핵심 고려사항
+
+#### **1. 텍스트 이해도 강화**
+
+**현황:** 부정어, 시간적 순서 이해 미흡
+
+**연구 방향:**
+```
+text_prompt → [LLM Parsing] → Structured Representation
+                               ├─ Positive elements
+                               ├─ Negative constraints  
+                               ├─ Temporal sequence
+                               └─ Style modifiers
+                                    ↓
+                            MusicLM Generation
+```
+
+- 문맥 강화 텍스트 인코더 개발
+- 구조화된 음악 쿼리 언어 설계
+
+#### **2. 다중 트랙 생성 및 악기 제어**
+
+**파이프라인:**
+1. 텍스트 설명 → 악기별 분해
+2. 각 악기별 의미론적 토큰 시퀀스 생성
+3. 악기 간 조화 제약 추가
+4. 개별 음향 토큰 생성
+
+**기대 효과:** 20x20 미터 교향곡 같은 복잡한 편곡 생성 가능
+
+#### **3. 적응형 모델 아키텍처**
+
+프롬프트 복잡도에 따른 동적 모델 크기 조정:
+
+$$\text{Model Depth} = f(\text{Complexity}(c))$$
+
+- 간단 프롬프트("팝 음악") → 경량 모델
+- 복잡 프롬프트("5악기 뉴올리언스 재즈") → 대형 모델
+
+#### **4. 개인화 및 스타일 전이**
+
+사용자 선호도 학습을 통한 추천:
+- 이전 생성 기록 저장
+- 피드백 기반 스타일 프로필 구축
+- 미세 조정 또는 어댑터 기반 개인화
+
+#### **5. 평가 메트릭의 진화**
+
+현재 FAD/KLD/MCC 외 필요한 메트릭:
+
+- **구조적 일관성**: 음악 형식 준수도 측정
+- **창의성 점수**: 훈련 데이터와의 거리 정량화
+- **악기 정확도**: 예상 악기 생성 여부
+- **문화적 진정성**: 각 장르의 특성 보존 정도
+
+#### **6. 다중 모달 조건화 확장**
+
+현재:
+- 텍스트 ✓
+- 멜로디 ✓
+
+미래:
+- 이미지 (장면 → 음악)
+- 비디오 (영상 템포/감정 → 음악)
+- 감정 레이블 (emotion embedding)
+- 스케치 기반 음악 (악보 이미지 → 음악)
+
+***
+
+## 2020년 이후 관련 최신 연구 비교 분석
+
+### 연대별 주요 모델
+
+#### **Phase 1: 기초 (2020-2022)**
+
+| 모델 | 연도 | 핵심 기여 | 한계 |
+|------|------|---------|------|
+| **Jukebox** | 2020 | 텍스트-음악 개념 증명 | 음향 결함, 약한 일관성 |
+| **PerceiverAR** | 2022 | 고품질 음향 | 장기 구조 약함 |
+| **AudioLM** | 2022 | 계층적 의미-음향 분리 | 텍스트 조건화 없음 |
+
+#### **Phase 2: 텍스트 조건화 도입 (2023)**
+
+```
+2023년 1월: MusicLM (Google) 발표
+  ├─ 특징: 계층적 생성, MuLan 활용
+  ├─ 성능: FAD_VGGish 4.0, KLD 1.01
+  └─ 평가: 업계 기준 설정
+
+2023년 6월: MusicGen (Meta) 발표
+  ├─ 특징: 단일 단계 설계, 효율성
+  ├─ 성능: MusicLM과 경쟁 수준
+  ├─ 강점: 오픈소스, 커뮤니티 접근성
+  └─ 훈련 효율: 더 적은 데이터 (20k 시간)
+
+2023년 8월: MusicLDM (Tsinghua) 발표
+  ├─ 특징: 확산 기반, 비트 동기화 데이터 증강
+  ├─ 혁신: Mixup 전략으로 표절 위험 감소
+  └─ 강점: 다양성 강조
+```
+
+#### **Phase 3: 고급 제어 및 다중 모달 (2024-2025)**
+
+ [arxiv](http://arxiv.org/pdf/2410.20478.pdf)
+
+1. **MusicFlow** (2024, 10월)
+   - 흐름 매칭 기반 확산 모델
+   - 자기지도 표현 사용
+   - **개선**: 샘플 품질과 속도 향상
+
+2. **MusiConGen** (2024, 7월) [arxiv](https://arxiv.org/html/2407.15060v1)
+   - 리듬/화음 세밀 제어
+   - MusicGen 기반 효율적 미세조정
+   - **개선**: 시간 제어 정밀도
+
+3. **JEN-1 Composer** (2024, 12월) [arxiv](http://arxiv.org/pdf/2310.19180.pdf)
+   - 다중 트랙 생성
+   - 전방향 확산 모델
+   - **개선**: 악기별 제어 가능
+
+4. **Multi-Track MusicLDM** (2024, 9월) [arxiv](https://arxiv.org/html/2409.02845v2)
+   - 다중 악기 트랙 동시 생성
+   - 트랙 간 관계 학습
+   - **개선**: 배치 생성(일부 트랙 입력 → 나머지 자동생성)
+
+5. **State-Space Models for TTM** (2025, 1월) [arxiv](https://arxiv.org/html/2601.14786v1)
+   - SSM 기반 텍스트-음악 생성
+   - Transformer 대비 훈련 효율성 향상
+   - **성능**: 9% FLOPs, 2% 데이터로 경쟁 성능
+
+6. **MusiCoT** (2025, 3월) [arxiv](http://arxiv.org/pdf/2503.19611.pdf)
+   - Chain-of-Thought 프롬프팅
+   - AR 모델의 음악 구조 계획 추가
+   - **개선**: 창의성과 구조적 일관성
+
+7. **Diffusion Transformer (AudioX)** (2025, 3월) [arxiv](https://arxiv.org/html/2503.10522v2)
+   - 통합 Diffusion Transformer
+   - 모든 오디오/음악 생성 작업
+   - **개선**: 단일 모델 다중 작업 처리
+
+### 비교 분석 테이블
+
+ [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/e9de7b37-9ac8-405f-ab5e-0a143f0b6628/2301.11325v1.pdf)
+
+<table>
+<thead>
+<tr>
+<th colspan="2">모델</th>
+<th>기술</th>
+<th>훈련 데이터</th>
+<th>다중 모달</th>
+<th>세밀 제어</th>
+<th>효율성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="2"><strong>2023</strong></td>
+<td>MusicLM</td>
+<td>계층적 AR</td>
+<td>280k h</td>
+<td>텍스트, 멜로디</td>
+<td>중간</td>
+<td>중간</td>
+</tr>
+<tr>
+<td>MusicGen</td>
+<td>단일 AR</td>
+<td>20k h</td>
+<td>텍스트, 멜로디</td>
+<td>중간</td>
+<td>고효율</td>
+</tr>
+<tr>
+<td rowspan="3"><strong>2024</strong></td>
+<td>MusicLDM</td>
+<td>확산</td>
+<td>466 h</td>
+<td>텍스트</td>
+<td>중간</td>
+<td>낮음</td>
+</tr>
+<tr>
+<td>MusiConGen</td>
+<td>제어 AR</td>
+<td>MusicGen 기반</td>
+<td>텍스트 + 구조</td>
+<td><strong>높음</strong></td>
+<td>고효율</td>
+</tr>
+<tr>
+<td>Multi-Track LDM</td>
+<td>확산</td>
+<td>다중 트랙</td>
+<td>다중 트랙</td>
+<td><strong>높음</strong></td>
+<td>낮음</td>
+</tr>
+<tr>
+<td rowspan="3"><strong>2025</strong></td>
+<td>SSM-TTM</td>
+<td>상태공간</td>
+<td>457 h (공개)</td>
+<td>텍스트</td>
+<td>중간</td>
+<td><strong>매우 고효율</strong></td>
+</tr>
+<tr>
+<td>MusiCoT</td>
+<td>CoT AR</td>
+<td>기존 모델</td>
+<td>텍스트 (구조화)</td>
+<td><strong>높음</strong></td>
+<td>중간</td>
+</tr>
+<tr>
+<td>AudioX</td>
+<td>DiT</td>
+<td>대규모</td>
+<td>다중 모달</td>
+<td><strong>높음</strong></td>
+<td>중간</td>
+</tr>
+</tbody>
+</table>
+
+### 주요 트렌드 분석
+
+#### **1. 아키텍처 진화**
+
+$$\text{Jukebox} \to \text{AudioLM} \to \{\text{MusicLM (3-단계)} \parallel \text{MusicGen (1-단계)}\} \to \text{Diffusion} \to \text{DiT/SSM}$$
+
+- **초기**: 다단계 계층적 생성 (Jukebox, AudioLM)
+- **2023**: 단일/다단계 분기 (MusicLM의 다단계 vs MusicGen의 단일 단계)
+- **2024**: 확산 모델의 상승 (다양성과 표절 위험 감소)
+- **2025**: 차세대 아키텍처 (SSM, DiT) 실험
+
+#### **2. 제어 정밀도의 향상**
+
+| 연도 | 수준 | 예 |
+|------|------|-----|
+| **2023** | 거친 수준 | "팝 음악", "슬픈 재즈" |
+| **2024** | 세밀 수준 | "120 BPM 4/4 박자의 드럼 리프" |
+| **2025** | 매우 정교 | "시작 8마디 조용, 16마디째 크레센도, 32마디 다시 피아노" |
+
+→ **의미**: 음악 생성이 전문가 도구화 진행 중
+
+#### **3. 효율성과 개방성의 우선순위**
+
+- **MusicLM**: 폐쇄형, 고품질 (Google 독점 데이터)
+- **MusicGen**: 개방형, 우수한 효율성 (커뮤니티 개선 기여)
+- **2024-2025**: 공개 데이터만 사용한 SSM/DiT 등장
+
+→ **의미**: 민주화와 재현성 중시로의 전환
+
+#### **4. 다중 모달 조건화의 확대**
+
+```
+2023: 텍스트 + 멜로디 (MusicLM)
+  ↓
+2024: 텍스트 + 리듬 + 화음 (MusiConGen)
+      다중 트랙 지정 (Multi-Track LDM)
+  ↓
+2025: 텍스트 + 비디오 + 이미지 (예상)
+      음악-음악 스타일 전이 (예상)
+```
+
+#### **5. 평가의 성숙화**
+
+```
+문제: 기존 FAD/KLD가 음악의 문화적/구조적 특성을 포착하지 못함
+
+해결책 방향:
+  - 음악 이론 기반 메트릭 (화성, 리듬 정확도)
+  - 인간 음악가 선호도 대규모 연구
+  - 문화적 다양성 평가 (장르별 공정성)
+  - 창의성 vs 충실성 트레이드오프 정량화
+```
+
+***
+
+### MusicLM의 현재적 위치
+
+2023년 1월 발표 기준으로, MusicLM은 다음과 같이 평가된다:
+
+✅ **강점:**
+- 계층적 설계로 수 분 길이의 일관성 있는 음악 생성 가능
+- 엄격한 메모리화 분석으로 표절 위험 최소화 입증
+- MusicCaps 공개로 연구 인프라 제공
+
+⚠️ **약점:**
+- 부정어/시간적 지시 이해 미흡
+- 성악 품질 제한
+- 폐쇄 모델로 재현성/커뮤니티 참여 제한
+
+🔮 **2025년 현황:**
+- MusicGen과 확산 모델들의 도전으로 인해 기술 리더십 지위 약화
+- 하지만 계층적 아키텍처와 평가 방법론은 여전히 영향력 유지
+- 새로운 연구 방향(SSM, DiT)은 MusicLM의 개선된 형태로 진화 중
+
+***
+
+## 결론
+
+**MusicLM**은 텍스트-음악 생성의 획기적 진전을 나타내며, 그 영향은 다음과 같이 요약된다:
+
+### 학술적 유산
+- 약한 정렬 다중모달 학습의 실제 사용 사례 입증
+- 음악 생성 벤치마킹 표준 확립 (MusicCaps, FAD/KLD/MCC 조합)
+- 계층적 토큰 분해의 효과 입증 (후속 모델들의 기초)
+
+### 기술적 영향
+- 생성 AI의 음악 도메인 진입 가속화
+- 2023-2024년 사이 MusicGen, MusicLDM, JEN-1 등 다양한 경쟁 기술 촉발
+- 확산, 흐름 매칭, 상태공간 모델 등 차세대 기술의 벤치마크로 작용
+
+### 실무적 적용
+- 게임, 비디오 제작, 광고 분야에서 AI 음악 제작 도구 상용화 시작
+- 음악 교육, 음악 치료 등 새로운 응용 분야 개척
+
+### 미해결 과제
+- 세밀한 음악 제어 (현재 거친 수준의 텍스트만 지원)
+- 고표본 해상도 (24 kHz → 48 kHz+)
+- 윤리적 문제 (저작권, 창작자 보상)
+- 문화적 편향 감소
+
+MusicLM은 AI 음악 생성의 원점을 표시하지만, 기술의 민주화, 제어의 정교함, 윤리적 책임성 측면에서는 지속적인 연구가 필요하다. 2025년 현재, 텍스트-음악 생성은 더 이상 학술적 호기심의 대상이 아니라 실제 음악 프로덕션 워크플로우의 필수 도구로 진화 중이다.
+
+***
+
+## 참고 자료
+
+<span style="display:none">[^1_10][^1_11][^1_12][^1_13][^1_14][^1_15][^1_16][^1_17][^1_18][^1_19][^1_20][^1_21][^1_22][^1_23][^1_24][^1_25][^1_26][^1_27][^1_28][^1_29][^1_30][^1_31][^1_32][^1_33][^1_34][^1_35][^1_36][^1_37][^1_38][^1_39][^1_40][^1_41][^1_42][^1_43][^1_44][^1_45][^1_46][^1_47][^1_48][^1_49][^1_50][^1_51][^1_52][^1_53][^1_54][^1_55][^1_56][^1_57][^1_58][^1_59][^1_60][^1_61][^1_62][^1_63][^1_64][^1_65][^1_66][^1_67][^1_68][^1_69][^1_70][^1_71][^1_72][^1_73][^1_74][^1_75][^1_76][^1_77][^1_78][^1_79]</span>
+
+<div align="center">⁂</div>
+
+[^1_1]: 2301.11325v1.pdf
+
+[^1_2]: http://arxiv.org/pdf/2410.20478.pdf
+
+[^1_3]: https://arxiv.org/pdf/2308.01546.pdf
+
+[^1_4]: https://arxiv.org/html/2407.15060v1
+
+[^1_5]: http://arxiv.org/pdf/2310.19180.pdf
+
+[^1_6]: https://arxiv.org/html/2409.02845v2
+
+[^1_7]: https://arxiv.org/html/2601.14786v1
+
+[^1_8]: http://arxiv.org/pdf/2503.19611.pdf
+
+[^1_9]: https://arxiv.org/html/2503.10522v2
+
+[^1_10]: https://ajac-fbmk.upm.edu.my/special-issues/vol-14-si1-august-2025/ajac-02-si1-year-2025
+
+[^1_11]: https://open-publishing.org/publications/index.php/APUB/article/view/2769
+
+[^1_12]: https://ieeexplore.ieee.org/document/11211972/
+
+[^1_13]: https://doi.ub.kg.ac.rs/2024/10-46793-arheon7-173k/
+
+[^1_14]: https://photonics.pl/PLP/index.php/letters/article/view/17-29
+
+[^1_15]: https://academic.oup.com/bib/article/26/Supplement_1/i44/8378055
+
+[^1_16]: https://academic.oup.com/bib/article/26/Supplement_1/i24/8378044
+
+[^1_17]: https://papers.academic-conferences.org/index.php/icair/article/view/4070
+
+[^1_18]: https://nte.etnolog.org.ua/en/2025-year/4/3245-studies-and-materials/5873-reactualization-of-the-works-of-ivan-karpenko-karyi-in-modern-ukrainian-theatrical-and-film-texts-as-the-fragments-of-common-artistic-space
+
+[^1_19]: https://invergejournals.com/index.php/ijss/article/view/161
+
+[^1_20]: https://arxiv.org/pdf/2301.11325.pdf
+
+[^1_21]: https://arxiv.org/pdf/2405.02801.pdf
+
+[^1_22]: http://arxiv.org/pdf/2409.12638.pdf
+
+[^1_23]: http://arxiv.org/pdf/2405.18386.pdf
+
+[^1_24]: https://arxiv.org/html/2507.08333v1
+
+[^1_25]: https://www.arxiv.org/pdf/2509.23364.pdf
+
+[^1_26]: https://arxiv.org/html/2409.03715v1
+
+[^1_27]: https://arxiv.org/pdf/2601.14786.pdf
+
+[^1_28]: https://arxiv.org/html/2504.00837v1
+
+[^1_29]: https://arxiv.org/abs/2509.06027
+
+[^1_30]: https://arxiv.org/html/2506.12573v2
+
+[^1_31]: https://arxiv.org/html/2506.19085v1
+
+[^1_32]: https://arxiv.org/abs/2506.08457
+
+[^1_33]: https://arxiv.org/html/2507.20900v1
+
+[^1_34]: https://ar5iv.labs.arxiv.org/html/2301.11325
+
+[^1_35]: https://arxiv.org/abs/2505.22106
+
+[^1_36]: https://musicbusinessresearch.wordpress.com/2024/04/29/ai-in-the-music-industry-part-13-text-to-music-generators-music-lm-stable-audio-riffusion-and-musicgen/
+
+[^1_37]: https://musiclm.com
+
+[^1_38]: https://audioldm.github.io
+
+[^1_39]: https://www.digitalocean.com/resources/articles/ai-music-generators
+
+[^1_40]: https://datasciencedojo.com/blog/5-ai-music-generation-models/
+
+[^1_41]: https://openaccess.thecvf.com/content/CVPR2023/papers/Ruan_MM-Diffusion_Learning_Multi-Modal_Diffusion_Models_for_Joint_Audio_and_Video_CVPR_2023_paper.pdf
+
+[^1_42]: https://www.beatoven.ai/blog/ai-music-generation-models-the-only-guide-you-need/
+
+[^1_43]: https://tomusic.ai
+
+[^1_44]: https://randomsampling.tistory.com/140
+
+[^1_45]: https://www.nature.com/articles/s41598-025-05794-4
+
+[^1_46]: https://www.audiocipher.com/post/text-to-music
+
+[^1_47]: https://google-research.github.io/seanet/musiclm/examples/
+
+[^1_48]: https://openreview.net/forum?id=A5vUx8S2yB
+
+[^1_49]: https://www.jmir.org/2024/1/e57258
+
+[^1_50]: https://www.semanticscholar.org/paper/06ca869b5e1d3904a7bbb1bc2fadfd0e51068ddc
+
+[^1_51]: https://arxiv.org/pdf/2306.05284.pdf
+
+[^1_52]: https://arxiv.org/pdf/2308.04729.pdf
+
+[^1_53]: https://arxiv.org/pdf/2504.05690.pdf
+
+[^1_54]: https://arxiv.org/html/2410.02084v1
+
+[^1_55]: https://arxiv.org/html/2311.11255v3
+
+[^1_56]: https://arxiv.org/pdf/2404.13358.pdf
+
+[^1_57]: https://arxiv.org/pdf/2305.09636.pdf
+
+[^1_58]: https://arxiv.org/abs/2306.05284
+
+[^1_59]: https://arxiv.org/pdf/2209.03143.pdf
+
+[^1_60]: https://arxiv.org/pdf/2407.12563.pdf
+
+[^1_61]: https://arxiv.org/abs/2409.02845
+
+[^1_62]: https://arxiv.org/html/2306.12925v1
+
+[^1_63]: https://arxiv.org/pdf/2406.10970.pdf
+
+[^1_64]: https://arxiv.org/abs/2308.01546
+
+[^1_65]: https://arxiv.org/html/2501.01757v1
+
+[^1_66]: https://ar5iv.labs.arxiv.org/html/2305.09636
+
+[^1_67]: https://openlaboratory.ai/models/musicgen
+
+[^1_68]: https://huggingface.co/docs/diffusers/v0.26.1/en/api/pipelines/musicldm
+
+[^1_69]: https://www.emergentmind.com/topics/audiolm
+
+[^1_70]: https://www.audiocipher.com/post/meta-musicgen
+
+[^1_71]: https://www.themoonlight.io/ko/review/multi-track-musicldm-towards-versatile-music-generation-with-latent-diffusion-model
+
+[^1_72]: https://www.alphaxiv.org/overview/2209.03143v2
+
+[^1_73]: https://www.reddit.com/r/ArtificialInteligence/comments/145d0kr/meta_just_released_musicgen/
+
+[^1_74]: https://david.grangier.info/papers/2023/audio-lm-generation.pdf
+
+[^1_75]: https://huggingface.co/facebook/musicgen-large
+
+[^1_76]: https://musicldm.github.io/appendix/
+
+[^1_77]: https://www.youtube.com/watch?v=vCJOR11txww
+
+[^1_78]: https://github.com/RetroCirce/MusicLDM/
+
+[^1_79]: https://research.google/blog/audiolm-a-language-modeling-approach-to-audio-generation/
