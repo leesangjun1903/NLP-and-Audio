@@ -1,18 +1,5 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
-# 1. 당신은 AI 분야의 연구자입니다. "UniRepLKNet: A Universal Perception Large-Kernel ConvNet for Audio, Video, Point Cloud, Time-Series and Image Recognition"의 핵심 주장과 주요 기여를 간결하게 요약하세요.
-
-2. 이 논문이 "해결하고자 하는 문제, 제안하는 방법(수식 포함), 모델 구조, 성능 향상 및 한계"를 중심으로 자세하게 설명하세요.
-3.특히 "모델의 일반화 성능 향상 가능성"과 관련된 내용을 중점적으로 다뤄 주세요.
-4.요약 후에는 "해당 논문이 앞으로의 연구에 미치는 영향과 앞으로 연구 시 고려할 점"도 자세히 기술해 주세요.
-“2020년 이후 관련 최신 연구 비교 분석”
-수식을 LaTeX 코드로 답변 형식을 맞춰주고, LaTeX 렌더링을 위해 마크다운에 달러 기호를 사용해 주세요.
-
-논문 파일에서 전체 내용을 충분히 확보했습니다. 이제 상세하고 구조적인 답변을 작성하겠습니다.
-
-***
-
-# UniRepLKNet: 핵심 분석 및 연구적 의의
+# UniRepLKNet: A Universal Perception Large-Kernel ConvNet for Audio, Video, Point Cloud, Time-Series and Image Recognition
 
 ## 1. 핵심 주장과 주요 기여 요약
 
@@ -49,7 +36,9 @@
 
 팽창 컨볼루션의 **비팽창 등가 변환 공식**:
 
-$W' = \text{conv\_transpose2d}(W, I, \text{stride} = r) \tag{1}$
+```math
+W' = \text{conv\_transpose2d}(W, I, \text{stride} = r)
+```
 
 여기서 $W \in \mathbb{R}^{k \times k}$는 팽창율 $r$의 소형 커널이고, $I \in \mathbb{R}^{1\times1}$는 항등 커널(스칼라 1)이며, 변환된 비팽창 등가 커널 $W' \in \mathbb{R}^{((k-1)r+1)\times((k-1)r+1)}$이 됩니다.[^1_1]
 
