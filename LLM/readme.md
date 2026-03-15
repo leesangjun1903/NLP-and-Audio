@@ -300,6 +300,7 @@
 - Complexity-Based Prompting for Multi-Step Reasoning | 2022 · 509회 인용
 - STaR: Self-Taught Reasoner Bootstrapping Reasoning With Reasoning | 2022 · 971회 인용
 - Retentive Network: A Successor to Transformer for Large Language Models | 2023 · 665회 인용
+- LONGNET: Scaling Transformers to 1,000,000,000 Tokens | 2023 · 293회 인용
 
 
 ## Prompting
