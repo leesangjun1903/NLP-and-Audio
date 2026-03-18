@@ -319,6 +319,7 @@
 - Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection | 2023 · 1489회 인용
 - Corrective Retrieval Augmented Generation | 2024 · 357회 인용
 - Improving Language Models by Retrieving from Trillions of Tokens | 2021 · 1583회 인용
+- GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints | 2023 · 1607회 인용
 
 ## Chain-of-Thought(CoT)
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
