@@ -1,4 +1,4 @@
-# Attend-and-Excite: Attention-Based Semantic Guidance for Text-to-Image Diffusion Models — 심층 분석
+# Attend-and-Excite: Attention-Based Semantic Guidance for Text-to-Image Diffusion Models
 
 ---
 
