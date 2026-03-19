@@ -55,7 +55,7 @@ $$J^i_T, J^i_{T-1}, \dots, J^i_0 \quad \text{s.t.} \quad J^i_{t-1} = \Psi_i(J^i_
 MultiDiffusion의 핵심은 **여러 독립적 확산 경로를 하나의 전역 이미지로 융합**하는 것입니다. 각 디노이징 스텝에서, 다음 최적화 문제를 풀어 전역 이미지 $I_{t-1}$을 결정합니다:
 
 ```math
-I_{t-1} = \argmin_{J} \sum_{i=1}^{n} \left\| W_i \odot (F_i(J) - \Phi(F_i(I_t) \mid y_i)) \right\|^2
+I_{t-1} = \text{argmin}_{J} \sum_{i=1}^{n} \left\| W_i \odot (F_i(J) - \Phi(F_i(I_t) \mid y_i)) \right\|^2
 ```
 
 여기서:
