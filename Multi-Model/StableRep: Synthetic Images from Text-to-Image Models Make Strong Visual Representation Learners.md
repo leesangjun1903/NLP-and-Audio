@@ -50,7 +50,7 @@ $$\mathbf{q}_i = \frac{\exp(\mathbf{a} \cdot \mathbf{b}_i / \tau)}{\sum_{j=1}^{K
 
 **Step 2: Ground-truth distribution** — 동일 캡션에서 생성된 이미지끼리 match되는 것으로 정의:
 
-$$\mathbf{p}_i = \frac{\mathbb{1}_{\text{match}}(\mathbf{a}, \mathbf{b}_i)}{\sum_{j=1}^{K} \mathbb{1}_{\text{match}}(\mathbf{a}, \mathbf{b}_j)} \tag{3}$$
+$$\mathbf{p}_i = \frac{\mathbb{1}_{\text{match}}(\mathbf{a}, \mathbf{b}_i)}{\sum_{j=1}^{K} \mathbb{1}_{\text{match}}(\mathbf{a}, \mathbf{b}_j)} $$
 
 여기서 $\mathbb{1}_{\text{match}}(\cdot, \cdot)$는 앵커와 후보가 동일 캡션에서 생성되었는지를 나타내는 indicator function이다.
 
