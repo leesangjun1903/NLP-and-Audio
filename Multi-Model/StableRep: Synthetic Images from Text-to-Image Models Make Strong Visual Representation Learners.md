@@ -27,7 +27,7 @@ StableRep은 **텍스트-이미지 생성 모델(Stable Diffusion)로 생성한 
 
 Stable Diffusion은 latent space에서 확산 과정을 수행하는 denoising diffusion probabilistic model이다. **Classifier-free guidance**를 통해 조건부 및 비조건부 스코어 추정치를 선형 결합한다:
 
-$$\tilde{\epsilon}(\mathbf{t}, \mathbf{z}_\lambda) = w \cdot \epsilon(\mathbf{t}, \mathbf{z}_\lambda) + (1 - w) \cdot \epsilon(\mathbf{z}_\lambda) \tag{1}$$
+$$\tilde{\epsilon}(\mathbf{t}, \mathbf{z}_\lambda) = w \cdot \epsilon(\mathbf{t}, \mathbf{z}_\lambda) + (1 - w) \cdot \epsilon(\mathbf{z}_\lambda) $$
 
 여기서 $w$는 guidance scale로, 생성 이미지의 **다양성(diversity)과 품질(quality) 사이의 트레이드오프**를 제어한다. 기존 image-text 데이터셋(CC3M, CC12M, RedCaps)의 텍스트 캡션 $\{\mathbf{t}\_i\}_{i=1}^{N}$을 사용해 합성 이미지를 생성한다.
 
@@ -44,7 +44,7 @@ $$\tilde{\epsilon}(\mathbf{t}, \mathbf{z}_\lambda) = w \cdot \epsilon(\mathbf{t}
 
 **Step 1: Contrastive categorical distribution** — 인코딩된 앵커 샘플 $\mathbf{a}$와 후보 집합 $\{\mathbf{b}_1, \mathbf{b}_2, \ldots, \mathbf{b}_K\}$에 대해:
 
-$$\mathbf{q}_i = \frac{\exp(\mathbf{a} \cdot \mathbf{b}_i / \tau)}{\sum_{j=1}^{K} \exp(\mathbf{a} \cdot \mathbf{b}_j / \tau)} \tag{2}$$
+$$\mathbf{q}_i = \frac{\exp(\mathbf{a} \cdot \mathbf{b}_i / \tau)}{\sum_{j=1}^{K} \exp(\mathbf{a} \cdot \mathbf{b}_j / \tau)} $$
 
 여기서 $\tau \in \mathbb{R}_+$는 온도 하이퍼파라미터, $\mathbf{a}$와 모든 $\mathbf{b}$는 $\ell_2$ 정규화된 벡터이다.
 
@@ -56,7 +56,7 @@ $$\mathbf{p}_i = \frac{\mathbb{1}_{\text{match}}(\mathbf{a}, \mathbf{b}_i)}{\sum
 
 **Step 3: Multi-positive contrastive loss** — ground-truth 분포 $\mathbf{p}$와 contrastive 분포 $\mathbf{q}$ 간의 크로스엔트로피:
 
-$$\mathcal{L} = H(\mathbf{p}, \mathbf{q}) = -\sum_{i=1}^{K} \mathbf{p}_i \log \mathbf{q}_i \tag{4}$$
+$$\mathcal{L} = H(\mathbf{p}, \mathbf{q}) = -\sum_{i=1}^{K} \mathbf{p}_i \log \mathbf{q}_i $$
 
 이 손실 함수는 기존 SimCLR의 single-positive contrastive loss의 **일반화된 형태**로, 단일 양성 쌍에서는 $\mathbf{p}$가 one-hot 벡터로 환원된다. Supervised contrastive learning (Khosla et al., 2020)과 유사하나, **클래스 레이블 없이 동일 캡션에서 생성된 이미지만을 매칭 기준**으로 사용한다는 핵심 차이가 있다.
 
