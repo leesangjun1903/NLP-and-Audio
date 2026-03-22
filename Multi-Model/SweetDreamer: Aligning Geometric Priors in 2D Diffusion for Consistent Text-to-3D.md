@@ -177,7 +177,7 @@ $$\nabla_\theta \mathcal{L}_{\text{VSD}} = \mathbb{E}_{t,\boldsymbol{\epsilon}}\
 
 $$\nabla_\theta \mathcal{L}_{\text{total}} = \nabla_\theta \mathcal{L}_{\text{SDS}}^{\text{RGB}} + \lambda_{\text{geo}} \nabla_\theta \mathcal{L}_{\text{SDS}}^{\text{AGP}}$$
 
-여기서 $\mathcal{L}_{\text{SDS}}^{\text{AGP}}$는 정렬된 기하학적 프라이어 확산 모델 $\boldsymbol{\epsilon}_\phi^{\text{AGP}}$에 의한 SDS:
+여기서 $\mathcal{L}\_{\text{SDS}}^{\text{AGP}}$는 정렬된 기하학적 프라이어 확산 모델 $\boldsymbol{\epsilon}_\phi^{\text{AGP}}$에 의한 SDS:
 
 $$\nabla_\theta \mathcal{L}\_{\text{SDS}}^{\text{AGP}} = \mathbb{E}_{t,\boldsymbol{\epsilon}}\left[w(t)\left(\boldsymbol{\epsilon}_\phi^{\text{AGP}}(\mathbf{m}_t;y,t,c) - \boldsymbol{\epsilon}\right)\frac{\partial \mathbf{m}}{\partial \theta}\right]$$
 
