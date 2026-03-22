@@ -360,6 +360,7 @@
 - KTO: Model Alignment as Prospect Theoretic Optimization | 2024 · 770회 인용
 - RS-DPO: A Hybrid Rejection Sampling and Direct Preference Optimization Method for Alignment of Large Language Models | 2024 · 56회 인용
 - UNA: Unifying Alignments of RLHF/PPO, DPO and KTO by a Generalized Implicit Reward Function | 2024 · 4회 인용
+- DPO : Direct Preference Optimization: Your Language Model is Secretly a Reward Model | 2023 · 8238회 인용
 
 
 ### Research
