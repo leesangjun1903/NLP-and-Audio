@@ -27,7 +27,7 @@
 
 3D 장면은 학습 가능한 평균 $\mu$, 불투명도 $\sigma$, 공분산 행렬 $\Sigma$, 구면 조화 계수 $C$를 가진 비등방성 3D Gaussian 커널 집합으로 표현된다. 픽셀 색상은 $\alpha$-블렌딩으로 계산된다:
 
-$$C = \sum_{i \in N} c_i \alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j) \tag{1}$$
+$$C = \sum_{i \in N} c_i \alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j) $$
 
 여기서 $c_i$는 구면 조화(SH)에서 평가된 색상, $\alpha_i$는 커널의 불투명도와 2D Gaussian 가중치의 곱이다.
 
@@ -35,11 +35,11 @@ $$C = \sum_{i \in N} c_i \alpha_i \prod_{j=1}^{i-1}(1 - \alpha_j) \tag{1}$$
 
 2D 분할 모델 [Cheng et al. 2023]로 생성된 마스크를 기반으로, 3D Gaussian 커널에 추가적인 학습 가능한 RGB 속성을 부여하여 분할 손실을 정의한다:
 
-$$L_{\text{seg}} = L_1(M_{2d}, I) \tag{2}$$
+$$L_{\text{seg}} = L_1(M_{2d}, I) $$
 
 전체 학습 손실:
 
-$$L_{\text{total}} = (1 - \lambda)L_1 + \lambda L_{\text{SSIM}} + \lambda_{\text{seg}} L_{\text{seg}} \tag{3}$$
+$$L_{\text{total}} = (1 - \lambda)L_1 + \lambda L_{\text{SSIM}} + \lambda_{\text{seg}} L_{\text{seg}} $$
 
 여기서 $\lambda = 0.2$, $\lambda_{\text{seg}} = 0.1$이다.
 
@@ -47,11 +47,11 @@ $$L_{\text{total}} = (1 - \lambda)L_1 + \lambda L_{\text{SSIM}} + \lambda_{\text
 
 테트라헤드론의 정지 형태 $\{x_0^0, x_1^0, x_2^0, x_3^0\}$과 현재 형태 $\{x_0, x_1, x_2, x_3\}$에 대해:
 
-$$F = \left[x_1 - x_0,\; x_2 - x_0,\; x_3 - x_0\right] \left[x_1^0 - x_0^0,\; x_2^0 - x_0^0,\; x_3^0 - x_0^0\right]^{-1} \tag{4}$$
+$$F = \left[x_1 - x_0,\; x_2 - x_0,\; x_3 - x_0\right] \left[x_1^0 - x_0^0,\; x_2^0 - x_0^0,\; x_3^0 - x_0^0\right]^{-1} $$
 
 변형된 Gaussian 커널의 평균과 공분산:
 
-$$\boldsymbol{\mu} = \sum_i w_i \boldsymbol{x}_i, \quad \boldsymbol{\Sigma} = F \boldsymbol{\Sigma}_0 F^T \tag{5}$$
+$$\boldsymbol{\mu} = \sum_i w_i \boldsymbol{x}_i, \quad \boldsymbol{\Sigma} = F \boldsymbol{\Sigma}_0 F^T $$
 
 여기서 $w_i$는 정지 형태에서 초기 중심 $\boldsymbol{\mu}_0$의 무게 중심 좌표(barycentric coordinates), $\boldsymbol{\Sigma}_0$는 초기 공분산 행렬이다.
 
