@@ -373,7 +373,7 @@
 - Finding Universal Grammatical Relations in Multilingual BERT | 2020 · 114회 인용
 - Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
 - A model of errors in transformers
-
+- Towards end-to-end automation of AI research | 2026 · 4회 인용
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
@@ -387,4 +387,5 @@
 - Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents
 - Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
 - VOYAGER: An Open-Ended Embodied Agent with Large Language Models | 2023 · 1326회 인용
+
 
