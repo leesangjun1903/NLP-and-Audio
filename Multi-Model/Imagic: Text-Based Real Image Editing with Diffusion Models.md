@@ -1,3 +1,291 @@
+# Imagic: Text-Based Real Image Editing with Diffusion Models
+
+> **논문 정보**
+> - **제목**: Imagic: Text-Based Real Image Editing with Diffusion Models
+> - **저자**: Bahjat Kawar, Shiran Zada, Oran Lang, Omer Tov, Huiwen Chang, Tali Dekel, Inbar Mosseri, Michal Irani
+> - **학회**: CVPR 2023
+> - **arXiv**: [2210.09276](https://arxiv.org/abs/2210.09276)
+> - **프로젝트 페이지**: [imagic-editing.github.io](https://imagic-editing.github.io/)
+
+---
+
+## 1. 핵심 주장 및 주요 기여 요약
+
+### 🔑 핵심 주장
+
+이 논문은 기존 방법들이 특정 편집 유형(예: 오브젝트 오버레이, 스타일 전이)에 제한되거나 합성 이미지에만 적용되거나 동일 오브젝트의 여러 입력 이미지를 필요로 했던 한계를 극복하고, **최초로 단일 실제 이미지에 대해 복잡한(비강체적, non-rigid) 텍스트 기반 시맨틱 편집**을 수행하는 능력을 시연한다.
+
+예를 들어, 이미지 내 하나 또는 여러 오브젝트의 포즈와 구성을 원본 이미지의 특성을 보존하면서 변경할 수 있으며, 서 있는 개를 앉히거나 점프시키고, 새가 날개를 펼치게 할 수 있다.
+
+### 📌 주요 기여 (3가지)
+
+Imagic의 주요 기여는 다음과 같다: **(1)** 단일 실제 고해상도 입력 이미지에 대해 전체적인 구조와 구성을 보존하면서 복잡한 비강체적 편집을 가능하게 하는 최초의 텍스트 기반 시맨틱 이미지 편집 기법을 제안하며, 스타일 변경, 색상 변경, 오브젝트 추가 등 다양한 편집도 수행한다.
+
+**(2)** 두 텍스트 임베딩 시퀀스 사이의 의미론적으로 의미 있는 선형 보간을 시연함으로써, 텍스트-이미지 확산 모델의 강력한 구성적 능력을 드러낸다.
+
+**(3)** 복잡한 비강체적 편집을 설명하는 100쌍의 입력 이미지와 대상 텍스트로 구성된 새로운 벤치마크 **TEdBench (Textual Editing Benchmark)**를 도입하며, 향후 연구를 위해 이를 공개하고 Imagic의 결과도 공개한다.
+
+---
+
+## 2. 해결하고자 하는 문제, 제안 방법, 모델 구조, 성능, 한계
+
+### 🔴 2-1. 해결하고자 하는 문제
+
+기존 연구들은 단일 입력 이미지와 대상 텍스트(원하는 편집)만을 필요로 하지 않았다. 대부분의 방법이 특정 편집 유형(오브젝트 오버레이, 스타일 전이 등)에 제한되거나, 합성 이미지에만 적용되거나, 동일한 오브젝트의 여러 입력 이미지가 필요했다.
+
+Imagic은 단일 입력 이미지와 대상 텍스트만을 필요로 하며, 실제 이미지에서 동작하고 이미지 마스크나 오브젝트의 추가적인 뷰와 같은 추가 입력을 필요로 하지 않는다.
+
+---
+
+### 🟢 2-2. 제안하는 방법 (수식 포함)
+
+Imagic의 방법은 **3가지 주요 단계**로 구성된다: 텍스트 임베딩 최적화(Text Embedding Optimization), 모델 파인튜닝(Model Fine-Tuning), 보간(Interpolation).
+
+---
+
+#### **Stage 1: 텍스트 임베딩 최적화 (Text Embedding Optimization)**
+
+주어진 실제 이미지와 대상 텍스트 프롬프트에 대해, 대상 텍스트를 인코딩하여 초기 텍스트 임베딩 $e_{tgt}$를 얻고, 이를 입력 이미지를 재구성하도록 최적화하여 $e_{opt}$를 획득한다.
+
+이 단계에서의 최적화 목표는 확산 모델의 일반적인 Denoising Objective를 활용한다. Diffusion Model의 표준 학습 손실은:
+
+$$\mathcal{L}_{DM} = \mathbb{E}_{x_0, \epsilon \sim \mathcal{N}(0,I), t}\left[\|\epsilon - \epsilon_\theta(x_t, t, e)\|^2\right]$$
+
+여기서:
+- $x_0$: 입력 이미지
+- $x_t$: 시간 $t$에서 노이즈가 추가된 이미지
+- $\epsilon$: 추가된 가우시안 노이즈
+- $\epsilon_\theta$: 학습된 노이즈 예측 네트워크
+- $e$: 텍스트 임베딩 (Stage 1에서 최적화 대상)
+- $t$: 확산 타임스텝
+
+Stage 1에서는 **모델 파라미터 $\theta$는 고정**하고, 텍스트 임베딩 $e$를 최적화하여 $e_{tgt} \rightarrow e_{opt}$를 얻는다:
+
+$$e_{opt} = \arg\min_{e} \mathbb{E}_{x_0, \epsilon, t}\left[\|\epsilon - \epsilon_\theta(x_t, t, e)\|^2\right]$$
+
+---
+
+#### **Stage 2: 모델 파인튜닝 (Model Fine-Tuning)**
+
+그 다음, $e_{opt}$를 고정한 채 생성 모델을 파인튜닝하여 입력 이미지에 대한 충실도를 향상시킨다.
+
+이 단계에서는 **임베딩 $e_{opt}$는 고정**하고, **모델 파라미터 $\theta$를 최적화**한다:
+
+$$\theta^* = \arg\min_\theta \mathbb{E}_{x_0, \epsilon, t}\left[\|\epsilon - \epsilon_\theta(x_t, t, e_{opt})\|^2\right]$$
+
+파인튜닝 없이는 원본 이미지를 완전히 재구성하지 못하지만, 파인튜닝을 수행하면 최적화된 임베딩을 넘어 입력 이미지의 세부 사항을 부여함으로써 중간 보간값에서도 이 세부 사항을 유지할 수 있다.
+
+---
+
+#### **Stage 3: 보간 (Interpolation)**
+
+최종적으로, $e_{opt}$와 $e_{tgt}$ 사이를 보간하여 최종 편집 결과를 생성한다.
+
+보간 수식:
+
+$$e_{interp} = (1 - \eta) \cdot e_{opt} + \eta \cdot e_{tgt}, \quad \eta \in [0, 1]$$
+
+여기서:
+- $\eta = 0$: 원본 이미지에 가까운 출력 (높은 충실도)
+- $\eta = 1$: 대상 텍스트에 가까운 출력 (높은 편집성)
+- $\eta$: **편집성(editability)**과 **충실도(fidelity)** 사이의 트레이드오프 파라미터
+
+주어진 실제 이미지와 대상 텍스트 프롬프트에서: (A) 대상 텍스트를 인코딩하고 초기 임베딩 $e_{tgt}$를 얻은 다음, 이를 최적화하여 $e_{opt}$를 획득하고; (B) $e_{opt}$를 고정한 채 생성 모델을 파인튜닝하여 입력 이미지에 대한 충실도를 높이고; (C) 마지막으로 $e_{opt}$와 $e_{tgt}$를 보간하여 최종 편집 결과를 생성한다.
+
+---
+
+### 🟣 2-3. 모델 구조
+
+Imagic은 사전 학습된 텍스트-이미지 확산 모델을 활용하며, **Imagic의 공식화는 확산 모델 선택에 독립적**으로(agnostic), Imagen이나 Stable Diffusion 모두에 동일한 편집 요청을 적용할 수 있다.
+
+구체적으로 모델 구조는 다음 요소로 구성된다:
+
+| 구성 요소 | 역할 |
+|---|---|
+| **텍스트 인코더** | 텍스트 프롬프트 → 임베딩 (CLIP 또는 T5) |
+| **U-Net (확산 모델)** | 노이즈 예측, Stage 2에서 파인튜닝 대상 |
+| **텍스트 임베딩 공간** | $e_{tgt}$, $e_{opt}$ 최적화 및 보간이 이루어지는 공간 |
+| **디노이징 프로세스** | 보간된 임베딩 $e_{interp}$를 조건으로 최종 이미지 생성 |
+
+예를 들어, Imagen은 T5 언어 모델을 사용하는데, 이 모델은 텍스트의 토큰 수에 따라 길이가 달라지는 임베딩을 출력하여, 보간을 위해 두 임베딩이 동일한 길이여야 하는 조건이 필요하다. 이것이 텍스트 임베딩 최적화 단계의 필요성을 뒷받침한다.
+
+---
+
+### 🟡 2-4. 성능 향상
+
+사용자 연구에서 9,213개의 답변을 집계한 결과, 평가자들은 **모든 고려된 기준선 대비 70% 이상의 선호율**로 Imagic을 강하게 선호하는 것으로 나타났다.
+
+Imagic은 다양한 도메인의 수많은 입력에서 품질과 다양성을 시연하며, 높은 챌린지를 갖는 이미지 편집 벤치마크 TEdBench를 도입하고, 사용자 연구에서 인간 평가자들이 TEdBench에서 기존 주요 편집 방법들보다 Imagic을 선호한다는 결과를 보였다.
+
+1024×1024 픽셀 원본 이미지와 편집된 이미지 쌍을 생성하며, 포즈 변경, 구성 변경, 다중 오브젝트 편집, 오브젝트 추가, 오브젝트 교체, 스타일 변경, 색상 변경 등 다양한 편집 유형을 지원한다.
+
+---
+
+### 🔴 2-5. 한계점
+
+Imagic의 주요 한계는 아래와 같다:
+
+1. **이미지별 파인튜닝의 필요**: 매 입력 이미지마다 Stage 1(임베딩 최적화)과 Stage 2(모델 파인튜닝)를 수행해야 하므로 추론 속도가 느리다. 이는 실시간 응용에 제약이 된다.
+2. **편집성-충실도 트레이드오프**: 편집성(editability)과 충실도(fidelity) 사이의 트레이드오프가 존재하며, $\eta$ 파라미터를 수동으로 조정해야 한다.
+3. **복잡한 장면 및 다중 오브젝트의 한계**: 복잡한 구도의 이미지나 다수의 오브젝트가 얽힌 경우 원치 않는 변화가 생길 수 있다.
+4. **모델 일반화의 부재**: 특정 이미지에 대해 모델을 파인튜닝하기 때문에 다른 이미지에는 적용 불가하다(모델이 일반화되지 않음).
+5. **랜덤 시드 민감성**: 논문에서 모델 파인튜닝과 보간 강도에 대한 ablation study를 수행했으며, 텍스트 임베딩 최적화의 필요성 및 랜덤 시드 변화에 대한 민감도에 대한 추가 ablation study도 제시하였다.
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+Imagic의 가장 큰 구조적 한계는 **이미지별(per-image) 파인튜닝**으로 인한 일반화 부재이다. 하지만 다음과 같은 방향에서 일반화 성능 향상 가능성을 논의할 수 있다.
+
+### 📌 3-1. 모델 불가지론적(Agnostic) 설계의 장점
+
+Imagic의 공식화는 확산 모델 선택에 독립적으로, Imagen과 Stable Diffusion 모두에 동일한 편집 요청을 적용한 여러 예시를 보여준다. 이는 향후 더 강력한 기반 모델이 등장할수록 Imagic 프레임워크도 자동으로 성능이 향상되는 구조임을 의미한다.
+
+### 📌 3-2. LoRA 등 파라미터 효율적 파인튜닝 기법의 통합
+
+비공식 구현체에서는 LoRA(Low-Rank Adaptation)를 활용하여 24GB VRAM 환경에서 파인튜닝 단계를 수용하고, 파인튜닝 학습률을 LoRA의 기본 설정과 맞추어 조정하는 방법이 시도되었다. 이는 **파인튜닝 비용을 대폭 줄이면서 일반화에 가까운 방향으로 발전**할 수 있음을 시사한다.
+
+### 📌 3-3. FastEdit 등 가속화 연구의 등장
+
+FastEdit은 의미론적 인식 확산 파인튜닝을 통한 빠른 텍스트 기반 단일 이미지 편집 방법으로, 편집 과정을 단 17초로 획기적으로 가속화하고, U-Net에 LoRA를 적용하였다. 이처럼 파인튜닝 속도 향상을 통해 일반화와 실용성을 동시에 높이는 방향이 주목받고 있다.
+
+### 📌 3-4. TEdBench를 통한 표준화된 평가
+
+TEdBench는 복잡한 비강체적 편집을 설명하는 100쌍의 입력 이미지-텍스트 쌍의 새로운 컬렉션이며, 향후 연구가 이 표준화된 평가 세트를 활용할 수 있도록 Imagic의 결과와 함께 공개하였다. 이 벤치마크는 일반화 성능 측정의 기준점이 될 수 있다.
+
+### 📌 3-5. 편집 가능성과 충실도의 동시 개선
+
+텍스트 임베딩 보간의 핵심 수식:
+
+$$e_{interp}(\eta) = (1-\eta) \cdot e_{opt} + \eta \cdot e_{tgt}$$
+
+이 선형 보간 구조는 단순하지만 강력하다. 텍스트-이미지 확산 모델의 강력한 구성적(compositional) 능력을 드러내는, 두 텍스트 임베딩 시퀀스 사이의 의미론적으로 의미 있는 선형 보간을 시연한다. 향후 비선형 보간이나 조건부 보간으로 확장하면 더 정밀한 제어가 가능해질 수 있다.
+
+---
+
+## 4. 최신 관련 연구 비교 분석 (2020년 이후)
+
+### 📊 주요 관련 연구 비교표
+
+| 방법 | 연도 | 입력 | 마스크 필요 | 파인튜닝 | 비강체 편집 | 실제 이미지 |
+|---|---|---|---|---|---|---|
+| **SDEdit** | 2021 | 이미지+텍스트 | ❌ | ❌ | 제한적 | ✅ |
+| **Prompt-to-Prompt** | 2022 | 텍스트 수정 | ❌ | ❌ | ❌ | ❌ (합성) |
+| **Textual Inversion** | 2022 | 이미지+텍스트 | ❌ | ✅ | ❌ | ✅ |
+| **DreamBooth** | 2023 | 다중 이미지 | ❌ | ✅ | ❌ | ✅ |
+| **Imagic** | 2023 | 이미지+텍스트 | ❌ | ✅(per-image) | **✅** | ✅ |
+| **InstructPix2Pix** | 2023 | 이미지+명령어 | ❌ | ❌ | 부분적 | ✅ |
+| **MagicBrush** | 2024 | 이미지+명령어 | 선택 | ❌ | 부분적 | ✅ |
+
+---
+
+### 🔵 4-1. Prompt-to-Prompt (Hertz et al., 2022)
+
+Prompt-to-Prompt는 사전 학습된 텍스트 조건부 확산 모델에서 이미지 편집을 위한 텍스트 임베딩에 해당하는 어텐션 맵을 조작하는 데 초점을 맞추며, Null-text inversion은 관련 프롬프트와 함께 텍스트 기반 확산 모델의 잠재 공간으로 입력 이미지의 DDIM 역변환을 수행하여 직관적인 텍스트 기반 이미지 편집을 가능하게 한다.
+
+- **Imagic 대비 차이**: Prompt-to-Prompt는 주로 **합성 이미지**에 효과적이며, 실제 이미지 편집은 추가적인 Null-text inversion이 필요하다. 또한 비강체적 편집이 어렵다.
+
+---
+
+### 🟠 4-2. InstructPix2Pix (Brooks et al., CVPR 2023)
+
+주어진 이미지와 해당 이미지를 어떻게 편집할지에 대한 지시가 주어지면 모델이 적절한 편집을 수행하며, **전체 입력 또는 출력 이미지에 대한 상세 설명이 필요 없고, 예시별 역변환(inversion)이나 파인튜닝 없이** 순전파(forward pass)에서 이미지를 편집한다.
+
+InstructPix2Pix는 생성된 데이터로 학습되며, 추론 시 실제 이미지와 사용자가 작성한 명령어로 일반화된다. 순전파에서 편집을 수행하고 예시별 파인튜닝이나 역변환이 필요 없으므로 수 초 내에 빠르게 이미지를 편집한다.
+
+**Imagic vs. InstructPix2Pix 핵심 차이**:
+- InstructPix2Pix는 추론 속도가 훨씬 빠르지만 복잡한 비강체적 편집(예: 포즈 변경)에서는 Imagic보다 부족하다.
+- Imagic은 이미지별 파인튜닝으로 높은 충실도를 달성하지만 속도가 느리다.
+
+---
+
+### 🟢 4-3. MagicBrush (Zhang et al., 2024)
+
+오프-더-셸프 InstructPix2Pix 체크포인트는 단일 및 다중 턴 시나리오 모두에서 다른 기준선에 비해 경쟁력이 없지만, MagicBrush로 파인튜닝한 후에는 대부분의 지표에서 최우수 또는 차우수 결과를 달성한다. 이는 고품질 수동 주석 데이터의 중요성을 보여주며, Imagic의 파인튜닝 기반 접근법과 상호 보완적 관점을 제시한다.
+
+---
+
+### 🔴 4-4. TurboEdit (SIGGRAPH Asia 2024)
+
+TurboEdit은 단 3번의 확산 단계(A5000 GPU 기준 0.321초)만으로 실제 이미지의 텍스트 기반 편집을 가능하게 한다. 이는 Imagic의 가장 큰 약점인 속도 문제를 해결하는 방향의 연구이다.
+
+---
+
+### 🟡 4-5. LEdits++ 및 아키텍처 독립적 방법
+
+LEdits++의 새로운 역변환 접근법은 튜닝이나 최적화가 필요 없으며, 몇 번의 확산 단계만으로 고충실도 결과를 생성하고, 복수의 동시 편집을 지원하며 아키텍처에 독립적이다.
+
+---
+
+## 5. 앞으로의 연구에 미치는 영향 및 연구 시 고려할 점
+
+### 🚀 5-1. 미래 연구에 미치는 영향
+
+#### ① 텍스트-이미지 잠재 공간의 의미론적 이해 심화
+
+Imagic은 두 텍스트 임베딩 사이의 의미론적으로 의미 있는 선형 보간을 시연함으로써, 텍스트-이미지 확산 모델의 강력한 구성적 능력을 드러낸다. 이는 향후 잠재 공간의 구조를 더 깊이 이해하고 활용하는 연구의 토대를 마련한다.
+
+#### ② TEdBench를 통한 벤치마크 표준화
+
+TEdBench는 SDEdit, DDIB, Text2Live 등 세 가지 방법을 주로 비교하며, 이후 연구들이 이 벤치마크를 기준으로 성능 비교를 수행할 수 있게 하여 분야 발전의 기준점이 되고 있다.
+
+#### ③ 단일 이미지 편집 패러다임의 확산
+
+Imagic이 단일 실제 이미지에서 복잡한 편집을 처음 시연한 이후, 후속 연구로 InstructPix2Pix, Instruct-Diffusion, Imagic, DDPM-Inversion, LEDITS++, ProxEdit 등 다양한 방법들이 이 방향에서 발전하고 있다.
+
+#### ④ 의료·특수 도메인으로의 확장
+
+PRISM 프레임워크는 Stable Diffusion을 활용하여 고해상도의 언어 기반 의료 이미지 counterfactual을 생성하며, 허위 상관관계와 질병 특징을 선택적으로 수정하는 전례 없는 정밀도를 보여준다. 이처럼 Imagic의 아이디어는 의료 영상 분석 등 특수 도메인으로 확장되고 있다.
+
+---
+
+### ⚠️ 5-2. 앞으로 연구 시 고려할 점
+
+#### ① 추론 속도 vs. 편집 품질의 트레이드오프
+
+Imagic은 이미지별 파인튜닝으로 높은 품질을 달성하지만 실용성이 낮다. InstructPix2Pix와 같이 예시별 역변환이나 파인튜닝 없이 순전파에서 이미지를 편집하는 방향과 Imagic의 품질을 결합한 연구가 필요하다.
+
+#### ② 파라미터 효율적 파인튜닝(PEFT) 기법 통합
+
+LoRA를 활용하여 파인튜닝 단계를 24GB VRAM 환경에서 수용하는 접근법처럼, LoRA·Adapter 등 PEFT 기법을 활용하면 파인튜닝 비용을 대폭 줄이면서 품질을 유지할 수 있다.
+
+#### ③ 편집성-충실도 균형의 자동화
+
+보간 파라미터 $\eta$의 수동 조정은 사용자 경험을 저하시킨다. 콘텐츠와 텍스트 프롬프트의 의미적 거리를 기반으로 $\eta$를 자동 추정하는 알고리즘 연구가 필요하다.
+
+#### ④ 다중 편집(Multi-Edit) 지원
+
+LEdits++처럼 복수의 동시 편집을 지원하는 아키텍처 독립적 접근법으로 발전할 필요가 있으며, 현재 Imagic은 단일 텍스트 지시에 의한 단일 편집에 집중되어 있다.
+
+#### ⑤ 데이터 품질 및 평가 메트릭의 고도화
+
+InstructPix2Pix를 MagicBrush로 파인튜닝한 결과가 가장 좋더라도 편집된 이미지는 실제 정답 이미지보다 여전히 현저히 낮은 수준이며, 이는 현재 방법과 실제 편집 요구 사이의 간극을 보여준다. 보다 정교한 평가 메트릭(예: 편집 국소성, 아이덴티티 보존 점수 등)의 개발이 필요하다.
+
+#### ⑥ 비선형 보간 및 조건부 보간 탐구
+
+현재의 선형 보간 $e_{interp} = (1-\eta)e_{opt} + \eta e_{tgt}$ 대신, 곡선형(geodesic) 보간이나 콘텐츠 인식(content-aware) 보간으로 더 자연스러운 편집 결과를 얻는 연구가 유망하다.
+
+---
+
+## 📚 참고 자료 및 출처
+
+| # | 제목 | 출처 |
+|---|---|---|
+| 1 | Imagic: Text-Based Real Image Editing with Diffusion Models | [arXiv:2210.09276](https://arxiv.org/abs/2210.09276) |
+| 2 | Imagic 프로젝트 페이지 | [imagic-editing.github.io](https://imagic-editing.github.io/) |
+| 3 | Imagic CVPR 2023 공식 논문 (Open Access) | [openaccess.thecvf.com](https://openaccess.thecvf.com/content/CVPR2023/papers/Kawar_Imagic_Text-Based_Real_Image_Editing_With_Diffusion_Models_CVPR_2023_paper.pdf) |
+| 4 | ar5iv (arXiv HTML 렌더링) | [ar5iv.labs.arxiv.org/html/2210.09276](https://ar5iv.labs.arxiv.org/html/2210.09276) |
+| 5 | Imagic Semantic Scholar | [semanticscholar.org](https://www.semanticscholar.org/paper/Imagic:-Text-Based-Real-Image-Editing-with-Models-Kawar-Zada/23e261a20a315059b4de5492ed071c97a20c12e7) |
+| 6 | InstructPix2Pix: Learning to Follow Image Editing Instructions (Brooks et al., CVPR 2023) | [openaccess.thecvf.com](https://openaccess.thecvf.com/content/CVPR2023/papers/Brooks_InstructPix2Pix_Learning_To_Follow_Image_Editing_Instructions_CVPR_2023_paper.pdf) |
+| 7 | MagicBrush: A Manually Annotated Dataset for Instruction-Guided Image Editing | [arxiv.org/html/2306.10012](https://arxiv.org/html/2306.10012v3) |
+| 8 | TurboEdit: Text-Based Image Editing Using Few-Step Diffusion Models (SIGGRAPH Asia 2024) | [dl.acm.org](https://dl.acm.org/doi/10.1145/3680528.3687612) |
+| 9 | Prompt-to-Prompt Image Editing with Cross-Attention Control (Hertz et al., 2022) | [prompt-to-prompt.github.io](https://prompt-to-prompt.github.io/) |
+| 10 | Image Editing with Diffusion Models: A Survey (arXiv 2025) | [arxiv.org/html/2504.13226](https://arxiv.org/html/2504.13226v1) |
+| 11 | Papers Decoded — Imagic (Medium) | [medium.com/@chongdashu](https://medium.com/@chongdashu/papers-decoded-imagic-text-based-real-image-editing-with-diffusion-models-b1bda8b2532a) |
+| 12 | Unofficial Imagic Implementation (GitHub) | [github.com/sangminkim-99/Imagic](https://github.com/sangminkim-99/Imagic) |
+| 13 | Text based Image Editing using Diffusion Model (IJISAE) | [ijisae.org](https://ijisae.org/index.php/IJISAE/article/download/5435/4161/10495) |
+| 14 | Instruction-tuning Stable Diffusion with InstructPix2Pix (Hugging Face Blog) | [huggingface.co/blog/instruction-tuning-sd](https://huggingface.co/blog/instruction-tuning-sd) |
+| 15 | Textualize Visual Prompt for Image Editing via Diffusion Bridge (arXiv 2025) | [arxiv.org/html/2501.03495](https://arxiv.org/html/2501.03495) |
 
 # Imagic: Text-Based Real Image Editing with Diffusion Models
 
