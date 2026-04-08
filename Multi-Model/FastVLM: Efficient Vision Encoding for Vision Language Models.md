@@ -4,6 +4,321 @@
 
 ## 1. 핵심 주장 및 주요 기여 요약
 
+### 핵심 주장
+
+FastVLM은 **고해상도 이미지를 처리하는 VLM(Vision Language Model)에서 발생하는 속도-정확도 트레이드오프 문제를 해결**하기 위해 제안된 모델입니다. 핵심 주장은 다음과 같습니다:
+
+> **"하이브리드 비전 인코더(FastViTHD)를 이용해 토큰 수를 줄이고 인코딩 속도를 높임으로써, 추가적인 토큰 프루닝(pruning) 없이도 해상도-지연시간-정확도의 최적 균형을 달성할 수 있다."**
+
+### 주요 기여
+
+| 기여 항목 | 내용 |
+|---|---|
+| **① 하이브리드 인코더 우수성 입증** | FastViT 계열의 하이브리드 인코더가 ViT 기반 인코더보다 VLM에서 우수함을 실험적으로 증명 |
+| **② FastViTHD 설계 및 사전학습** | 고해상도 VLM을 위해 특화 설계된 신규 하이브리드 비전 인코더 개발 |
+| **③ 체계적 효율성 분석** | 해상도 × LLM 크기 × TTFT의 관계를 실측 기반 Pareto 분석으로 정리 |
+| **④ 토큰 프루닝 대체** | 별도 토큰 프루닝 없이 해상도 스케일링만으로 토큰 수 최적화 달성 |
+| **⑤ 오픈소스 공개** | 코드 및 다양한 체크포인트 공개 (https://github.com/apple/ml-fastvlm) |
+
+---
+
+## 2. 해결하고자 하는 문제, 제안 방법, 모델 구조, 성능 및 한계
+
+### 2.1 해결하고자 하는 문제
+
+VLM에서 고해상도 이미지를 처리할 때 두 가지 병목이 발생합니다:
+
+$$\text{TTFT} = T_{\text{vision encoder}} + T_{\text{LLM prefill}}$$
+
+- $T_{\text{vision encoder}}$: 비전 인코더 추론 시간 (해상도 증가 시 급격히 증가)
+- $T_{\text{LLM prefill}}$: LLM이 시각 토큰을 처리하는 프리필링 시간
+
+ViT 기반 인코더의 경우, 패치 수가 해상도의 제곱에 비례하므로:
+
+$$N_{\text{tokens}} = \left(\frac{H}{p}\right) \times \left(\frac{W}{p}\right)$$
+
+여기서 $p$는 패치 크기입니다. 예를 들어 $p=14$, $H=W=1024$이면 토큰 수는 약 $5329$개에 달하며, 이는 LLM prefilling 시간을 폭발적으로 증가시킵니다.
+
+**기존 해결책의 한계:**
+- **타일링 전략(AnyRes, Sphinx, S2)**: 이미지를 하위 영역으로 분할 처리 → 지연시간 누적
+- **토큰 프루닝(LLaVA-PruMerge, MQT, VisionZip)**: 사후 처리 복잡도 증가, 정보 손실
+- **Perceiver 리샘플러**: 추가 모듈 복잡도
+
+### 2.2 제안 방법
+
+#### 2.2.1 FastViT를 VLM 인코더로 활용
+
+MobileCLIP으로 사전학습된 FastViT(MCi2, 35.7M 파라미터)를 VLM 이미지 인코더로 채택합니다. 하이브리드 구조(컨볼루션 + 트랜스포머)는 해상도 스케일링에 유리하며, ViT-L/14 대비 **5.2배 적은 토큰**을 생성합니다:
+
+$$\text{Token Reduction Ratio} = \frac{N_{\text{ViT}}}{N_{\text{FastViT}}} = \frac{(336/14)^2}{(768/32)^2} = \frac{576}{576} \approx 1$$
+
+단, 다운샘플링 팩터가 32로 증가하므로 동일 토큰 수 대비 **더 높은 해상도로 처리** 가능합니다.
+
+#### 2.2.2 멀티스케일 피처 활용
+
+계층적 아키텍처의 각 스테이지 피처를 풀링하여 LLM에 전달합니다:
+
+$$\mathbf{F}_{\text{multi}} = \text{Concat}\left[\text{DWConv}(\mathbf{F}_{\text{stage}_i}), \mathbf{F}_{\text{final}}\right]$$
+
+여기서 DWConv(Depthwise Convolution) 기반 풀링이 AvgPool보다 우수함을 실험적으로 확인합니다 (Table 2).
+
+#### 2.2.3 FastViTHD 설계
+
+기존 FastViT의 단순 확장(Naive Scaling)은 비효율적임을 발견하고, **5-스테이지 구조**를 새롭게 설계합니다:
+
+| 스테이지 | 블록 타입 | 레이어 수 | 임베딩 차원 | 다운샘플링 |
+|---|---|---|---|---|
+| Stage 1 | RepMixer | 2 | 96 | ×2 (stride) |
+| Stage 2 | RepMixer | 12 | 192 | ×2 |
+| Stage 3 | RepMixer | 24 | 384 | ×2 |
+| Stage 4 | Multi-head Self-Attention | 4 | 768 | ×2 |
+| Stage 5 | Multi-head Self-Attention | 2 | 1536 | ×2 |
+
+전체 다운샘플링 팩터: $4(\text{stem}) \times 2^4(\text{stages}) = 64\times$
+
+이로 인해 생성되는 토큰 수:
+
+$$N_{\text{FastViTHD}} = \left(\frac{H}{64}\right) \times \left(\frac{W}{64}\right)$$
+
+예: $1024 \times 1024$ 입력 → $16 \times 16 = 256$ 토큰 (ViT-L/14의 $\frac{1}{16}$)
+
+Self-Attention이 **32× 다운샘플된 텐서**가 아닌 **64× 다운샘플된 텐서**에서 동작하도록 설계하여 효율성을 극대화합니다.
+
+#### 2.2.4 정적 vs 동적 해상도
+
+논문은 정적 해상도(직접 입력 해상도 조정)가 타일링(AnyRes)보다 대부분의 상황에서 우월함을 보입니다 (Figure 6):
+
+$$\text{Static: } \text{TTFT}(r) < \text{AnyRes: } \text{TTFT}(r_{\text{tile}} \times n_{\text{tiles}})$$
+
+단, 극한 해상도($1536^2$ 이상)에서는 메모리 대역폭 한계로 인해 AnyRes가 유리해집니다.
+
+#### 2.2.5 학습 파이프라인
+
+**2-Stage 설정 (LLaVA-1.5 기반 ablation):**
+- Stage 1: LLaVA-558K, LR= $10^{-3}$ , 프로젝터만 학습
+- Stage 2: LLaVA-665K, LR= $2\times10^{-5}$ , 전체 모듈 학습
+
+**4-Stage 설정 (최종 성능):**
+- Stage 1 → Stage 1.5(해상도 적응, 15M 샘플) → Stage 2(SFT, 1.1M~12.5M) → Stage 3(고품질 CoT 파인튜닝, 10.6M)
+
+### 2.3 성능 향상
+
+**TTFT 비교 (vs LLaVA-1.5 기준):**
+
+$$\text{Speedup}_{\text{TTFT}} = \frac{\text{TTFT}_{\text{baseline}}}{\text{TTFT}_{\text{FastVLM}}} = 3.2\times \text{ (Qwen2-0.5B 기준)}$$
+
+**LLaVA-OneVision 대비 (동일 0.5B LLM):**
+
+$$\text{TTFT 개선: } 85\times, \quad \text{인코더 크기: } 3.4\times \text{ 감소}$$
+
+**토큰 프루닝 대비 (Table 5):**
+
+FastViTHD @ $256^2$ (16토큰) > ViT-L/14 + M3 pruning @ $336^2$ (36토큰) on GQA (60.6 vs 60.3)
+
+### 2.4 한계
+
+1. **소형 텍스트 인식 한계**: DocVQA, ChartQA에서 텍스트가 너무 작을 경우 오류 발생 (Table 15, 16)
+2. **고해상도에서의 지연시간 지배**: Figure 5에서 보듯이 $768^2$ 이상에서 비전 인코더 지연이 전체 TTFT를 지배
+3. **LLM 크기 의존성**: 일부 지식 기반 추론(MMMU 등)은 더 큰 LLM이 필요 (Table 14)
+4. **범용 벤치마크 한계**: 온-디바이스(M1 MacBook Pro) 벤치마크로, GPU 서버 환경 결과와 다를 수 있음
+5. **비디오/멀티이미지 미검증**: 단일 이미지 이해에 집중, 비디오 VLM 적용성 미검증
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+### 3.1 CLIP 사전학습을 통한 일반화
+
+FastViTHD는 **DataCompDR-1B** 데이터셋으로 CLIP 사전학습을 수행합니다. Table 3에서 확인되듯이:
+
+$$\text{FastViTHD: 38개 멀티모달 제로샷 태스크 평균} = 66.3\% \approx \text{ViT-L/14 성능}$$
+
+이는 FastViTHD가 **파라미터 수 대비 탁월한 제로샷 일반화** 능력을 보유함을 의미합니다:
+
+$$\frac{\text{Params}_{\text{ViT-L/14}}}{\text{Params}_{\text{FastViTHD}}} = \frac{304M}{125M} \approx 2.4\times \quad (\text{동등 성능 달성})$$
+
+### 3.2 멀티스케일 피처의 일반화 기여
+
+컨볼루션 스테이지(낮은 레벨 피처) + 트랜스포머 스테이지(높은 레벨 피처)의 결합은 다양한 태스크에서 일반화에 기여합니다:
+
+- **저수준 특징 (Stage 1-3, RepMixer)**: 엣지, 텍스처, 세부 텍스트 정보
+- **고수준 특징 (Stage 4-5, Self-Attention)**: 의미론적 관계, 전역 컨텍스트
+
+이 멀티스케일 표현은 **일반 시각 이해(GQA, SeedBench)부터 텍스트 인식(DocVQA, TextVQA)까지** 다양한 도메인에서 효과적입니다.
+
+### 3.3 데이터 스케일링과 일반화
+
+논문은 FastVLM이 **데이터 확장에 따라 일관된 성능 향상**을 보임을 증명합니다 (Table 6, R15→R16→R21 추이):
+
+| 데이터 규모 (IT) | TextVQA | DocVQA | MMMU |
+|---|---|---|---|
+| 0.6M | 53.1 | 17.4 | 36.2 |
+| 1.1M | 57.2 | 29.8 | 37.6 |
+| 12.5M | 73.4 | 82.7 | 47.3 |
+
+이는 ViT-H, ViT-L/14보다 작은 FastViTHD가 **유사한 데이터 스케일링 트렌드**를 보이며, 더 많은 데이터가 주어졌을 때 일반화가 계속 향상됨을 시사합니다.
+
+### 3.4 Pareto 최적 곡선과 일반화
+
+Figure 4에서 FastViTHD의 Pareto 최적 곡선이 FastViT 대비 **+2.5 포인트 (Avg-5 기준) 상향**됨을 보입니다:
+
+$$\text{Pareto frontier: } \max_{\text{resolution, LLM}} \text{Accuracy} \text{ s.t. } \text{TTFT} \leq \text{budget}$$
+
+이는 동일 레이턴시 예산에서 더 높은 일반화 성능을 달성함을 의미합니다.
+
+### 3.5 인코더 스케일과 일반화 (Section 3.2 언급)
+
+논문은 선행 연구 [15, 47]을 인용하며 인코더 크기 증가가 일반화 능력 향상에 기여함을 언급합니다:
+
+> *"increasing the scale of the image encoder improves its generalization capabilities"*
+
+FastViTHD(125M)은 기존 FastViT(35.7M) 대비 **3.5배 큰 인코더**로, 이를 통해 일반화 성능이 실질적으로 향상되었습니다.
+
+### 3.6 LLM 교체에 따른 일반화
+
+논문은 Vicuna-7B → Qwen2-7B 교체만으로 **MMVet, LLaVA-in-the-wild, MMMU**에서 유의미한 성능 향상을 보고합니다. 이는 FastViTHD가 **특정 LLM에 종속되지 않는 범용적 시각 표현**을 생성함을 시사합니다.
+
+---
+
+## 4. 2020년 이후 관련 최신 연구 비교 분석
+
+### 4.1 주요 VLM 계열과 비교
+
+| 모델 | 연도 | 비전 인코더 | 토큰 수 | TTFT(ms) | 특징 |
+|---|---|---|---|---|---|
+| LLaVA-1.5 [53] | 2023 | ViT-L/14 | 576 | 1297 | 기준 모델 |
+| LLaVA-OneVision [45] | 2024 | SigLIP-SO400M | 7290 | 14124 | 동적 해상도 |
+| ConvLLaVA [28] | 2024 | ConvNeXT-L | 256 | 1157 | 순수 컨볼루션 |
+| **FastVLM (Ours)** | **2024** | **FastViTHD** | **256** | **641** | **하이브리드** |
+| MM1 [66] | 2024 | ViT-H | 720 | - | 대규모 사전학습 |
+| Cambrian-1 [78] | 2024 | 복수 인코더 | 576 | 5085 | 멀티 인코더 앙상블 |
+| SmolVLM2 [62] | 2025 | ViT-SO400M | 2106 | - | 경량화 모델 |
+
+### 4.2 토큰 효율화 방법 비교
+
+$$\text{FastViTHD} @ 512^2 \text{ (64 tokens)} > \text{VisionZip}^{\ddagger} @ 336^2 \text{ (64 tokens, finetuned)}$$
+
+| 방법 | 방식 | 토큰 수 | GQA | 한계 |
+|---|---|---|---|---|
+| LLaVA-PruMerge [70] | 사후 토큰 프루닝 | 40 | - | 추가 모듈 필요 |
+| MQT [32] | Matryoshka 샘플링 | 16~256 | 57.6~61.6 | 복잡한 학습 |
+| VisionZip [87] | 토큰 압축 | 64~192 | 55.1~60.1 | ViT 의존적 |
+| **FastViTHD** | **해상도 스케일링** | **16~256** | **60.6~63.1** | **추가 모듈 없음** |
+
+### 4.3 효율적 비전 인코딩 연구 흐름
+
+**2020-2021: CLIP 기반 ViT 표준화**
+- CLIP [Radford et al., 2021]: 이미지-텍스트 정렬 사전학습의 표준 수립
+- ViT [Dosovitskiy et al., 2020]: 트랜스포머 기반 비전 모델의 확산
+
+**2022-2023: VLM 아키텍처 다양화**
+- LLaVA [Liu et al., 2023]: 단순하고 효과적인 ViT + LLM 연결 방식
+- InstructBLIP [Dai et al., 2023]: Q-Former 기반 토큰 압축
+- MobileCLIP [Vasu et al., 2024]: 하이브리드 아키텍처의 CLIP 학습 효율화
+
+**2024-2025: 효율성 + 성능 균형 탐구**
+- ConvLLaVA [Ge et al., 2024]: 순수 컨볼루션 인코더로 토큰 수 감소
+- FastVLM (본 논문): 하이브리드 + 5-스테이지 구조로 TTFT 최적화
+- SmolVLM2 [Marafioti et al., 2025]: 소형 모델에서의 효율적 멀티모달 학습
+
+### 4.4 FastVLM의 차별점 요약
+
+$$\underbrace{\text{ConvLLaVA}}_{\text{컨볼루션만}} \xrightarrow{\text{+Attention}} \underbrace{\text{FastVLM}}_{\text{하이브리드}} \xleftarrow{\text{-Pruning}} \underbrace{\text{ViT + PruMerge}}_{\text{사후 프루닝}}$$
+
+FastVLM은 컨볼루션의 **해상도 스케일링 효율성**과 트랜스포머의 **전역 컨텍스트 표현력**을 결합하면서, 추가적인 토큰 프루닝 모듈 없이 토큰 효율을 달성합니다.
+
+---
+
+## 5. 향후 연구에 미치는 영향 및 고려 사항
+
+### 5.1 향후 연구에 미치는 영향
+
+#### 5.1.1 하이브리드 인코더의 재평가
+
+FastVLM은 VLM 커뮤니티에서 ViT 중심의 관행에 도전합니다. 특히:
+
+$$\text{FastViTHD}(125M, 64\times \text{downsample}) > \text{SigLIP-SO400M}(430M, 14\times \text{downsample})$$
+
+이는 **인코더 아키텍처 설계 시 다운샘플링 팩터와 스테이지 구성이 파라미터 수보다 중요**할 수 있음을 시사합니다.
+
+#### 5.1.2 온-디바이스 VLM 벤치마킹 표준화
+
+논문이 M1 MacBook Pro에서 실측 TTFT를 보고하는 방식은 향후 연구에서 **실제 배포 환경 기반 평가**를 장려하는 선례를 남깁니다. GPU FLOPs만으로 효율성을 평가하는 관행에서 벗어나 하드웨어 특화 최적화가 중요해질 것입니다.
+
+#### 5.1.3 Pareto 최적 분석 방법론
+
+(Resolution, LLM size, TTFT) 삼각 관계의 체계적 분석은 향후 VLM 설계에서 표준 분석 프레임워크가 될 가능성이 높습니다.
+
+#### 5.1.4 멀티 인코더 앙상블 연구와의 시너지
+
+Cambrian-1, MiniGemini-HD와 같이 복수 인코더를 사용하는 연구에서 FastViTHD를 효율적 앙상블 구성 요소로 활용할 수 있습니다:
+
+$$\text{Ensemble TTFT} \approx \sum_i T_{\text{enc}_i} + T_{\text{LLM}}$$
+
+FastViTHD를 사용하면 $T_{\text{enc}_i}$를 크게 줄일 수 있습니다.
+
+### 5.2 향후 연구 시 고려할 점
+
+#### 5.2.1 아키텍처 설계 관점
+
+1. **최적 다운샘플링 팩터 탐색**: $32\times$ vs $64\times$의 최적점은 해상도와 LLM 크기에 따라 달라집니다. 이를 자동으로 탐색하는 NAS(Neural Architecture Search) 적용 가능성을 검토해야 합니다.
+
+2. **스테이지 내 RepMixer vs Self-Attention 비율**: 현재 [3:2] 비율의 최적성 검증 필요. 태스크별로 최적 비율이 다를 수 있습니다.
+
+3. **비디오 VLM으로의 확장**: 시간 축 처리를 위한 3D 컨볼루션 또는 시간적 어텐션 통합 방안 연구가 필요합니다.
+
+#### 5.2.2 학습 방법론 관점
+
+4. **사전학습 데이터 품질**: DataCompDR-1B의 데이터 필터링 전략이 일반화 성능에 미치는 영향 분석 필요. 도메인 특화 데이터 추가 시 효과 검증 필요합니다.
+
+5. **해상도 적응 학습(Stage 1.5)의 중요성**: 15M 샘플의 중간 단계 사전학습이 최종 성능에 미치는 영향을 체계적으로 분석해야 합니다.
+
+6. **연속 해상도 학습(Curriculum)**: 낮은 해상도에서 점진적으로 높은 해상도로 학습하는 커리큘럼 전략의 최적화.
+
+#### 5.2.3 평가 및 벤치마크 관점
+
+7. **다양한 하드웨어 플랫폼 벤치마킹**: M1 MacBook Pro 외에 ARM 모바일 칩, NPU, GPU 서버 등 다양한 환경에서의 실측 비교가 필요합니다.
+
+8. **분포 외(Out-of-Distribution) 일반화 평가**: 학습 도메인과 다른 이미지 유형(의료 영상, 위성 이미지 등)에서의 일반화 성능 검증 필요.
+
+9. **공정한 데이터 비교 어려움**: 논문 내에서도 언급하듯이, 서로 다른 방법들의 학습 데이터 구성이 크게 달라 단순 성능 수치 비교는 주의가 필요합니다.
+
+#### 5.2.4 실용적 고려 사항
+
+10. **양자화 및 모델 압축**: FastViTHD의 FP16 → INT8/INT4 양자화 적용 시 정확도-속도 트레이드오프 분석.
+
+11. **배치 추론 효율성**: 논문은 단일 이미지 추론 위주로 분석하며, 실제 서비스 환경의 배치 처리 효율성은 별도 검토가 필요합니다.
+
+12. **멀티모달 안전성**: 고효율 인코더를 통해 더 많은 이미지가 처리될수록 잠재적 편향, 환각(hallucination) 문제에 대한 체계적 연구가 필요합니다.
+
+---
+
+## 참고자료 (출처)
+
+**주요 참고 논문 (제공된 PDF 기준):**
+
+- **[본 논문]** Vasu, P.K.A., Faghri, F., Li, C.L., Koc, C., et al. "FastVLM: Efficient Vision Encoding for Vision Language Models." arXiv:2412.13303v2, 2025. https://arxiv.org/abs/2412.13303
+- **[53]** Liu, H., et al. "Improved Baselines with Visual Instruction Tuning (LLaVA-1.5)." 2023.
+- **[45]** Li, B., et al. "LLaVA-OneVision: Easy Visual Task Transfer." arXiv:2408.03326, 2024.
+- **[82]** Vasu, P.K.A., et al. "FastViT: A Fast Hybrid Vision Transformer using Structural Reparameterization." ICCV, 2023.
+- **[83]** Vasu, P.K.A., et al. "MobileCLIP: Fast Image-Text Models through Multi-Modal Reinforced Training." CVPR, 2024.
+- **[28]** Ge, C., et al. "ConvLLaVA: Hierarchical Backbones as Visual Encoder for Large Multimodal Models." 2024.
+- **[78]** Tong, S., et al. "Cambrian-1: A Fully Open, Vision-Centric Exploration of Multimodal LLMs." 2024.
+- **[66]** McKinzie, B., et al. "MM1: Methods, Analysis & Insights from Multimodal LLM Pretraining." 2024.
+- **[94]** Zhai, X., et al. "Sigmoid Loss for Language Image Pre-Training (SigLIP)." ICCV, 2023.
+- **[86]** Yang, A., et al. "Qwen2 Technical Report." arXiv:2407.10671, 2024.
+- **[69]** Radford, A., et al. "Learning Transferable Visual Models from Natural Language Supervision (CLIP)." ICML, 2021.
+- **[24]** Dosovitskiy, A., et al. "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale." arXiv:2010.11929, 2020.
+- **[70]** Shang, Y., et al. "LLaVA-PruMerge: Adaptive Token Reduction for Efficient Large Multimodal Models." arXiv:2403.15388, 2024.
+- **[62]** Marafioti, A., et al. "SmolVLM: Redefining Small and Efficient Multimodal Models." arXiv:2504.05299, 2025.
+- **[27]** Gadre, S.Y., et al. "DataComp: In Search of the Next Generation of Multimodal Datasets." arXiv:2304.14108, 2023.
+
+# FastVLM: Efficient Vision Encoding for Vision Language Models
+
+---
+
+## 1. 핵심 주장 및 주요 기여 요약
+
 **핵심 주장:** Vision Language Model(VLM)에서 고해상도 이미지를 처리할 때, 기존 ViT 기반 비전 인코더는 토큰 수 증가와 인코딩 지연(latency)으로 인해 비효율적이다. FastVLM은 새로운 하이브리드 비전 인코더 **FastViTHD**를 도입하여, 해상도-지연-정확도 간의 최적 트레이드오프를 달성한다.
 
 **주요 기여:**
