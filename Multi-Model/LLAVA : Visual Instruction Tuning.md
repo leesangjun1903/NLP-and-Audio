@@ -1,4 +1,4 @@
-# Visual Instruction Tuning (LLaVA) 논문 심층 분석
+# Visual Instruction Tuning
 
 ---
 
