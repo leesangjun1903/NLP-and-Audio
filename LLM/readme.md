@@ -256,6 +256,7 @@
 - GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models | 2025 · 100회 인용
 - The Llama 3 Herd of Models | 2024 · 4166회 인용
 - o1-Coder: an o1 Replication for Coding | 2024 · 74회 인용
+- Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality 
 
 ## sLMs
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
