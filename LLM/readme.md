@@ -310,6 +310,7 @@
 - Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models | 2023 · 343회 인용
 - Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
 - Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution | 2023 · 418회 인용
+- AI achieves silver-medal standard solving International Mathematical Olympiad problems
 
 
 ### RAG
