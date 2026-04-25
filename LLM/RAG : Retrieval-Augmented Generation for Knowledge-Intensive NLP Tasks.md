@@ -1,6 +1,304 @@
 
 # Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
 
+> **논문 정보**: Patrick Lewis et al., NeurIPS 2020
+> **arXiv**: [2005.11401](https://arxiv.org/abs/2005.11401)
+> **발표**: 34th Conference on Neural Information Processing Systems (NeurIPS 2020)
+
+---
+
+## 1. 📌 핵심 주장 및 주요 기여 요약
+
+대형 사전 학습 언어 모델(LLM)은 파라미터 내에 사실적 지식을 저장하고 다운스트림 NLP 태스크에서 SOTA를 달성하지만, 지식 집약적(knowledge-intensive) 태스크에서는 지식 접근 및 정밀한 조작 능력이 제한적이고, 의사결정의 출처 제공이나 세계 지식 업데이트가 미해결 문제로 남아 있습니다.
+
+이를 해결하기 위해 Lewis et al.은 다음의 핵심 프레임워크를 제안합니다:
+
+저자들은 사전 학습된 파라메트릭(parametric) 메모리와 비파라메트릭(non-parametric) 메모리를 결합하여 언어 생성을 수행하는 RAG(Retrieval-Augmented Generation)에 대한 범용 파인튜닝 레시피를 탐색합니다.
+
+### 주요 기여 요약표
+
+| 기여 항목 | 내용 |
+|---|---|
+| **아키텍처 통합** | DPR(검색기) + BART(생성기)의 엔드-투-엔드 결합 |
+| **두 가지 변형 모델** | RAG-Sequence, RAG-Token |
+| **범용 파인튜닝** | 다양한 NLP 태스크에 적용 가능한 통합 학습법 |
+| **비파라메트릭 메모리** | 재훈련 없이 인덱스 교체로 지식 업데이트 가능 |
+| **SOTA 달성** | 3개의 Open-domain QA 태스크에서 최고 성능 |
+
+---
+
+## 2. 🔍 상세 분석
+
+### 2-1. 해결하고자 하는 문제
+
+RAG는 전통적인 AI 모델의 핵심 한계, 즉 훈련 데이터 외부에 저장된 최신 또는 특정 정보에 접근할 수 없는 문제를 해결하기 위해 도입되었습니다. 이 접근법은 사전 학습 모델 지식(파라메트릭)과 위키피디아 같은 외부 데이터 소스(비파라메트릭)라는 두 가지 메모리 유형을 통합합니다.
+
+명시적 비파라메트릭 메모리에 대한 미분 가능한 접근 메커니즘을 가진 사전 학습 모델이 이 문제를 극복할 수 있지만, 지금까지는 추출형(extractive) 다운스트림 태스크에만 연구되어 왔습니다.
+
+---
+
+### 2-2. 제안 방법 및 핵심 수식
+
+#### 🔷 모델 구성 요소
+
+RAG 모델의 파라메트릭 메모리는 사전 학습된 seq2seq 트랜스포머이고, 비파라메트릭 메모리는 사전 학습된 신경 검색기로 접근하는 위키피디아의 밀집 벡터 인덱스입니다. 이 구성 요소들은 확률적 모델로 엔드-투-엔드 학습되며, 검색기(DPR)는 입력에 조건화된 잠재 문서를 제공하고 seq2seq 모델(BART)은 이 잠재 문서와 입력을 함께 조건화하여 출력을 생성합니다.
+
+#### 🔷 RAG-Sequence 수식
+
+RAG-Sequence는 전체 출력 시퀀스에 대해 동일한 문서를 사용합니다. Top- $K$ 문서에 대해 주변화(marginalization)하는 수식은 다음과 같습니다:
+
+$$p_{\text{RAG-Sequence}}(y \mid x) \approx \sum_{z \in \text{top-}K} p_\eta(z \mid x) \cdot p_\theta(y \mid x, z)$$
+
+여기서:
+- $x$: 입력 쿼리
+- $z$: 검색된 문서 (잠재 변수)
+- $p_\eta(z \mid x)$: 검색기(DPR)의 문서 확률 (파라미터 $\eta$)
+- $p_\theta(y \mid x, z)$: 생성기(BART)의 조건부 확률 (파라미터 $\theta$)
+
+#### 🔷 RAG-Token 수식
+
+RAG-Token은 각 목표 토큰을 예측하기 위해 서로 다른 문서를 사용할 수 있습니다. 각 토큰 $y_i$에 대해 문서를 주변화하는 수식은:
+
+$$p_{\text{RAG-Token}}(y \mid x) \approx \prod_{i=1}^{N} \sum_{z \in \text{top-}K} p_\eta(z \mid x) \cdot p_\theta(y_i \mid x, z, y_{1:i-1})$$
+
+#### 🔷 검색기(DPR) 수식
+
+검색기의 문서 확률은 쿼리 벡터 $q(x)$와 문서 벡터 $d(z)$의 내적(inner product)으로 계산됩니다:
+
+$$p_\eta(z \mid x) \propto \exp\left(d(z)^{\top} q(x)\right)$$
+
+검색 컴포넌트 $p_\eta(z|x)$는 DPR 기반입니다. DPR은 바이-인코더(bi-encoder) 아키텍처를 따르며, top- $k(p_\eta(\cdot|x))$를 구하는 것은 Maximum Inner Product Search(MIPS) 문제로, 서브-선형 시간에 근사적으로 해결될 수 있습니다.
+
+#### 🔷 학습 목적 함수 (음의 로그우도 최소화)
+
+$$\mathcal{L}(\theta, \eta) = -\sum_{j} \log p(y_j \mid x_j)$$
+
+훈련 시 생성기 컴포넌트 $p_\theta(y_i|x, z, y_{1:i-1})$는 어떠한 인코더-디코더 모델로도 모델링될 수 있으며, 논문에서는 400M 파라미터를 가진 사전 학습된 seq2seq 트랜스포머인 BART-large를 사용합니다.
+
+---
+
+### 2-3. 모델 구조
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     RAG 모델 구조                        │
+├─────────────────────┬───────────────────────────────────┤
+│   비파라메트릭 모듈   │        파라메트릭 모듈              │
+│  (Non-Parametric)   │       (Parametric)                │
+│                     │                                   │
+│  ┌───────────────┐  │  ┌────────────────────────────┐  │
+│  │  Query Encoder│  │  │        BART-large          │  │
+│  │   (DPR-BERT)  │  │  │    (seq2seq Generator)     │  │
+│  └──────┬────────┘  │  │    400M parameters         │  │
+│         │ q(x)      │  └────────────┬───────────────┘  │
+│  ┌──────▼────────┐  │               │                   │
+│  │ Document Index│  │               │                   │
+│  │ (Wikipedia    │  │               │                   │
+│  │  Dense Vec.)  │  │               │                   │
+│  └──────┬────────┘  │               │                   │
+│         │ MIPS      │               │                   │
+│  Top-K Documents z  │               │                   │
+└─────────┼───────────┴───────────────┼───────────────────┘
+          │         합성 (Concat)      │
+          └──────────────┬────────────┘
+                         │
+                    Output y
+```
+
+사전 학습된 검색기(쿼리 인코더 + 문서 인덱스)와 사전 학습된 seq2seq 모델(생성기)을 결합하여 엔드-투-엔드로 파인튜닝합니다. 쿼리 $x$에 대해 MIPS를 사용하여 Top- $K$ 문서 $z_i$를 찾고, 최종 예측 $y$를 위해 $z$를 잠재 변수로 처리하여 서로 다른 문서에 대한 seq2seq 예측을 주변화합니다.
+
+---
+
+### 2-4. 성능 향상
+
+모델을 다양한 지식 집약적 NLP 태스크에서 파인튜닝 및 평가한 결과, 세 가지 Open-domain QA 태스크에서 SOTA를 달성하였으며, 파라메트릭 seq2seq 모델과 태스크별 retrieve-and-extract 아키텍처를 모두 능가했습니다. 또한 언어 생성 태스크에서 RAG 모델이 SOTA 파라메트릭 전용 seq2seq 기준 모델보다 더 구체적이고, 다양하며, 사실적인 언어를 생성한다는 것을 발견했습니다.
+
+2020년 말까지 수 억 개의 파라미터를 가진 RAG 시스템이 110억 개 파라미터를 가진 폐쇄형(closed-book) LM을 능가하여, 하이브리드 파라메트릭 + 비파라메트릭 메모리의 효율성을 입증했습니다.
+
+#### 주요 성능 지표 요약
+
+| 태스크 | 비교 대상 | 결과 |
+|---|---|---|
+| Natural Questions (NQ) | T5-11B (closed-book) | RAG 초과 달성 |
+| TriviaQA | 기존 retrieve-and-extract | SOTA 달성 |
+| FEVER (사실 검증) | 복잡 파이프라인 시스템 | 4.3% 이내 차이 |
+| MS-MARCO | BART (파라메트릭만) | 더 다양하고 사실적 |
+
+FEVER 분석에서 상위 검색 문서가 71%의 경우에서 gold article이었고, 상위 10개 검색 문서에서는 90%의 경우 gold article이 포함되어 있었습니다.
+
+---
+
+### 2-5. 한계점
+
+1. **도메인 특화 문제**: RAG는 위키피디아 기반 외부 지식 베이스로만 훈련 및 탐색되었으며, 의료나 뉴스 같은 다른 전문 도메인에 최적화되어 있지 않습니다.
+
+2. **지식 베이스 인코딩 고정**: RAG 모델이 다운스트림 QA 태스크를 위해 파인튜닝될 때, 원래 구현은 패시지 인코딩과 외부 지식 베이스를 고정합니다. 이는 외부 지식 베이스를 재인코딩하는 것이 계산적으로 비용이 많이 들고 정교한 구현이 필요하기 때문입니다.
+
+3. **검색 품질의 종속성**: RAG 기술이 환각(hallucination) 완화에 큰 가능성을 보여주지만, RAG 패러다임 자체도 한계가 있으며 구성 요소의 불충분한 능력이 환각 생성에 기여합니다.
+
+4. **멀티홉 추론 한계**: 검색 지연(retrieval latency), 멀티홉(multi-hop) 추론, 충실도(faithfulness) 평가의 엄밀성 등의 도전 과제들이 후속 연구의 과제로 남아 있습니다.
+
+5. **구조적 관계 누락**: RAG는 실제 시나리오에서 한계에 직면하는데, 텍스트 콘텐츠는 고립되어 있지 않고 서로 연결되어 있습니다. 전통적인 RAG는 의미적 유사성만으로 표현될 수 없는 중요한 구조적 관계 지식을 포착하지 못합니다.
+
+---
+
+## 3. 🌐 모델의 일반화 성능 향상 가능성
+
+### 3-1. 비파라메트릭 메모리 교체를 통한 지식 업데이트
+
+이 논문은 RAG의 비파라메트릭 메모리를 단순히 교체함으로써 RAG의 세계 지식을 업데이트할 수 있음을 보여줍니다. 이는 재훈련 없이도 모델의 지식 기반을 갱신할 수 있다는 점에서 일반화 성능의 핵심 요소입니다.
+
+수식으로 표현하면, 기존 인덱스 $\mathcal{D}\_{old}$를 새로운 인덱스 $\mathcal{D}_{new}$로 교체할 때:
+
+$$p_{\text{updated}}(y \mid x) \approx \sum_{z \in \text{top-}K(\mathcal{D}_{new})} p_\eta(z \mid x) \cdot p_\theta(y \mid x, z)$$
+
+이를 통해 **Zero-shot 도메인 전이(domain transfer)** 가 가능해집니다.
+
+### 3-2. 다양한 태스크에서의 범용성
+
+KILT 벤치마크는 공유된 위키피디아 스냅샷으로 11개의 지식 집약적 태스크를 통합했습니다. 단일 RAG 기준선이 QA, 대화, 사실 검증, 슬롯 채우기(slot-filling)에서 경쟁력 있는 성능을 보여, RAG의 도메인 불가지론적(domain-agnostic) 가능성을 강조했습니다.
+
+### 3-3. 일반화 성능 향상을 위한 수식적 분석
+
+RAG의 일반화 능력은 다음 분해(decomposition)로 이해할 수 있습니다:
+
+$$p(y \mid x, \mathcal{D}) = \sum_{z \in \mathcal{D}} p_\eta(z \mid x) \cdot p_\theta(y \mid x, z)$$
+
+- **$p_\eta(z \mid x)$**: 검색기의 일반화 → 새로운 도메인의 문서를 효과적으로 검색하는 능력
+- **$p_\theta(y \mid x, z)$**: 생성기의 일반화 → 검색된 문서를 활용하여 유연한 답변 생성
+
+T5나 BART처럼, RAG는 어떤 seq2seq 태스크에서도 파인튜닝될 수 있으며, 이때 생성기와 검색기가 함께 학습됩니다.
+
+### 3-4. 도메인 적응(Domain Adaptation) 연구
+
+RAG-end2end 연구의 주요 발견은 검색기 컴포넌트의 적응이 RAG 계열 아키텍처의 전반적인 도메인 적응 성능에 결정적인 역할을 한다는 것입니다. 지식 베이스 인코딩을 업데이트하지 않고 질문 인코더만 파인튜닝하면 성능이 저하될 수 있으며, DPR 검색기를 독립적으로 파인튜닝하는 대신 RAG-end2end 메커니즘의 일부로 파인튜닝하는 것이 더 나은 전반적인 결과를 제공합니다.
+
+---
+
+## 4. 📊 2020년 이후 관련 최신 연구 비교 분석
+
+### 4-1. 주요 후속 연구 비교표
+
+| 연구 | 연도 | 핵심 혁신 | RAG 대비 개선점 |
+|---|---|---|---|
+| **REALM** (Guu et al.) | 2020 | 마스크 언어 모델링으로 검색기를 사전 학습 단계부터 엔드-투-엔드 학습 | 사전 학습 단계에서 검색 통합 |
+| **FiD** (Izacard & Grave) | 2021 | T5 디코더가 수십 개의 검색 패시지를 동시에 처리 | 다수 문서 융합으로 QA 정확도 향상 |
+| **ATLAS** (Izacard et al.) | 2022 | 대규모 파라미터 효율적 하이브리드 | 더 작은 모델로 더 큰 모델 능가 |
+| **RETRO** (Borgeaud et al.) | 2022 | 조 단위 토큰 코퍼스에서 청크 단위 검색 | 초대규모 비파라메트릭 메모리 |
+| **Self-RAG** (Asai et al.) | 2023 | 자기 반성(self-reflection)으로 검색 필요성 판단 | 적응적 검색, 더 정확한 출력 |
+| **GraphRAG** | 2023~2024 | 지식 그래프 기반 구조적 검색 | 관계형 지식 포착 |
+| **HippoRAG 2** | 2025 | PersonalizedPageRank + 지식 그래프 | 연상 기억 7% 향상 |
+
+### 4-2. 각 연구 상세 분석
+
+#### REALM (2020)
+REALM은 마스크 토큰을 검색된 증거로 예측하기 위해 미분 가능한 검색기를 언어 모델에 통합한 검색 증강 사전 학습을 도입했습니다. REALM은 기존 LM 대비 QA에서 상당한 향상을 달성하여, 외부 지식 주입이 사전 학습과 파인튜닝 모두에서 도움이 됨을 검증했습니다.
+
+#### Fusion-in-Decoder (FiD, 2021)
+FiD는 RAG처럼 $k$개의 패시지를 검색하지만, 이를 연결하여 T5 기반 seq2seq에 모두 공급함으로써 디코더가 여러 문서에 동시에 주목할 수 있게 합니다. 이 아키텍처는 대형 생성 모델이 많은 패시지에서 증거를 효과적으로 종합할 수 있음을 보여주며, 오픈 QA 벤치마크에서 추가적인 성능 향상을 달성했습니다.
+
+#### RETRO & ATLAS (2022)
+RETRO와 ATLAS 같은 파라미터 효율적 하이브리드 모델들은 더 큰 모델만으로 더 좋은 지식을 얻는다는 개념에 도전하며, 대신 고품질 검색과 다중 문서 추론이 핵심 레버로 부상합니다. 조 단위 토큰 코퍼스에서의 더 빠른 검색, 미분 가능한 멀티홉 추론, 증거 충실도의 강건한 평가 등이 여전히 열린 도전 과제입니다.
+
+#### Self-RAG (2023)
+Self-RAG는 질문 답변 및 사실 검증에서 검색된 패시지에 대한 과도한 또는 과소한 의존 문제를 해결하며, 생성된 출력에서 환각 같은 문제를 야기할 수 있는 문제를 다룹니다.
+
+#### GraphRAG (2023~2024)
+Graph Retrieval-Augmented Generation(GraphRAG)은 이러한 도전 과제들을 해결하는 혁신적인 솔루션으로 등장했습니다. 전통적인 RAG와 달리, GraphRAG는 사전 구축된 그래프 데이터베이스에서 주어진 쿼리에 관련된 관계형 지식을 포함한 그래프 요소를 검색합니다. 이 요소들에는 노드, 트리플, 경로 또는 서브그래프가 포함될 수 있으며, GraphRAG는 텍스트 간의 상호 연결을 고려하여 관계형 정보를 더 정확하고 포괄적으로 검색할 수 있게 합니다.
+
+#### HippoRAG 2 (2025)
+지속적으로 지식을 획득, 조직화, 활용하는 능력은 AI 시스템이 갖추어야 할 인간 지능의 핵심 특성입니다. LLM의 지속적 학습에서의 도전 과제를 감안할 때, RAG는 새로운 정보를 도입하는 지배적인 방법이 되었지만, 벡터 검색에 대한 의존성이 인간 장기 기억의 동적이고 상호 연결된 특성을 모방하는 능력을 방해합니다.
+
+---
+
+## 5. 🚀 앞으로의 연구에 미치는 영향 및 고려할 점
+
+### 5-1. 연구에 미치는 영향
+
+2020년의 이러한 발전들은 Lewis et al.의 RAG 공식화로 수렴되었으며, 검색기-리더 아키텍처와 seq2seq 생성을 엔드-투-엔드 프레임워크로 통합했습니다. RAG 모델은 오픈-도메인 QA의 인사이트를 활용하여 위키피디아에서 텍스트 청크를 가져오는 밀집 패시지 검색기와 강력한 seq2seq 생성기(BART)를 사용하여 두 구성 요소를 공동으로 훈련시켰습니다.
+
+Lewis et al.의 2020년 seminal 연구 이후, RAG는 연구 관심과 학술 출판물의 급격한 증가로 표시되는 빠른 발전을 목격했습니다.
+
+논문의 가장 주목할 만한 기여 중 하나는 AI가 생성한 응답을 검색된 사실 데이터에 기반하게 하는 방법입니다. 이 혁신은 지식 집약적 태스크에서 AI 환각의 지속적인 문제를 해결하여 AI 응용 프로그램을 더 신뢰할 수 있게 만들었습니다.
+
+2020년 RAG의 도입은 핵심 마일스톤으로 간주되는데, 이는 검색 증강 아키텍처를 QA를 넘어 외부 지식이 필요한 모든 생성 태스크로 일반화했기 때문입니다.
+
+### 5-2. 앞으로 연구 시 고려할 점
+
+#### 🔶 기술적 고려 사항
+
+1. **멀티홉 추론 강화**
+   - RAG는 검색된 텍스트를 입력에 추가하는 컨텍스트 확장을 통해 작동하지만, 외부 지식이 어텐션 메커니즘 내에서 토큰으로 경쟁합니다. 그 결과, 영향이 간접적이고 특히 장문 컨텍스트 및 멀티홉 추론 시나리오에서 불안정합니다.
+
+2. **검색 품질 최적화**
+   - RAG 시스템에서 검색된 콘텐츠의 품질이 생성기에 공급되는 정보를 결정합니다. 낮은 콘텐츠 품질은 모델 환각이나 다른 품질 저하의 위험을 높입니다.
+
+3. **동적 검색 트리거링**
+   - 점점 더 많은 시스템들이 생성 불확실성, 태스크 복잡성 또는 중간 출력에 조건화하여 언제 어떻게 검색할지를 동적으로 제어합니다. DRAGIN은 엔트로피 기반 신뢰도 신호를 사용하여 토큰 수준에서 검색을 트리거하고, FLARE는 문장 생성 중 낮은 신뢰도 예측을 기반으로 선택적으로 검색합니다.
+
+4. **하이브리드 접근법**
+   - 반사실적(counterfactual) 및 적대적 정보를 처리하는 강건성이 RAG에서 측정 및 개선하는 데 중요합니다. RAG와 파인튜닝 모델의 사용을 최적화하는 방법에 대한 연구가 진행 중입니다.
+
+5. **스케일링 법칙 이해**
+   - LLM 스케일링 법칙과 이것이 RAG 시스템에 어떻게 적용되는지에 대한 조사는 아직 충분히 이해되지 않았습니다.
+
+#### 🔶 미래 연구 방향
+
+```
+RAG 미래 연구 로드맵
+├── 1. 검색 메커니즘 고도화
+│   ├── 희소(sparse) + 밀집(dense) 하이브리드 검색
+│   ├── 지식 그래프 통합 (GraphRAG)
+│   └── 멀티모달 검색 (텍스트 + 이미지)
+│
+├── 2. 생성 품질 향상
+│   ├── 자기 반성 메커니즘 (Self-RAG)
+│   ├── Chain-of-Thought + RAG 결합
+│   └── 환각 감지 및 수정 모듈
+│
+├── 3. 도메인 적응
+│   ├── 도메인 특화 파인튜닝 (RAFT)
+│   ├── 지속적 학습 (Continual Learning)
+│   └── 비파라메트릭 연속 업데이트
+│
+├── 4. 효율성 최적화
+│   ├── 경량화 검색 메커니즘
+│   ├── 분산 인덱스 시스템
+│   └── 추론 지연(latency) 최소화
+│
+└── 5. 신뢰성 및 보안
+    ├── 프라이버시 보존 RAG
+    ├── 적대적 공격 방어
+    └── 출처 추적(provenance tracking)
+```
+
+향후 연구에서 두 컴포넌트를 처음부터 공동으로 사전 학습할 수 있는지 탐색하는 것이 유익할 수 있으며, BART와 유사한 디노이징 목표 또는 다른 목표를 사용할 수 있습니다. 이 연구는 파라메트릭과 비파라메트릭 메모리가 어떻게 상호작용하고 가장 효과적으로 결합하는지에 대한 새로운 연구 방향을 열어, 더 많은 제어 가능성과 해석 가능성을 제공하는 실제 사실 지식에 강하게 기반한 적용에 가능성을 보여줍니다.
+
+---
+
+## 📚 참고 자료 및 출처
+
+| 번호 | 제목 / 출처 | 링크 |
+|---|---|---|
+| 1 | **[원논문]** Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," NeurIPS 2020 | [arXiv:2005.11401](https://arxiv.org/abs/2005.11401) |
+| 2 | **[원논문 PDF]** NeurIPS 2020 공식 논문 | [proceedings.neurips.cc](https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf) |
+| 3 | **[ACM]** Retrieval-augmented generation for knowledge-intensive NLP tasks, ACM Digital Library | [dl.acm.org](https://dl.acm.org/doi/abs/10.5555/3495724.3496517) |
+| 4 | **[Meta AI]** Meta AI Research Publications | [ai.meta.com](https://ai.meta.com/research/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/) |
+| 5 | **[Semantic Scholar]** RAG 논문 인용 분석 | [semanticscholar.org](https://www.semanticscholar.org/paper/Retrieval-Augmented-Generation-for-NLP-Tasks-Lewis-Perez/659bf9ce7175e1ec266ff54359e2bd76e0b7ff31) |
+| 6 | **[서베이]** "A Systematic Review of Key RAG Systems: Progress, Gaps, and Future Directions," arXiv 2025 | [arxiv.org/html/2507.18910](https://arxiv.org/html/2507.18910v1) |
+| 7 | **[서베이]** "A Comprehensive Survey of RAG: Evolution," arXiv 2024 | [arxiv.org/pdf/2410.12837](https://arxiv.org/pdf/2410.12837) |
+| 8 | **[서베이]** "RAG: A Comprehensive Survey of Architectures, Enhancements, and Robustness Frontiers," arXiv 2025 | [arxiv.org/html/2506.00054](https://arxiv.org/html/2506.00054v1) |
+| 9 | **[도메인 적응]** "Improving the Domain Adaptation of RAG Models for Open Domain QA," TACL 2023 | [direct.mit.edu](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00530/114590/) |
+| 10 | **[GraphRAG 서베이]** "Graph Retrieval-Augmented Generation: A Survey," ACM TOIS | [dl.acm.org](https://dl.acm.org/doi/10.1145/3777378) |
+| 11 | **[HippoRAG 2]** "From RAG to Memory: Non-Parametric Continual Learning for LLMs," ICML 2025 | [arxiv.org/abs/2502.14802](https://arxiv.org/abs/2502.14802) |
+| 12 | **[환각 완화]** "Hallucination Mitigation for Retrieval-Augmented LLMs: A Review," Mathematics 2025 | [mdpi.com](https://www.mdpi.com/2227-7390/13/5/856) |
+| 13 | **[RAFT]** "RAFT: Adapting Language Model to Domain Specific RAG," 2024 | [shishirpatil.github.io](https://shishirpatil.github.io/publications/raft-2024.pdf) |
+| 14 | **[블로그 분석]** "RAG Lewis 2020 Paper: Understanding the Original RAG Research," Latenode Blog, 2026 | [latenode.com](https://latenode.com/blog/ai-frameworks-technical-infrastructure/rag-retrieval-augmented-generation/rag-lewis-2020-paper-understanding-original-retrieval-augmented-generation-research) |
+| 15 | **[리뷰]** NumByNum: Detailed Paper Review of RAG (Lewis et al., 2020), Medium | [medium.com](https://medium.com/@AriaLeeNotAriel/numbynum-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks-lewis-et-al-df93a0f4c8f0) |
+| 16 | **[Prompt Engineering Guide]** RAG for LLMs Overview | [promptingguide.ai](https://www.promptingguide.ai/research/rag) |
+
+# Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+
 ## 1. 핵심 주장 및 주요 기여 (Executive Summary)
 
 **"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"** (Lewis et al., 2020)는 사전학습된 매개변수 기억(parametric memory)과 비매개변수 기억(non-parametric memory)을 결합하는 일반적인 미세조정 방법을 제시합니다. 이 논문의 핵심 주장은 **대규모 언어모델의 고정된 지식만으로는 지식집약적 작업에서 성능이 제한되며, 외부 지식 인덱스를 동적으로 접근할 수 있도록 하면 사실성과 구체성이 크게 향상된다**는 것입니다. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/ba741c31-27e1-4662-8123-fbe45bf68617/2005.11401v4.pdf)
