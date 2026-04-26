@@ -1,5 +1,240 @@
 
 # Eureka: Human-Level Reward Design via Coding Large Language Models
+**저자:** Yecheng Jason Ma, William Liang, Guanzhi Wang, De-An Huang, Osbert Bastani, Dinesh Jayaraman, Yuke Zhu, Linxi Fan, Anima Anandkumar
+**학회:** ICLR 2024
+**arXiv:** [2310.12931](https://arxiv.org/abs/2310.12931)
+
+---
+
+## 1. 핵심 주장 및 주요 기여 요약
+
+LLM은 순차적 의사결정 태스크의 고수준 시맨틱 플래너로 탁월한 성능을 보여왔으나, 손재주 있는 펜 회전과 같은 복잡한 저수준 조작 태스크를 학습하도록 활용하는 것은 미해결 문제로 남아 있었습니다.
+
+이 근본적인 간극을 해소하기 위해 **Eureka**를 제안합니다. Eureka는 GPT-4와 같은 최첨단 LLM의 놀라운 제로샷 생성, 코드 작성, 인컨텍스트 개선 능력을 활용하여 보상 코드에 대한 진화적 최적화(evolutionary optimization)를 수행하며, 이렇게 생성된 보상 함수는 강화학습을 통해 복잡한 기술을 습득하는 데 활용됩니다.
+
+### 주요 기여 3가지
+
+| 기여 | 내용 |
+|---|---|
+| **① 인간 수준 보상 설계** | 태스크별 프롬프트나 사전 정의된 템플릿 없이 전문가 수준의 보상 함수 자동 생성 |
+| **② 진화적 보상 최적화** | 반복적 탐색 + 보상 반성(reward reflection)으로 보상 함수를 지속 개선 |
+| **③ 기울기 없는 RLHF** | 모델 업데이트 없이 인컨텍스트 학습으로 인간 피드백을 보상에 반영 |
+
+29개의 다양한 오픈소스 RL 환경(10개의 서로 다른 로봇 형태 포함)에서 Eureka는 83%의 태스크에서 인간 전문가를 능가하며, 평균 정규화 개선율 52%를 달성했습니다.
+
+또한 커리큘럼 학습 설정에서 Eureka 보상을 활용하여 처음으로 시뮬레이션된 Shadow Hand가 고속으로 펜 회전 트릭을 수행하는 것을 시연했습니다.
+
+---
+
+## 2. 해결하고자 하는 문제, 제안 방법, 모델 구조, 성능 및 한계
+
+### 2-1. 해결하고자 하는 문제
+
+기존 강화학습에서 **보상 함수 설계(reward shaping)** 는 다음과 같은 근본적 어려움을 가집니다:
+
+- 전문 지식을 요구하는 수작업 설계의 높은 비용
+- 태스크별 특화가 필요해 일반화가 어려움
+- LLM이 고수준 계획에는 강점을 보이나, 손재주가 필요한 복잡한 저수준 조작 태스크에 하네스하는 것은 미해결 문제였습니다.
+
+### 2-2. 제안하는 방법 (수식 포함)
+
+#### (A) 전체 알고리즘 파이프라인
+
+Eureka는 수정되지 않은 환경 소스 코드와 언어 태스크 설명을 컨텍스트로 삼아, 코딩 LLM으로부터 실행 가능한 보상 함수를 제로샷으로 생성합니다.
+
+그런 다음 **진화적 보상 탐색(evolutionary reward search)**, **GPU 가속 보상 평가**, **보상 반성(reward reflection)** 을 반복하여 보상 출력을 점진적으로 개선합니다.
+
+#### (B) 보상 함수의 수학적 정의
+
+Eureka의 목표는 복잡한 MDP 환경에서 다음의 최적화 문제를 풀어내는 보상 함수 $r_\theta$ 를 자동으로 생성하는 것입니다:
+
+$$\pi^* = \arg\max_{\pi} \mathbb{E}_{\tau \sim \pi} \left[ \sum_{t=0}^{T} \gamma^t r_\theta(s_t, a_t) \right]$$
+
+여기서:
+- $\pi$: 정책 (policy)
+- $\tau$: 궤적 (trajectory)
+- $\gamma$: 할인 인수 (discount factor)
+- $r_\theta$: LLM이 코드로 생성한 보상 함수
+- $s_t, a_t$: 시간 $t$에서의 상태 및 행동
+
+#### (C) 진화적 보상 탐색 (Evolutionary Reward Search)
+
+각 반복(iteration) $k$에서 LLM은 현재 최고 보상 함수 $r^*_{k-1}$을 기반으로 $N$개의 새로운 후보 보상 $\{r^{(1)}_k, \dots, r^{(N)}_k\}$를 생성합니다:
+
+```math
+r^{(i)}_k \sim \text{LLM}(\mathcal{C}_{\text{env}},\; \mathcal{F}^*_{k-1},\; \mathcal{R}^*_{k-1})
+```
+
+- $\mathcal{C}_{\text{env}}$: 환경 소스 코드 컨텍스트
+- $\mathcal{F}^*_{k-1}$: 이전 최고 보상 코드
+- $\mathcal{R}^*_{k-1}$: 이전 최고 보상의 반성(reflection) 피드백
+
+각 후보 보상 $r^{(i)}_k$로 RL 정책을 학습한 후, 태스크 성능 점수 $\mathcal{S}(r^{(i)}_k)$를 기준으로 엘리트를 선택합니다:
+
+$$r^*_k = \arg\max_{r^{(i)}_k} \mathcal{S}(r^{(i)}_k)$$
+
+#### (D) 보상 반성 (Reward Reflection)
+
+보상 평가 후, Eureka는 RL 학습의 핵심 통계를 요약한 보상 반성을 구성합니다. 그런 다음 이 반성을 사용하여 백본 LLM(GPT-4)이 (1) 기존 보상 구성요소의 하이퍼파라미터 변경, (2) 기능적 형태 변경 등 다양한 자유형 수정으로 보상 함수를 유연하게 개선합니다.
+
+보상 반성 벡터는 다음과 같이 표현됩니다:
+
+$$\mathcal{R}^*_k = \text{Reflect}\left(\{(\text{metric}_j,\; \text{trend}_j)\}_{j}\right)$$
+
+여기서 $\text{metric}_j$는 RL 학습 중 측정된 보상 구성요소별 통계값, $\text{trend}_j$는 학습 곡선의 추이입니다.
+
+#### (E) 인컨텍스트 RLHF (Gradient-Free In-Context RLHF)
+
+Eureka의 일반성은 강화학습에서 인간 피드백(RLHF)에 대한 새로운 기울기 없는 인컨텍스트 학습 방법을 가능하게 하여, 모델 업데이트 없이 인간 입력을 쉽게 통합하여 생성된 보상의 품질과 안전성을 향상시킵니다.
+
+이를 수식으로 표현하면:
+
+$$r^{\text{RLHF}}_k = \text{LLM}\left(\mathcal{C}_{\text{env}},\; r^*_{k-1},\; \mathcal{F}_{\text{human}}\right)$$
+
+- $\mathcal{F}_{\text{human}}$: 인간이 제공하는 자연어 피드백
+
+#### (F) 정규화 성능 지표
+
+두 보상 함수의 성능을 비교할 때 정규화 개선율을 사용합니다:
+
+$$\text{Normalized Improvement} = \frac{\mathcal{S}(r_{\text{Eureka}}) - \mathcal{S}(r_{\text{human}})}{\max(\mathcal{S}(r_{\text{human}}),\; \epsilon)}$$
+
+### 2-3. 모델 구조
+
+```
+┌───────────────────────────────────────────────┐
+│              Eureka Pipeline                  │
+│                                               │
+│  1. Environment as Context                    │
+│     - 원시 환경 소스 코드 + 태스크 설명        │
+│     → GPT-4에 직접 제공 (프롬프트 엔지니어링 X)│
+│                                               │
+│  2. Zero-Shot Reward Generation               │
+│     - GPT-4가 실행 가능한 Python 보상 코드 생성│
+│     - N개의 후보 병렬 생성                     │
+│                                               │
+│  3. GPU-Accelerated RL Evaluation             │
+│     - NVIDIA Isaac Gym으로 대규모 병렬 평가    │
+│     - 각 후보 보상 → RL 학습 → 성능 점수 계산  │
+│                                               │
+│  4. Reward Reflection                         │
+│     - RL 학습 통계 요약 → GPT-4 피드백         │
+│     - LLM이 보상 함수를 자유형으로 개선        │
+│                                               │
+│  5. Evolutionary Optimization (반복)           │
+│     - 엘리트 선택 → 새 세대 생성 → 반복        │
+└───────────────────────────────────────────────┘
+```
+
+환경 코드를 컨텍스트로 사용함으로써 Eureka는 태스크별 프롬프트 엔지니어링 없이도 그럴듯한 보상 프로그램을 제로샷으로 생성할 수 있으며, 이는 Eureka가 범용 보상 설계자가 되어 모든 환경에서 첫 시도에 보상 함수를 생성할 수 있게 합니다.
+
+NVIDIA Isaac Gym의 최첨단 GPU 가속 시뮬레이션을 활용함으로써, Eureka는 대량의 보상 후보 품질을 빠르게 평가하여 보상 함수 공간에서 확장 가능한 탐색을 가능하게 합니다.
+
+### 2-4. 성능 향상
+
+Eureka는 29개의 다양한 오픈소스 RL 환경에서 인간이 작성한 보상과 L2R 베이스라인 모두를 크게 능가하며, 83%의 태스크에서 인간 수준 이상의 성능을 달성하고 평균 정규화 개선율 52%를 기록합니다. 이는 Eureka가 태스크별 프롬프팅이나 템플릿 없이 효과적인 보상 함수를 자율적으로 생성하는 탁월한 능력을 보여주며, 특히 L2R이 템플릿 기반 접근 방식 때문에 어려움을 겪는 고차원 손재주 환경에서 두드러집니다.
+
+Eureka는 반복적 진화 탐색을 통해 보상 함수를 일관되게 개선하며, 초기의 낮은 품질 보상도 시간이 지남에 따라 개선됩니다. 이 반복적 정제와 보상 반성의 조합은 최종 성능에 필수적으로, 단순히 더 많은 초기 보상을 샘플링하는 것('Eureka w.o. Evolution (32 Samples)')으로는 비교 가능한 결과를 얻을 수 없어 인컨텍스트 진화적 최적화의 중요성을 강조합니다.
+
+인간 보상 초기화의 품질에 관계없이, Eureka는 모든 태스크에서 Eureka(단독) 및 Human(단독) 대비 균일하게 더 나은 성능을 보이며 인간 보상으로부터 이점을 얻습니다.
+
+### 2-5. 한계
+
+- GPT-4를 백본 LLM으로 사용하는 것이 Eureka의 강력한 성능의 핵심 요소이며, GPT-3.5를 사용할 때는 성능이 저하됩니다. 다만 GPT-3.5를 사용해도 대부분의 Isaac 태스크에서 인간 수준과 동등하거나 능가하여 단일 LLM을 넘어서는 알고리즘 설계의 견고성을 보여줍니다.
+
+- 코드 기반 프레임워크(Eureka 포함)는 깨끗하고 읽기 쉬우며 접근 가능한 소스 코드에 의존합니다. 즉, 환경 소스 코드가 없거나 복잡한 경우 적용이 어렵습니다.
+
+- 환경 소스 코드를 보상 함수 후보 생성을 위한 정보 캡처 전략으로 사용하는 것은, 환경 소스 코드의 구현에 대한 의존성을 도입할 수 있습니다.
+
+- GPU 병렬 시뮬레이션(Isaac Gym)에 강하게 의존하므로, 해당 인프라가 없는 환경에서는 계산 비용이 높습니다.
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+환경 코드를 컨텍스트로 활용함으로써 Eureka는 태스크별 프롬프트 엔지니어링 없이도 제로샷으로 타당한 보상 프로그램을 생성할 수 있으며, 이는 Eureka가 범용 보상 설계자(generalist reward designer)가 되어 모든 환경에서 첫 시도에 보상 함수를 생성할 수 있게 합니다.
+
+Eureka의 환경 스위트는 두 가지 오픈소스 벤치마크인 Isaac Gym과 Bidexterous Manipulation(Dexterity)에 걸쳐 10개의 로봇과 29개의 서로 다른 태스크를 포괄합니다. 이처럼 이질적인 로봇 모폴로지에 걸친 일반화 성능은 주목할 만합니다.
+
+Eureka는 새로운 보상을 생성합니다. Isaac 태스크에서 Eureka와 인간 보상 사이의 상관관계를 계산하여 보상의 새로움을 평가했을 때, Eureka는 주로 인간 보상을 능가하는 약하게 상관된 보상 함수를 생성하며, 태스크가 어려울수록 Eureka 보상과 인간 보상의 상관관계가 낮아집니다. 이는 Eureka가 인간이 생각하지 못한 새로운 보상 구조를 탐색하는 능력을 보여줍니다.
+
+또한 **일반화를 위한 핵심 메커니즘들**:
+
+1. **Zero-shot 일반화**: Eureka의 일반성은 세 가지 핵심 알고리즘 선택에 의해 가능합니다 — 제로샷 보상 생성을 위한 환경 소스 코드 컨텍스트 사용, 보상 후보를 반복적으로 개선하기 위한 진화적 탐색 채택, 목표 개선을 위한 보상 반성 구현.
+
+2. **RLHF를 통한 안전성 일반화**: Eureka의 일반성은 강화학습에서 인간 피드백에 대한 새로운 기울기 없는 인컨텍스트 학습 방법을 가능하게 하여, 모델 업데이트 없이 인간 입력을 쉽게 통합하여 생성된 보상의 품질과 안전성을 향상시킵니다.
+
+3. **커리큘럼 학습과의 결합**: Eureka와 커리큘럼 학습을 결합하여, 처음으로 Shadow Hand가 다양한 펜 회전 트릭을 수행하는 것을 시연했습니다. 이처럼 커리큘럼 학습과의 시너지는 점진적으로 어려운 환경으로의 일반화 경로를 열어줍니다.
+
+4. **고차원 손재주 태스크에서의 우수성**: 특히 고차원 손재주 환경에서 Eureka가 훨씬 더 큰 성능 향상을 실현합니다. 이는 기존의 수동 보상 설계가 어려운 복잡한 태스크일수록 Eureka의 일반화 이점이 크다는 것을 시사합니다.
+
+---
+
+## 4. 향후 연구에 미치는 영향 및 고려할 점
+
+### 4-1. 향후 연구에 미치는 영향
+
+#### ① 자동화된 보상 설계 패러다임 전환
+Eureka는 환경 소스 코드를 맥락적 입력으로 통합하고, 반성적 보상 메커니즘과 진화적 탐색을 결합하여 태스크별 프롬프팅 없이 자동화된 보상 함수 설계를 달성했습니다. 이는 보상 설계를 "코드를 작성하는 문제"로 재정의하는 새로운 연구 방향을 제시합니다.
+
+#### ② 멀티모달 LLM(MLLM)으로의 확장
+기존 연구(Eureka)는 수치적 피드백과 텍스트 정보만을 보상 샘플링 및 보상 반성 과정에 사용했습니다. 이에 에이전트 훈련 비디오와 유휴 이미지를 멀티모달 LLM(MLLM)의 도움으로 진화 과정에 통합하여 이 한계를 해결하려는 연구가 등장했습니다.
+
+#### ③ LLM 기반 보상 연구 생태계 활성화
+두 방법 모두 보상 설계 자동화를 목표로 하지만, Eureka는 고급 기술을 위한 복잡한 보상 로직 최적화에 탁월하고, Text2Reward는 광범위한 태스크에 대한 유연성, 해석 가능성, 적응성을 우선시합니다. 이처럼 Eureka는 다른 LLM 기반 보상 설계 연구의 비교 기준(baseline)이 되었습니다.
+
+### 4-2. 향후 연구 시 고려할 점
+
+#### 🔴 한계 극복 방향
+
+| 고려사항 | 설명 |
+|---|---|
+| **소스 코드 독립성** | 자연어만을 입력으로 수용함으로써 환경의 소스 코드가 없거나 복잡하게 읽히는 시나리오를 해결하는 더 다재다능하고 적용 가능한 입력 양식이 필요합니다. |
+| **LLM 비용 최적화** | GPT-4에 대한 강한 의존성 → 오픈소스 LLM이나 경량 모델로의 대체 가능성 탐색 |
+| **실세계 sim-to-real 전이** | Text2Reward는 시뮬레이터에서 학습된 정책을 실제 Franka Panda 로봇에 배포하는 것을 시연했으며, Eureka도 이러한 실세계 전이 검증이 필요합니다. |
+| **보상 해킹 방지** | LLM이 생성한 보상이 의도치 않은 방식으로 최적화될 위험성 연구 필요 |
+
+#### 🟡 새로운 연구 방향
+
+- Eureka의 일반성은 인간 감독을 쉽게 통합하여 인컨텍스트에서 생성된 보상의 품질과 안전성을 향상시키는 RLHF에 대한 새로운 기울기 없는 접근 방식을 가능하게 합니다. 이를 더욱 정교화한 인간-AI 협업 보상 설계 연구가 가능합니다.
+- 멀티태스크, 메타러닝 등과의 결합을 통한 **원샷/퓨샷 보상 일반화** 연구
+- 다양한 시뮬레이터(MuJoCo, PyBullet 등)와의 호환성 강화
+
+---
+
+## 5. 2020년 이후 관련 최신 연구 비교 분석
+
+| 연구 | 방법 | 특징 | Eureka 대비 |
+|---|---|---|---|
+| **Eureka** (Ma et al., 2023, ICLR 2024) | LLM + 진화적 보상 탐색 + 반성 | 소스 코드 컨텍스트, 제로샷 | **기준 연구** |
+| **Text2Reward** (Xie et al., 2023, ICLR 2024) | LLM으로 자연어 → 보상 코드 생성 | 해석 가능성, 인간 피드백 반복 | 유연성·해석 가능성 우선 |
+| **L2R / Language to Rewards** (Yu et al., 2023) | LLM + MPC 결합 | 비형상 희소 보상 코드 | 단순 태스크에는 강하나 복잡 조작에는 약함 |
+| **RLAIF** (Lee et al., 2023) | LLM을 보상 레이블러로 사용 | 인간 피드백 비용 절감 | LLM 자체를 보상 함수로 사용 |
+| **EROM** (ACL ALVR 2024) | MLLM + 비디오 피드백 통합 | 멀티모달 진화 | Eureka의 수치 피드백 한계 보완 |
+| **LaRes** (OpenReview 2025) | LLM + 연속 학습 + 데이터 공유 | 지속 학습, 공유 리플레이 버퍼 | R*는 파라미터 최적화와 구조 진화 두 가지 메커니즘을 도입하여 Eureka를 더욱 발전시킵니다. |
+| **LEARN-Opt** (arXiv 2025) | 자연어만 입력, 모듈형 구조 | 소스 코드 불필요 | 환경 소스 코드가 없거나 복잡한 경우의 시나리오를 해결하는 더 다재다능한 입력 양식을 제공합니다. |
+
+Eureka는 LLM과 진화 알고리즘을 통해 보상 함수 코드를 진화시키고 최적화하는 데 반해, Text2Reward는 외부 라이브러리를 통합하고 인간 피드백을 통해 반복적인 정제를 지원하는 인간이 읽을 수 있는 보상 코드 생성을 강조합니다. 두 방법 모두 보상 설계 자동화를 목표로 하지만, Eureka는 고급 기술을 위한 복잡한 보상 로직 최적화에 탁월하고, Text2Reward는 광범위한 태스크에 대한 유연성, 해석 가능성, 적응성을 우선시합니다.
+
+---
+
+## 📚 참고자료 (출처)
+
+1. **[arXiv 원문]** Ma, Y. J. et al. (2023). *Eureka: Human-Level Reward Design via Coding Large Language Models*. arXiv:2310.12931. https://arxiv.org/abs/2310.12931
+2. **[ICLR 2024 공식 논문]** https://proceedings.iclr.cc/paper_files/paper/2024/file/70c26937fbf3d4600b69a129031b66ec-Paper-Conference.pdf
+3. **[프로젝트 페이지]** https://eureka-research.github.io/
+4. **[공식 GitHub]** https://github.com/eureka-research/Eureka
+5. **[OpenReview]** https://openreview.net/forum?id=IEduRUO55F
+6. **[Semantic Scholar]** https://www.semanticscholar.org/paper/Eureka:-Human-Level-Reward-Design-via-Coding-Large-Ma-Liang/6ca16c1c2c60ceda87242c8f8e522d12cc4a13bc
+7. **[Text2Reward, ICLR 2024]** Xie, T. et al. *Text2Reward: Reward Shaping with Language Models for Reinforcement Learning*. https://arxiv.org/html/2309.11489v3
+8. **[EROM, ACL ALVR 2024]** *Evolutionary Reward Design and Optimization with Multimodal LLMs*. https://aclanthology.org/2024.alvr-1.18.pdf
+9. **[LaRes, OpenReview 2025]** *LaRes: Evolutionary Reinforcement Learning with LLM-based Reward Search*. https://openreview.net/pdf?id=jRjvcqtdtA
+10. **[LEARN-Opt, arXiv 2025]** *Leveraging LLMs for reward function design in reinforcement learning*. https://arxiv.org/pdf/2511.19355
+11. **[RL Enhanced LLMs Survey, arXiv 2024]** *Reinforcement Learning Enhanced LLMs: A Survey*. https://arxiv.org/html/2412.10400v1
+12. **[RL Meets LLMs Survey, arXiv 2025]** *Reinforcement Learning Meets Large Language Models: A Survey of Advancements*. https://arxiv.org/html/2509.16679v1
+13. **[UPenn 저자 페이지]** https://www.seas.upenn.edu/~dineshj/publication/ma-2024-eureka/
+
+# Eureka: Human-Level Reward Design via Coding Large Language Models
 
 ## 1. 핵심 주장 및 주요 기여
 
