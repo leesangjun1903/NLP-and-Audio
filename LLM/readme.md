@@ -334,6 +334,7 @@
 - Self-Consistency Improves Chain of Thought Reasoning in Language Models | 2022 · 2844회 인용
 - Large Language Models are Zero-Shot Reasoners | 2022 · 6382회 인용
 - Automatic Chain of Thought Prompting in Large Language Models | 2022 · 1343회 인용
+- Chain-of-Thought Reasoning without Prompting | 2024 · 260회 인용
 
 
 ### sLM Techniques
