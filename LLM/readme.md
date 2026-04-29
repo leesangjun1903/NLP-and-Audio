@@ -304,6 +304,7 @@
 - Retentive Network: A Successor to Transformer for Large Language Models | 2023 · 665회 인용
 - LONGNET: Scaling Transformers to 1,000,000,000 Tokens | 2023 · 293회 인용
 - Self-Rewarding Language Models | 2024 · 806회 인용
+- Training Large Language Models to Reason in a Continuous Latent Space | 2024 · 485회 인용
 
 
 ## Prompting
