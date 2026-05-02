@@ -1,5 +1,218 @@
 
 # s1: Simple Test-Time Scaling
+
+> **논문 정보**
+> - **제목:** s1: Simple Test-Time Scaling
+> - **저자:** Niklas Muennighoff, Zitong Yang, Weijia Shi, Xiang Lisa Li, Li Fei-Fei, Hannaneh Hajishirzi, Luke Zettlemoyer, Percy Liang, Emmanuel Candès, Tatsunori Hashimoto (Stanford University 외)
+> - **발표:** arXiv:2501.19393 (2025.01.31 제출), EMNLP 2025 게재
+> - **오픈소스:** https://github.com/simplescaling/s1
+
+---
+
+## 1. 핵심 주장 및 주요 기여 요약
+
+테스트 타임 스케일링(Test-time scaling)은 추론(inference) 시에 추가적인 연산(compute)을 활용하여 모델 성능을 향상시키는 유망한 새로운 언어 모델링 패러다임입니다.
+
+OpenAI의 o1 모델이 이 능력을 보여줬지만 방법론을 공개하지 않아 많은 복제 시도가 이어졌으며, 본 논문은 테스트 타임 스케일링과 강력한 추론 성능을 달성하기 위한 **가장 단순한 접근법**을 탐구합니다.
+
+### 🔑 핵심 기여 3가지
+
+| # | 기여 | 내용 |
+|---|---|---|
+| 1 | **s1K 데이터셋 구축** | 1,000개의 고품질 질문-추론 트레이스 쌍 |
+| 2 | **Budget Forcing 기법** | 테스트 타임 연산량을 제어하는 새로운 디코딩 기법 |
+| 3 | **s1-32B 모델** | o1-preview를 능가하는 오픈소스 추론 모델 |
+
+단 1,000개의 샘플로 next-token prediction을 학습하고, Budget Forcing이라는 간단한 테스트 타임 기법으로 사고 시간을 제어함으로써, 더 많은 테스트 타임 연산에 따라 성능이 향상되는 강력한 추론 모델을 구축할 수 있음을 보여줍니다.
+
+---
+
+## 2. 논문의 상세 분석
+
+### 2-1. 해결하고자 하는 문제
+
+지난 몇 년간 언어 모델의 성능 향상은 대규모 자기지도 사전학습(self-supervised pretraining)을 통한 **훈련 시 연산량(train-time compute) 스케일링**에 크게 의존해왔습니다.
+
+이에 대한 새로운 패러다임으로 **테스트 타임 스케일링**이 등장했는데, 이는 테스트 시 연산량을 증가시켜 더 나은 결과를 얻는 방법으로, 모델이 실제 사용 중에 "두뇌"를 더 효과적으로 활용하도록 최적화하는 방식입니다.
+
+DeepSeek R1은 수백만 개의 샘플과 여러 훈련 단계를 통한 강화학습으로 o1 수준의 성능을 복제했지만, 많은 o1 복제 시도들 중 **명확한 테스트 타임 스케일링 동작을 공개적으로 재현한 것은 없었습니다.**
+
+---
+
+### 2-2. 제안하는 방법
+
+#### 📊 (1) s1K 데이터셋 구축
+
+세 가지 기준(ablation으로 검증)에 따라 추론 트레이스와 짝지어진 1,000개 질문으로 구성된 소규모 데이터셋 **s1K**를 구축합니다: **난이도(Difficulty), 다양성(Diversity), 품질(Quality)**.
+
+구체적으로 s1K는 **Gemini Thinking Experimental**에서 증류(distillation)한 추론 트레이스와 답변이 짝지어진 1,000개의 엄선된 질문으로 구성됩니다.
+
+추론 트레이스가 길수록 해당 샘플이 더 복잡하다는 것을 나타내므로, **더 긴 추론 트레이스를 가진 샘플을 우선 선택합니다.**
+
+훈련은 16개의 H100 GPU에서 단 **26분**의 supervised fine-tuning(SFT)만 필요합니다.
+
+#### 🧮 (2) Budget Forcing (핵심 방법론)
+
+훈련 후 Budget Forcing으로 모델이 사용하는 테스트 타임 연산량을 제어합니다: **(I) 모델이 원하는 한도보다 더 많은 thinking token을 생성하면, end-of-thinking 토큰 구분자를 강제로 추가하여 사고 프로세스를 종료시킵니다.** 이 방식은 모델이 답변 생성으로 전환하도록 만듭니다.
+
+Budget Forcing의 두 가지 모드를 수식으로 표현하면:
+
+**최대 토큰 제한 (Truncation):**
+
+$$T_{\text{think}} > T_{\max} \Rightarrow \text{강제로 } \langle \text{end-of-think} \rangle \text{ 토큰 삽입}$$
+
+**최소 토큰 강제 (Extension):**
+
+$$T_{\text{think}} < T_{\min} \Rightarrow \text{thinking trace에 "Wait" 토큰 추가}$$
+
+테스트 타임 연산을 제어하기 위해 모델의 사고 프로세스를 강제로 종료하거나, 모델이 종료하려 할 때 "Wait"를 여러 번 추가하여 사고를 연장합니다. 이는 모델이 답을 재확인하게 유도하여 **잘못된 추론 단계를 수정**하도록 만듭니다.
+
+논문의 Table 4는 "Wait" 추가가 AIME24에서 53.3% 정확도를 달성한 반면, 중립적인 "Hmm"(50.0%)이나 아무것도 추가하지 않은 경우(50.0%)보다 높음을 확인합니다. Figure 3은 모델이 처음에 잘못된 답을 제시했다가 "Wait" 이후 재평가하여 수정하는 직접적인 증거를 보여줍니다.
+
+#### 📐 Sequential vs. Parallel 스케일링 비교
+
+테스트 타임 스케일링 방법은 1) **순차적(Sequential)** 방법(이후 연산이 이전 결과에 의존, 예: 긴 추론 트레이스)과 2) **병렬(Parallel)** 방법(독립적 연산, 예: majority voting)으로 분류됩니다. 순차적 스케일링에 집중하는 이유는, 이후 연산이 중간 결과를 기반으로 더 깊은 추론과 반복적 개선이 가능하기 때문입니다.
+
+s1-32B에 Budget Forcing을 적용한 결과, 기반 모델에 majority voting을 통한 병렬 스케일링을 아무리 늘려도 s1-32B의 성능을 따라잡지 못하며, **순차적 스케일링이 병렬보다 더 효과적**임을 검증합니다.
+
+---
+
+### 2-3. 모델 구조
+
+s1-32B의 전체 파이프라인:
+
+```
+[Qwen2.5-32B-Instruct] (사전학습 모델)
+        ↓ SFT (26분, 16 × H100)
+[s1K 데이터셋 1,000개 샘플]
+        ↓
+[s1-32B] (파인튜닝된 추론 모델)
+        ↓ 테스트 타임
+[Budget Forcing] → 성능 스케일링
+```
+
+왜 1,000개 샘플만으로 성능 향상이 가능한가? 모델은 이미 사전학습 중 수조 개의 토큰에 걸쳐 방대한 추론 데이터에 노출되어 있어, **추론 능력이 이미 모델에 내재**되어 있습니다. 소규모 파인튜닝 단계는 이를 활성화하고, Budget Forcing으로 테스트 타임에 더욱 확장합니다.
+
+이는 LIMA(Zhou et al., 2023)에서 제안한 **"Superficial Alignment Hypothesis"**와 유사한데, 1,000개의 예시만으로도 모델을 정렬하기에 충분할 수 있다는 가설입니다.
+
+---
+
+### 2-4. 성능 향상
+
+Qwen2.5-32B-Instruct를 s1K로 supervised finetuning하고 Budget Forcing을 적용한 결과, **s1-32B는 경쟁 수학 문제(MATH 및 AIME24)에서 o1-preview를 최대 27%까지 초과**합니다.
+
+나아가 Budget Forcing으로 s1-32B를 스케일링하면 테스트 타임 개입 없이의 성능을 초과하여 외삽(extrapolate)할 수 있습니다: **AIME24에서 50%에서 57%로** 향상됩니다.
+
+s1 발표 7일 후 s1.1도 공개했는데, s1K의 1,000개 샘플에 대한 추론 트레이스를 Gemini 대신 **DeepSeek R1으로 재생성**하여 s1K-1.1을 만들고, 동일한 훈련 절차로 s1.1을 훈련했습니다.
+
+s1.1은 s1보다 **유의미하게 더 나은 성능**을 보입니다.
+
+---
+
+### 2-5. 한계점
+
+이 접근법은 스케일링이 **플래토(plateau)에 도달하면 한계**가 있으며, 언어 모델의 **컨텍스트 윈도우 크기에 제약**을 받습니다.
+
+Budget Forcing 기법은 AIME24에서 6회 적용 시 성능이 결국 평탄해집니다. 또한 end-of-thinking 토큰 구분자를 너무 자주 억제하면 계속된 추론 대신 **반복 루프(repetitive loops)**에 빠질 수 있습니다.
+
+성능이 일정 길이를 초과하면 오히려 감소할 수 있다는 점이 지적되었으며, s1의 접근법은 주로 수학 태스크에 한정되었고, **전문 지식이 필요한 도메인별 태스크**에 대한 검증은 충분히 이루어지지 않았습니다.
+
+테스트 타임 스케일링 동작의 **기저 메커니즘이 불명확**하며, 단순 테스트 타임 스케일링은 세 가지 핵심 요소에 의존합니다: (1) o1-유사 모델에서 증류된 긴 CoT 데이터로 파인튜닝, (2) 최대 길이를 강제하여 스케일 다운, (3) 종료 시도 시 "Wait"를 반복 추가하여 스케일 업.
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+### 3-1. Superficial Alignment Hypothesis와 일반화
+
+s1의 소규모 데이터셋 사용 접근법은 Meta의 "Less is More for Alignment" 논문에서 소개된 **Superficial Alignment Hypothesis**를 반영합니다. 이 가설은 모델의 지식과 능력이 사전학습 중에 대부분 습득되므로, 추론 능력이 이미 사전학습 모델에 존재하며, s1K와 같은 소규모 고품질 데이터셋으로 이를 충분히 활성화하고 개선할 수 있다고 주장합니다.
+
+### 3-2. Sequential + Parallel 결합을 통한 일반화 확장
+
+Budget Forcing의 한계를 극복하기 위해, Budget Forcing을 **병렬 스케일링 기법과 결합**하여 더욱 확장할 수 있습니다.
+
+### 3-3. 다른 도메인으로의 적용 가능성
+
+후속 분석 연구에 따르면, 모델들은 증류(distillation)를 받았는지 여부와 관계없이 **테스트 타임 스케일링 동작을 나타낼 수 있음**이 확인되었습니다.
+
+그러나 수학 외 도메인에 대한 일반화는 제한적입니다. 법률 분야에서의 연구를 보면:
+DeepSeek-R1과 OpenAI의 o1으로 대표되는 최근의 테스트 타임 스케일링 발전은 추론 중 사고 사슬을 연장함으로써 일반적 추론 성능을 크게 향상시킬 수 있음을 보여주지만, **법률 추론과 같은 특수 도메인에 미치는 영향은 충분히 탐구되지 않았습니다.**
+
+### 3-4. 데이터 품질의 일반화에 대한 영향
+
+ablation 실험은 데이터 선택 과정의 중요성을 드러냅니다: 무작위 선택이나 단일 기준만 사용하면 성능이 크게 저하되는 반면, 더 많은 데이터셋을 사용해도 추가적인 이점은 미미합니다. 즉, **데이터의 양보다 질(난이도+다양성+품질)이 일반화에 핵심적**입니다.
+
+---
+
+## 4. 앞으로의 연구에 미치는 영향 및 고려 사항
+
+### 4-1. 연구 영향
+
+#### ① 소규모 데이터 + 테스트 타임 스케일링 패러다임의 정립
+이 연구는 효과적인 추론 모델이 방대한 데이터셋이나 복잡한 아키텍처 없이도 **최소한의 리소스로 개발될 수 있음**을 보여주어, 방대한 데이터와 훈련 시간의 필요성에 도전장을 내밉니다.
+
+#### ② 오픈소스 o1 수준 추론의 재현
+Budget Forcing을 결합한 이 접근법은 OpenAI의 테스트 타임 스케일링 곡선을 **최초로 재현**하였습니다. 왜 1,000개의 샘플만으로 이러한 성능 향상이 가능한지에 대한 중요한 질문을 제기합니다.
+
+#### ③ 후속 연구 촉발
+s1 발표 7일 만에 s1.1이 공개되었는데, 동일한 s1K 질문에 Gemini 대신 **DeepSeek R1의 추론 트레이스를 재활용**하여 훨씬 나은 성능을 달성함으로써, 교사 모델(teacher model) 선택의 중요성이라는 새로운 연구 방향을 열었습니다.
+
+#### ④ 비판적 재검토 연구 촉발
+후속 분석 연구("It's Not That Simple")에서는 **최대 길이 강제(scaling down)**가 테스트 타임 스케일링 동작의 주된, 혹은 유일한 기여 요인일 수 있음을 지적하였습니다.
+
+R1과 QwQ에서 솔루션 길이를 연장한다고 반드시 성능이 향상되지 않으며, 이는 모델의 제한된 자기 수정(self-revision) 능력과 관련됩니다. 추가 연구에서는 이 현상이 "모델 과사고(underthinking)"와 관련된다고 분석하며, **모델이 처음에 올바른 중간 답에 도달했다가 이후 확장된 추론 과정에서 잘못된 결론으로 이탈한다**고 설명합니다.
+
+---
+
+### 4-2. 앞으로 연구 시 고려할 점
+
+| 분야 | 고려 사항 |
+|------|----------|
+| **도메인 일반화** | 수학 외 법률, 의료, 과학 등 다양한 도메인에 대한 검증 필요 |
+| **교사 모델 선택** | 증류 소스(Gemini vs. R1 vs. Claude 등)가 성능에 미치는 영향 심층 연구 |
+| **Budget Forcing 메커니즘** | "Wait" 토큰의 실제 작동 메커니즘(시간 연장 vs. 의미론적 개입) 규명 |
+| **스케일링 한계 극복** | 순차적+병렬 스케일링 결합으로 플래토 문제 해결 방안 |
+| **효율성 최적화** | 긴 CoT 추론이 증가시키는 추론 비용과 지연 시간 개선 |
+| **자기 수정 능력** | 모델이 "Wait" 후 진정한 재추론을 하는지, 단순 반복에 빠지는지 연구 |
+
+---
+
+## 5. 2020년 이후 관련 최신 연구 비교 분석
+
+지난 몇 년간 언어 모델 성능 향상은 **훈련 시 연산량 스케일링**에 의존해왔으며(Kaplan et al., 2020 — Scaling Laws for Neural Language Models), 이는 GPT-3, LLaMA 등 대규모 모델의 발전을 이끌었습니다.
+
+| 연구 | 방법론 | 데이터 규모 | 특징 | s1 대비 |
+|------|--------|-----------|------|---------|
+| **Chain-of-Thought (Wei et al., 2022)** | 프롬프팅 기반 추론 유도 | 없음 (zero/few-shot) | 단계별 추론 명시 | s1은 SFT+테스트타임 개입으로 더 강력 |
+| **STaR (Zelikman et al., 2022)** | 부트스트랩 추론 | 자가 생성 | 자기 생성 추론으로 파인튜닝 | s1은 외부 증류, 더 단순 |
+| **LIMA (Zhou et al., 2023)** | SFT, 1,000개 샘플 | 1,000개 | 소규모 정렬 가설 검증 | s1의 이론적 근거, 추론으로 확장 |
+| **OpenAI o1 (2024)** | RL + 긴 CoT | 수백만 (비공개) | 강력한 추론, 비공개 방법론 | s1이 공개 방법으로 복제 시도 |
+| **DeepSeek-R1 (2025)** | 순수 RL + 다단계 학습 | 수백만 | o1 수준 성능 달성 | 더 많은 데이터, 복잡한 파이프라인 |
+| **LIMO (Ye et al., 2025)** | SFT, 소규모 | 817개 | "Less is More for Reasoning" | s1과 유사하나 더 적은 데이터 |
+| **s1 (Muennighoff et al., 2025)** | SFT + Budget Forcing | 1,000개 | 최초 공개 테스트 타임 스케일링 재현 | **본 논문** |
+
+여러 연구들(Kimi Team, DeepSeek-AI)이 o1 모델의 성능을 복제하기 위해 CoT 추론 과정 길이를 늘려 테스트 타임 연산을 확장하는 방식으로 LLM을 훈련하려 했으며, DeepSeek-R1은 순수 강화학습 과정을 통해 LLM이 자연스럽게 테스트 타임 연산을 늘리고 일관된 성능 향상을 보일 수 있음을 보여주었습니다.
+
+그러나 이러한 o1 유사 모델들이 진정한 테스트 타임 스케일링 능력을 보유하는지는 여전히 탐구 중입니다. 연구에 따르면 **긴 CoT가 반드시 더 높은 정확도를 보장하지 않으며**, 오히려 올바른 솔루션이 잘못된 솔루션보다 짧은 경우도 많습니다. 이 현상은 더 긴 CoT에서 더 많은 자기 수정이 포함되어 성능 저하를 초래할 수 있는 것과 밀접하게 관련됩니다.
+
+---
+
+## 📚 참고 자료 출처
+
+1. **arXiv 논문 원문:** Muennighoff et al. (2025), "s1: Simple test-time scaling", arXiv:2501.19393. https://arxiv.org/abs/2501.19393
+2. **EMNLP 2025 게재본:** ACL Anthology, EMNLP 2025 Main, pp. 20275–20321. https://aclanthology.org/2025.emnlp-main.1025/
+3. **공식 프로젝트 페이지:** https://simplescaling.github.io/
+4. **GitHub 저장소:** https://github.com/simplescaling/s1
+5. **ar5iv (HTML 논문):** https://ar5iv.labs.arxiv.org/html/2501.19393
+6. **AI Papers Academy 해설:** "s1: Simple Test-Time Scaling – Can 1k Samples Rival o1-Preview?" https://aipapersacademy.com/s1/
+7. **Hugging Face Paper Page:** https://huggingface.co/papers/2501.19393
+8. **Medium 리뷰:** Sulbha Jain, "s1: Simple test-time scaling — Paper Review" https://medium.com/@sulbha.jindal/s1-simple-test-time-scaling-paper-review-79a5e7bf9677
+9. **비판적 후속 연구:** "It's Not That Simple. An Analysis of Simple Test-Time Scaling", arXiv:2507.14419. https://arxiv.org/html/2507.14419
+10. **관련 비교 연구:** "Revisiting the Test-Time Scaling of o1-like Models", arXiv:2502.12215. https://arxiv.org/abs/2502.12215
+11. **법률 도메인 평가 연구:** "Evaluating Test-Time Scaling LLMs for Legal Reasoning: OpenAI o1, DeepSeek-R1, and Beyond", arXiv:2503.16040 / EMNLP Findings 2025. https://aclanthology.org/2025.findings-emnlp.742/
+12. **인퍼런스 타임 스케일링 최신 동향:** Introl Blog, "Inference-Time Scaling Research", December 2025. https://introl.com/blog/inference-time-scaling-research-reasoning-models-december-2025
+
+# s1: Simple Test-Time Scaling
 ## 1. 핵심 주장 및 주요 기여
 **s1** 논문의 핵심 주장은 **테스트 타임 스케일링(test-time scaling)을 구현하기 위해 복잡한 강화학습(RL)이나 대규모 데이터가 필수가 아니라는 것**입니다. OpenAI의 o1 모델이 테스트 타임 스케일링의 강력함을 증명했지만 방법론을 공개하지 않자, 여러 연구팀들이 거대한 데이터셋(DeepSeek R1: 800K 샘플)과 RL 기반 학습으로 재현하려고 노력했습니다. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/65988149/2d89c778-119f-40f4-8864-2f3b6107529e/2501.19393v3.pdf)
 
