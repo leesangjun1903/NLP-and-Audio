@@ -1,3 +1,242 @@
+
+# Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach
+
+> **논문 정보**
+> - **저자**: Jonas Geiping, Sean McLeish, Neel Jain, John Kirchenbauer, Siddharth Singh, Brian R. Bartoldson, Bhavya Kailkhura, Abhinav Bhatele, Tom Goldstein
+> - **arXiv**: [arXiv:2502.05171](https://arxiv.org/abs/2502.05171) (2025년 2월)
+> - **학회**: NeurIPS 2025 Spotlight
+> - **모델명**: Huginn-0125
+> - **코드**: [GitHub - seal-rg/recurrent-pretraining](https://github.com/seal-rg/recurrent-pretraining)
+
+---
+
+## 1. 핵심 주장과 주요 기여 요약
+
+이 논문은 잠재 공간(latent space)에서 암묵적 추론(implicit reasoning)을 통해 테스트 시간 연산을 확장할 수 있는 **새로운 언어 모델 아키텍처**를 연구한다. 이 모델은 순환 블록(recurrent block)을 반복하여 테스트 시간에 임의 깊이로 펼칠 수 있으며, 이는 더 많은 토큰을 생성함으로써 연산을 확장하는 주류 추론 모델과 **대비된다**.
+
+Chain-of-Thought(CoT) 기반 접근법과 달리, 이 방법은 **특수한 학습 데이터가 불필요**하고, 작은 컨텍스트 창에서도 동작하며, 언어로 쉽게 표현되지 않는 추론 유형도 포착할 수 있다. 3.5B 파라미터, 800B 토큰으로 처음부터(from scratch) 학습된 개념 증명(proof-of-concept) 모델을 훈련하였으며, 특히 수학, 코딩 같은 추론 과제에서 추가 연산에 의해 성능이 크게 향상됨을 보였다. 또한 이 아키텍처는 **제로샷 퍼-토큰 적응형 연산, KV-캐시 공유, speculative decoding**을 통해 연산 비용을 자연스럽게 절감한다.
+
+### 주요 기여 요약표
+
+| 기여 | 내용 |
+|------|------|
+| 새로운 아키텍처 | Prelude–Recurrent Block–Coda 3단계 구조 |
+| 테스트 시간 스케일링 | 추가 파라미터 없이 반복 횟수(r)만 조정 |
+| CoT 불필요 | 특수 학습 데이터, 긴 컨텍스트 불필요 |
+| 적응형 연산 | 토큰별 연산량 동적 조정 가능 |
+| 세 번째 스케일링 축 | 파라미터 수, 토큰 수에 이은 새로운 차원 |
+
+---
+
+## 2. 해결하고자 하는 문제, 제안 방법, 모델 구조, 성능 및 한계
+
+### 2.1 해결하고자 하는 문제
+
+전통적인 언어 모델은 각 중간 단계를 텍스트로 표현하는 긴 토큰 시퀀스를 생성하여 추론을 수행한다. 이 방법은 특정 맥락에서는 효과적이지만, 자원 집약적이고, 제한된 컨텍스트 창에 의해 제약되며, 연산 효율이 낮다.
+
+두 가지 핵심 문제가 있다: 첫째 **모든 작업에 대한 균일한 연산** — 단순한 사실 조회와 복잡한 다단계 추론 문제가 동일한 양의 처리를 받아 비효율적이다. 둘째 **확장성 제약** — 성능 향상은 일반적으로 레이어 수나 모델 파라미터 증가를 필요로 하며, 이는 계산 비용과 메모리 사용을 증가시킨다.
+
+연산을 이런 방식으로 스케일하는 것은 확장된(언어화된) 추론 스케일링이나 사전 학습에서의 파라미터 수 스케일링과 상충하지 않으며, **모델 성능을 스케일하는 세 번째 축**을 형성할 수 있다.
+
+---
+
+### 2.2 제안하는 방법 (수식 포함)
+
+#### 핵심 아이디어: Recurrent Depth
+
+잠재 추론의 핵심에는 **순환 깊이(recurrent depth)**가 있으며, 이는 모델이 동일한 입력에 대해 여러 라운드의 내부 연산을 수행할 수 있게 한다. 이 반복 과정은 출력을 생성하기 전에 모델의 이해를 정교하게 만들어, 더 크거나 긴 토큰 시퀀스 없이 더 깊은 추론을 가능하게 한다. 전통적인 트랜스포머 기반 모델이 한 번에 고정된 레이어 스택을 통해 정보를 처리하는 것과 달리, 순환 깊이는 추론을 위해 필요한 만큼 동일한 레이어 세트를 **여러 번 재사용**한다.
+
+#### 순전파(Forward Pass) 공식
+
+입력 시퀀스 $\mathbf{x} \in V^n$에 대해, 세 블록은 다음과 같이 동작한다:
+
+**Step 1 — Prelude (임베딩):**
+$$\mathbf{e} = P(\mathbf{x})$$
+- $P$: 여러 트랜스포머 레이어로 구성된 Prelude 블록
+- $\mathbf{e} \in \mathbb{R}^{n \times h}$: 잠재 임베딩
+
+**Step 2 — Recurrent Block (반복 정제):**
+
+$$\mathbf{s}_0 \sim \mathcal{N}(0, \sigma^2 I), \quad \mathbf{s}_i = R(\mathbf{e},\ \mathbf{s}_{i-1}) \quad \text{for } i \in \{1, \dots, r\}$$
+
+- $R$: 가중치 공유(weight-tied) 순환 블록
+- $\mathbf{s}_i \in \mathbb{R}^{n \times h}$: $i$번째 반복 후의 잠재 상태
+- $r$: 반복 횟수 (테스트 시간에 자유롭게 조정 가능)
+- 초기 상태 $\mathbf{s}_0$는 **가우시안 노이즈**로 초기화
+
+**Step 3 — Coda (디코딩):**
+$$p(\text{next token}) = C(\mathbf{s}_r)$$
+- $C$: 최종 잠재 상태를 토큰 확률로 변환하는 Coda 블록
+
+모든 반복이 끝난 후, Coda 블록이 마지막 상태를 처리하여 다음 토큰의 확률을 생성한다.
+
+#### 학습 목표: 확률론적 언롤링(Stochastic Unrolling)
+
+학습 시 순환 반복 횟수는 **log-normal Poisson 분포**에서 무작위로 샘플링된다. 이는 모델이 다양한 연산량에서 동작하도록 학습하게 한다. 계산 비용 관리를 위해 **절단된 역전파(truncated backpropagation)**가 사용되며, 역전파는 마지막 8번의 순환 반복으로 제한된다.
+
+수식으로 표현하면:
+
+$$r \sim \text{Poisson}(\lambda), \quad \lambda \sim \text{LogNormal}(\mu, \sigma^2)$$
+
+손실 함수는 표준 자기회귀 언어 모델링(cross-entropy) 손실:
+
+$$\mathcal{L} = -\sum_{t=1}^{n} \log p_\theta\bigl(x_t \mid x_{ < t},\; r\bigr)$$
+
+단, 역전파 시 마지막 $k$번의 반복(기본값 $k=8$)에 대해서만 그래디언트를 계산:
+
+$$\nabla_\theta \mathcal{L} \approx \nabla_\theta \mathcal{L}\big|_{\text{last } k \text{ steps}}$$
+
+평형 모델(equilibrium model, DEQ)과의 차이는 학습 목표에 있다. 이 모델은 언롤된 순환에 대한 절단 역전파로 학습되는 반면, DEQ는 고정점(fixed point)을 통해 미분한다. 두 접근 방식 모두 중간 레이어의 최적화와 관련되어 있으나, 내부 "에너지" 함수는 명시적으로 학습되지 않는다. 고정점 미분에 비해 언롤링의 한 가지 이점은 연산자가 반드시 고정점으로 수렴할 필요가 없다는 것이다.
+
+---
+
+### 2.3 모델 구조 (Huginn-0125)
+
+Huginn-0125는 약 3.5B 파라미터를 가지며 디코더 전용 트랜스포머 백본을 사용한다. 일반적인 고유 레이어의 깊은 스택 대신, 2개의 Prelude, 4개의 Recurrent, 2개의 Coda 트랜스포머 블록으로 이루어진 소수의 고유 블록을 사용한다. 아키텍처의 핵심은 4개의 순환 블록을 추론 시간에 R번 반복(일반적으로 $R = 16 \sim 128$)하는 것으로, 파라미터 수를 늘리지 않고 효과적으로 깊은 네트워크를 구현한다. 각 순환 패스는 동일한 파라미터에서 동작하며, 가중치 공유(weight tying)를 구현한다.
+
+비-순환 레이어(prelude+coda)에는 약 1.5B 파라미터, 임베딩에 0.5B, 순환 파라미터에 1.5B가 있으므로, **실질적으로 구현되는 파라미터 수**는 `num_steps × 1.5B + 2B`이다.
+
+전체 언롤링 순서는 다음과 같다:
+
+$$\underbrace{P}_{\text{Prelude}} \rightarrow \underbrace{(R_1 \to R_2 \to R_3 \to R_4) \times r}_{\text{Core Recurrent Block}} \rightarrow \underbrace{C}_{\text{Coda}}$$
+
+모델의 순환 특성상 표현 붕괴(representation collapse) 없는 학습을 위해 **pre-norm 아키텍처, 파라미터 없는 정규화** 등 신중한 정규화와 초기화가 필요하다.
+
+#### 아키텍처 시각화
+
+```
+Input tokens x
+     ↓
+[Prelude P]  ← 2 transformer layers (embedding into latent space)
+     ↓ e
+[Recurrent R] × r  ← 4 transformer layers (weight-shared, repeated r times)
+   s₀~N(0,σ²I) → s₁ → s₂ → ... → sᵣ
+     ↓ sᵣ
+[Coda C]  ← 2 transformer layers + prediction head
+     ↓
+p(next token)
+```
+
+---
+
+### 2.4 성능 향상
+
+3.5B 파라미터, 800B 토큰으로 학습된 이 모델은 추론 벤치마크에서 성능을 향상시킬 수 있으며, 때로는 극적으로 향상되어 **50B 파라미터에 해당하는 연산 부하**까지 성능이 향상됨을 보였다.
+
+3.5B 파라미터 순환 모델은 표준 벤치마크에서 **7B 파라미터 모델에 필적하는 성능**을 달성한다. GSM8K와 같은 수학적 추론 과제에서 대부분의 오픈소스 모델을 능가하며, 순환 깊이로부터 상당한 이득을 보인다. ARC challenge, GSM8K 같은 어려운 과제에서 테스트 시간 연산 증가(더 많은 순환 반복)로 성능이 크게 향상된다.
+
+180B 토큰에서 두 모델을 직접 비교할 때, 순환 모델은 기준 모델을 능가하며 ARC challenge 세트 같은 어려운 과제에서 특히 두드러진 이점을 보인다. SciQ처럼 과학적 사실의 직관적 회상이 필요한 다른 과제에서는 성능이 더 유사하다. GSM8K에서 순환 모델의 이득이 특히 두드러지며, 180B 순환 모델은 이 초기 사전 학습 시점에서 이미 기준 모델보다 **5배 더 나은 성능**을 보인다.
+
+---
+
+### 2.5 한계
+
+그러나 특히 연산 집약적인 벤치마크에서 직접 비교 분석 시, 순환 증가로 인한 성능 향상은 미미하며 명시적 외부화된 CoT 방법론의 이득에 미치지 못한다. 예를 들어 GSM8K에서 Huginn-0125는 순환이 증가함에 따라 정확도가 증가하지만, 최고의 CoT 보강 모델보다 뒤처진다. 이는 현재 잠재 추론 유도의 효율성에 한계가 있음을 시사한다.
+
+logit lens와 coda lens를 통해 잠재 chain-of-thought 추론의 구조적 증거가 거의 없다. 그러나 이 결과가 잠재 CoT의 존재를 명확히 배제하지는 않는다. 만약 존재한다면, 사용된 도구가 감지할 수 있는 것보다 더 미묘하거나 분산되어 있을 수 있다.
+
+또한 잠재 공간이 아닌 최종 결과에만 SFT(Supervised Fine-Tuning)를 적용할 수 있다는 **SFT 적용의 어려움**도 한계로 지적된다.
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+### 3.1 컨텍스트 기반 일반화
+
+흥미롭게도, few-shot 예제 없이는 모델이 약 8–12번의 반복에서 연산이 포화된다. 그러나 **더 많은 컨텍스트가 주어질수록** 모델은 더 많은 정보에 대해 추론할 수 있으며, 1개의 예제가 있으면 약 20번 반복에서, 25–50개의 예제가 있으면 32번 반복에서 포화되어, 순환에 대한 일반화 개선을 미러링한다.
+
+유사하게, OBQA를 "closed-book" 형식이 아닌 관련 사실을 제공하여 재평가하면 순환 모델이 크게 향상되어 OLMo-2와의 격차를 거의 좁힌다. 직관적으로 **순환 모델은 사실 암기 용량은 적지만 컨텍스트에 대한 추론 용량이 더 크다**는 점에서 이는 당연한 결과이다.
+
+### 3.2 비언어적 추론의 일반화
+
+철학적 관점에서, 잠재 추론은 공간적 사고, 물리적 직관, (운동) 계획과 같이 **언어화하기 어려운 인간 추론의 측면**을 포착할 것으로 기대된다. 순환 과정의 여러 반복에 걸쳐, 고차원 벡터 공간에서의 추론은 선형적 사고 대신 여러 방향을 동시에 깊이 탐색할 수 있어, 새롭고 복잡한 추론 행동을 보이는 시스템을 가능하게 한다.
+
+### 3.3 적응형 연산과 일반화
+
+순환 깊이는 추론 시간에 계산 깊이를 동적으로 조정할 수 있게 하여 이러한 한계를 해결한다. 이 유연성은 단순한 작업에는 최소한의 연산을 사용하고, 더 깊은 추론이 필요할 때는 더 많은 리소스를 투자하게 한다.
+
+순환 깊이 모델은 잠재 표현에서 창발적 행동을 개발한다: **궤도형 궤적(orbit-like trajectories)** — 잠재 상태가 안정적으로 반복되는 패턴으로 진화하여 구조화된 내부 추론 루프를 시사한다; **방향적 드리프트(directional drifts)** — 일부 잠재 상태가 점진적으로 이동하여 점진적 정제를 나타낸다; **수렴 속도(convergence rates)** — 동일한 시퀀스 내의 다른 토큰들이 안정화하는 데 다른 반복 횟수가 필요할 수 있다. 이러한 패턴은 모델이 단순히 연산을 반복하는 것이 아니라 각 반복에서 **진정으로 내부 이해를 정교하게 만들고 있음**을 보여준다.
+
+### 3.4 메모리화(Memorization) 대 추론(Reasoning) 트레이드오프
+
+순환 모델은 단일 순환으로 평가할 때, 초기 180B 체크포인트와 800B 체크포인트 사이에서 사실상 성능 향상이 없다. 이는 추가 개선이 비순환 Prelude/Coda 레이어에 내장된 것이 아니라 **순환 블록의 반복에 완전히 인코딩**됨을 보여준다.
+
+---
+
+## 4. 앞으로의 연구에 미치는 영향과 고려사항
+
+### 4.1 연구에 미치는 영향
+
+**① 새로운 스케일링 패러다임 제시**
+
+이 연구는 파라미터 수 확장(사전 학습), 토큰 수 확장(추론 시간 CoT)에 이어 **모델 성능을 스케일하는 세 번째 축**을 제안한다는 점에서 패러다임 전환적 의미를 가진다.
+
+**② 관련 후속 연구의 확산**
+
+이 연구의 발견은 추론 시 순환-깊이 모델에서 추가 연산을 병렬화하는 효율적인 메커니즘을 제공할 뿐만 아니라, 이러한 모델이 강한 연속적(continuous), 인과적(causal) 확산 언어 모델로 자연스럽게 볼 수 있음을 시사한다.
+
+후속 연구들은 모든 레이어에 걸친 순환 적용과 초기/최종 레이어를 보존하면서 중간 레이어에 적용하는 방법 등 다양한 구성을 탐구하고 있다.
+
+**③ 로봇 공학 및 멀티모달 응용으로의 확장**
+
+Recurrent-Depth VLA(RD-VLA)와 같이 이 아키텍처를 Vision-Language-Action 모델에 적용하는 연구가 등장했으며, 명시적 토큰 생성이 아닌 잠재 반복 정제를 통한 계산 적응성을 달성한다.
+
+### 4.2 앞으로의 연구 시 고려사항
+
+**① 적응형 정지 메커니즘 (Adaptive Halting)**
+
+단순한 휴리스틱 정지(예: KL-발산 임계값)에만 의존하는 대신, 모델과 함께 학습되는 **명시적이고 학습 가능한 파라미터** $N$을 도입할 수 있다. 이 파라미터는 정확한 해법에 대한 욕구와 "과도한 사고(overthinking)"를 균형잡는 손실 함수에 통합될 것이다. $N$을 네트워크와 함께 학습함으로써 모델 스스로 언제 추가 순환이 가장 유익한지 학습하게 하면서 불필요한 반복을 페널티화할 수 있다.
+
+**② 해석 가능성 (Interpretability) 연구**
+
+미래 연구는 활성화 패칭(activation patching) 같은 더 고급 프로빙 기법을 적용하여 순환 루프 내에 잠재적으로 숨겨진 더 미세한 추론 패턴을 발견할 수 있다.
+
+**③ 사후 학습(Post-training) 적응**
+
+무작위화된 언롤링 목표로 사전 학습이 완료된 후, 이제는 **사후 학습 단계로서 적응형 정지 어댑터를 학습하는 것**이 매우 흥미로울 것으로 기대된다.
+
+**④ 순환 깊이의 수렴 특성 분석**
+
+순환 연산자가 반드시 고정점으로 수렴할 필요는 없으며, 충분한 규모로 학습하면 모델은 대부분의 토큰에 대해 수렴하는 해법을 찾지만, 도움이 되는 것으로 보이는 궤도 및 기타 구조도 구현한다.
+
+---
+
+## 5. 2020년 이후 관련 최신 연구 비교 분석
+
+| 논문/모델 | 연도 | 핵심 아이디어 | 본 논문과의 차이 |
+|-----------|------|---------------|----------------|
+| **Chain-of-Thought (Wei et al.)** | 2022 | 중간 추론 단계를 토큰으로 생성 | 본 논문: 언어화 불필요, 내부 잠재 공간에서 추론 |
+| **DeepSeek-R1** | 2025 | RL 기반 긴 CoT 추론 | 본 논문: 특수 학습 데이터 불필요, 짧은 컨텍스트 창 |
+| **COCONUT (Hao et al.)** | 2024 | 기존 트랜스포머를 연속 잠재 공간 추론으로 파인튜닝 | 본 논문: 처음부터 학습, 순환 구조 내재화 |
+| **Universal Transformer (Dehghani et al.)** | 2018 | 모든 레이어에 걸쳐 순환 적용 | 본 논문: Prelude-Coda 비순환 레이어 보존, 대규모 학습 |
+| **Looped Transformer (Yang et al.)** | 2023 | 순환 레이어를 통한 반복 | 본 논문: 800B 토큰 대규모 학습으로 실용성 증명 |
+| **Recursive Latent Thoughts** | 2025 | 재귀적 잠재 사고 스케일링 | 본 논문보다 자율적 중단 메커니즘 강조 |
+| **RD-VLA** | 2026 | 로봇 VLA 모델에 순환 깊이 적용 | 본 논문의 직접 응용 확장 |
+
+전반적으로 이러한 발견들은 "잠재 '사고'를 생성하는 데 더 많은 리소스를 할당하는 것, 즉 '사고' 블록에 대한 추가 반복을 수행하는 것이 추론 지향 작업에서 성능을 체계적으로 향상시킴"을 나타낸다. 다양한 작업에 걸친 다양한 성능 추세는 **입력 의존적, 적응형 깊이 순환 방법**을 탐구할 기회를 강조한다.
+
+---
+
+## 📌 종합 평가
+
+이 논문은 LLM 추론의 **패러다임 전환**을 제안한다. 토큰 생성이라는 언어적 제약을 벗어나 잠재 공간에서의 반복 연산을 통해 추론을 수행함으로써, 파라미터 효율성과 추론 깊이의 트레이드오프를 새롭게 정의했다. 특히 NeurIPS 2025 Spotlight로 채택된 것은 그 학술적 기여를 방증한다. 다만 **해석 가능성 부족**, **SFT 적용의 어려움**, **CoT 대비 하드 수학 문제에서의 성능 격차**는 향후 연구가 해결해야 할 핵심 과제이다.
+
+---
+
+### 📚 참고 자료
+
+1. **arXiv 원문**: Geiping et al., "Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach," arXiv:2502.05171 (2025) — https://arxiv.org/abs/2502.05171
+2. **OpenReview (NeurIPS 2025 Spotlight)**: https://openreview.net/forum?id=S3GhJooWIC
+3. **HuggingFace 모델 카드 (Huginn-0125)**: https://huggingface.co/tomg-group-umd/huginn-0125
+4. **GitHub 코드**: https://github.com/seal-rg/recurrent-pretraining
+5. **Medium 해설 블로그 (Sahin Ahmed)**: "Scaling Test-Time Compute: How Recurrent Depth Transforms AI Reasoning," Medium (2025) — https://medium.com/@sahin.samia/scaling-test-time-compute-how-recurrent-depth-transforms-ai-reasoning-fa866fa968db
+6. **EmergentMind 분석**: "Huginn-3.5B: Depth-Recurrent Language Model," emergentmind.com
+7. **OpenReview 해석 가능성 연구**: "Latent Chain-of-Thought? Decoding the Depth-Recurrent Transformer," COLM 2025 Workshop — https://openreview.net/pdf?id=roIQdXMuEj
+8. **후속 연구**: "Scaling test-time reasoning with recursive latent thoughts," arXiv:2510.07358 (2025) — https://arxiv.org/pdf/2510.07358
+9. **후속 연구**: "Teaching Pretrained Language Models to Think Deeper with Retrofitted Recurrence," arXiv:2511.07384 (2025)
+10. **응용 연구**: "Recurrent-Depth VLA," arXiv:2602.07845 (2026)
+11. **NeurIPS 2025 Poster Page**: https://neurips.cc/virtual/2025/poster/117966
+
 # Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach
 
 ### 1. 핵심 주장과 주요 기여
