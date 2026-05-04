@@ -258,6 +258,7 @@
 - o1-Coder: an o1 Replication for Coding | 2024 · 74회 인용
 - Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality
 - Differential Transformer | 2024 · 298회 인용
+- Large Language Diffusion Models | 2025 · 595회 인용
 
 ## sLMs
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
