@@ -306,6 +306,7 @@
 - LONGNET: Scaling Transformers to 1,000,000,000 Tokens | 2023 · 293회 인용
 - Self-Rewarding Language Models | 2024 · 806회 인용
 - Training Large Language Models to Reason in a Continuous Latent Space | 2024 · 485회 인용
+- MoBA: Mixture of Block Attention for Long-Context LLMs | 2025 · 54회 인용
 
 
 ## Prompting
