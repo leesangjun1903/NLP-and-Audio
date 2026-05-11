@@ -317,6 +317,7 @@
 - Least-to-Most Prompting Enables Complex Reasoning in Large Language Models | 2022 · 1848회 인용
 - Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution | 2023 · 418회 인용
 - AI achieves silver-medal standard solving International Mathematical Olympiad problems
+- Self-Adapting Language Models | 2025 · 17회 인용
 
 
 ### RAG
