@@ -374,7 +374,8 @@
 - UNA: Unifying Alignments of RLHF/PPO, DPO and KTO by a Generalized Implicit Reward Function | 2024 · 4회 인용
 - DPO : Direct Preference Optimization: Your Language Model is Secretly a Reward Model | 2023 · 8238회 인용
 - TTRL: Test-Time Reinforcement Learning | 2025 · 196회 인용
-- Reinforcement Learning Teachers of Test Time Scaling | 2025 · 12회 인용 
+- Reinforcement Learning Teachers of Test Time Scaling | 2025 · 12회 인용
+- SimPO: Simple Preference Optimization with a Reference-Free Reward | 2024 · 1015회 인용
 
 
 ### Research
