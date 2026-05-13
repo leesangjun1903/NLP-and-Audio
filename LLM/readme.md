@@ -308,6 +308,7 @@
 - Training Large Language Models to Reason in a Continuous Latent Space | 2024 · 485회 인용
 - MoBA: Mixture of Block Attention for Long-Context LLMs | 2025 · 54회 인용
 - STaR: Bootstrapping Reasoning With Reasoning | 2022 · 1529회 인용
+- Mask-Enhanced Autoregressive Prediction: Pay Less Attention to Learn More | 2025 · 2회 인용
 
 
 ## Prompting
