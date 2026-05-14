@@ -377,6 +377,7 @@
 - TTRL: Test-Time Reinforcement Learning | 2025 · 196회 인용
 - Reinforcement Learning Teachers of Test Time Scaling | 2025 · 12회 인용
 - SimPO: Simple Preference Optimization with a Reference-Free Reward | 2024 · 1015회 인용
+- Memento: Fine-tuning LLM Agents without Fine-tuning LLMs | 2025 · 59회 인용
 
 
 ### Research
