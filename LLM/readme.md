@@ -361,6 +361,7 @@
 
 ### Post-Training : Supervised Fine-Tuning
 - Value Drifts: Tracing Value Alignment During LLM Post-Training | 2025 · 1회 인용
+- TSLM: Tree-Structured Language Modeling for Divergent Thinking | 2026
 
 ### Instruction Tuning
 - Instruction Tuning with GPT-4 | 2023 · 1237회 인용
