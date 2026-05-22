@@ -310,6 +310,7 @@
 - STaR: Bootstrapping Reasoning With Reasoning | 2022 · 1529회 인용
 - Mask-Enhanced Autoregressive Prediction: Pay Less Attention to Learn More | 2025 · 2회 인용
 - Large Language Models to Diffusion Finetuning | 2025 · 5회 인용
+- Approximately Aligned Decoding | 2024 · 2회 인용
 
 
 ## Prompting
