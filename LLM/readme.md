@@ -311,6 +311,7 @@
 - Mask-Enhanced Autoregressive Prediction: Pay Less Attention to Learn More | 2025 · 2회 인용
 - Large Language Models to Diffusion Finetuning | 2025 · 5회 인용
 - Approximately Aligned Decoding | 2024 · 2회 인용
+- Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models | 2026 · 40회 인용
 
 
 ## Prompting
