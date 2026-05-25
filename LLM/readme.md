@@ -415,5 +415,6 @@
 - Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 · 2263회 인용
 - VOYAGER: An Open-Ended Embodied Agent with Large Language Models | 2023 · 1326회 인용
 - Mixture-of-Agents Enhances Large Language Model Capabilities | 2024 · 387회 인용
+- Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval | 2026
 
 
