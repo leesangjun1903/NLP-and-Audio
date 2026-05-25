@@ -324,6 +324,7 @@
 - Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution | 2023 · 418회 인용
 - AI achieves silver-medal standard solving International Mathematical Olympiad problems
 - Self-Adapting Language Models | 2025 · 17회 인용
+- Agentic Code Reasoning | 2026 · 1회 인용
 
 
 ### RAG
