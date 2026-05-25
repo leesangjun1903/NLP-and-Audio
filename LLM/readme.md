@@ -314,6 +314,7 @@
 - Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models | 2026 · 40회 인용
 - Test-Time Training Done Right | 2025 · 221회 인용
 - End-to-End Test-Time Training for Long Context | 2025 · 15회 인용
+- FairyFuse: Multiplication-Free LLM Inference on CPUs via Fused Ternary Kernels | 2026
 
 
 ## Prompting
