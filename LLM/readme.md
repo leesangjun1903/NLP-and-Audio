@@ -264,6 +264,7 @@
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
 - CodeBERT: A Pre-Trained Model for Programming and Natural Languages | 2020 · 3933회 인용
 - SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
+- SlimQwen: Exploring the Pruning and Distillation in Large MoE Model Pre-training | 2026
 
 
 ## Techniques
