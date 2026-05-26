@@ -316,6 +316,7 @@
 - End-to-End Test-Time Training for Long Context | 2025 · 15회 인용
 - FairyFuse: Multiplication-Free LLM Inference on CPUs via Fused Ternary Kernels | 2026
 - EditLens: Quantifying the Extent of AI Editing in Text | 2025 · 11회 인용
+- Long Context Pre-Training with Lighthouse Attention | 2026
 
 
 ## Prompting
