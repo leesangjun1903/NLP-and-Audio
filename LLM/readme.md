@@ -423,5 +423,6 @@
 - Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval | 2026
 - RubricEM: Meta-RL with Rubric-guided Policy Decomposition beyond Verifiable Rewards | 2026
 - Code as Agent Harness | 2026
+- Agentic Discovery of Neural Architectures: AIRA-Compose and AIRA-Design | 2026
 
 
