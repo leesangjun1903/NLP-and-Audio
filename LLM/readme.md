@@ -329,6 +329,7 @@
 - AI achieves silver-medal standard solving International Mathematical Olympiad problems
 - Self-Adapting Language Models | 2025 · 17회 인용
 - Agentic Code Reasoning | 2026 · 1회 인용
+- Embedding by Elicitation: Dynamic Representations for Bayesian Optimization of System Prompts | 2026
 
 
 ### RAG
