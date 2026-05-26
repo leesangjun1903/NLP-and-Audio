@@ -422,5 +422,6 @@
 - Mixture-of-Agents Enhances Large Language Model Capabilities | 2024 · 387회 인용
 - Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval | 2026
 - RubricEM: Meta-RL with Rubric-guided Policy Decomposition beyond Verifiable Rewards | 2026
+- Code as Agent Harness | 2026
 
 
