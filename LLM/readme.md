@@ -427,5 +427,6 @@
 - Agentic Discovery of Neural Architectures: AIRA-Compose and AIRA-Design | 2026
 - Is Grep All You Need? How Agent Harnesses Reshape Agentic Search | 2026
 - EvolveMem:Self-Evolving Memory Architecture via AutoResearch for LLM Agents | 2026
+- Learning to Orchestrate Agents in Natural Language with the Conductor | 2026
 
 
