@@ -424,5 +424,6 @@
 - RubricEM: Meta-RL with Rubric-guided Policy Decomposition beyond Verifiable Rewards | 2026
 - Code as Agent Harness | 2026
 - Agentic Discovery of Neural Architectures: AIRA-Compose and AIRA-Design | 2026
+- Is Grep All You Need? How Agent Harnesses Reshape Agentic Search | 2026
 
 
