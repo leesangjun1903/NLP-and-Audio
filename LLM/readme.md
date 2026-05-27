@@ -358,6 +358,7 @@
 - rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking | 2025 · 202회 인용
 - Teaching Small Language Models to Reason | 2022 · 333회 인용
 - Over-Tokenized Transformer: Vocabulary is Generally Worth Scaling | 2025 · 25회 인용
+- CODA: Rewriting Transformer Blocks as GEMM-Epilogue Programs | 2026 
 
 
 ### Enhancing mathematical abilities
