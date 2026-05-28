@@ -429,5 +429,6 @@
 - EvolveMem:Self-Evolving Memory Architecture via AutoResearch for LLM Agents | 2026
 - Learning to Orchestrate Agents in Natural Language with the Conductor | 2026
 - SkillOpt: Executive Strategy for Self-Evolving Agent Skills | 2026
+- OpenHands: An Open Platform for AI Software Developers as Generalist Agents | 2026
 
 
