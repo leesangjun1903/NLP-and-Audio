@@ -431,5 +431,6 @@
 - SkillOpt: Executive Strategy for Self-Evolving Agent Skills | 2026
 - OpenHands: An Open Platform for AI Software Developers as Generalist Agents | 2026
 - ARIS: Autonomous Research via Adversarial Multi-Agent Collaboration | 2026
+- Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory | 2025 · 445회 인용
 
 
