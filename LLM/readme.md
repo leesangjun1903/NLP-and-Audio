@@ -430,5 +430,6 @@
 - Learning to Orchestrate Agents in Natural Language with the Conductor | 2026
 - SkillOpt: Executive Strategy for Self-Evolving Agent Skills | 2026
 - OpenHands: An Open Platform for AI Software Developers as Generalist Agents | 2026
+- ARIS: Autonomous Research via Adversarial Multi-Agent Collaboration | 2026
 
 
