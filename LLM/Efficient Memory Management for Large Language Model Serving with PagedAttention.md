@@ -1,6 +1,285 @@
 
 # Efficient Memory Management for Large Language Model Serving with PagedAttention
 
+> **논문 정보**
+> - **제목:** Efficient Memory Management for Large Language Model Serving with PagedAttention
+> - **저자:** Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody Hao Yu, Joseph E. Gonzalez, Hao Zhang, Ion Stoica
+> - **학회:** ACM SIGOPS 29th Symposium on Operating Systems Principles (SOSP), 2023
+> - **arXiv:** [2309.06180](https://arxiv.org/abs/2309.06180)
+
+---
+
+## 1. 핵심 주장 및 주요 기여 요약
+
+### 🔑 핵심 주장
+
+LLM의 고처리량(high-throughput) 서빙을 위해서는 충분히 많은 요청을 동시에 배치 처리해야 하지만, 기존 시스템들은 각 요청에 대한 **KV 캐시(Key-Value Cache) 메모리가 거대하고 동적으로 증감**하기 때문에 어려움을 겪고 있으며, 비효율적인 메모리 관리로 인해 **단편화(Fragmentation)와 중복 복사(Redundant Duplication)** 로 메모리가 낭비되어 배치 크기가 제한된다.
+
+### 🏆 주요 기여
+
+이 문제를 해결하기 위해 **운영체제의 가상 메모리(Virtual Memory)와 페이징(Paging) 기법**에서 영감을 받은 어텐션 알고리즘인 **PagedAttention**을 제안하고, 이를 기반으로 **(1) KV 캐시의 거의 0에 가까운 낭비**, **(2) 요청 내/요청 간 유연한 KV 캐시 공유**를 달성하는 LLM 서빙 시스템 **vLLM**을 구축하였다.
+
+| 기여 항목 | 내용 |
+|---|---|
+| PagedAttention 알고리즘 | KV 캐시를 고정 크기 블록으로 분리, 비연속 물리 메모리 허용 |
+| vLLM 서빙 시스템 | 블록 테이블 기반 스케줄러 + KV 캐시 매니저 |
+| Copy-on-Write 공유 | Beam Search, 병렬 샘플링 시 KV 메모리 재사용 |
+| 오픈소스 공개 | [github.com/vllm-project/vllm](https://github.com/vllm-project/vllm) |
+
+---
+
+## 2. 자세한 분석
+
+### 2-1. 해결하고자 하는 문제
+
+기존 서빙 시스템들은 일반적으로 사전에 연속적인 캐시 영역을 예약하는 방식을 취했으며, 이로 인해 예약된 공간의 낭비, 내부 단편화, 외부 단편화가 발생하였다. 논문의 실험에 따르면 이전 시스템들의 실효 메모리 활용률이 **20.4%까지 떨어질 수 있다**고 보고되었다.
+
+2023년 초, vLLM의 저자들은 기존 추론 엔진이 가용 GPU 메모리의 **20~40%**만 사용하고 있다는 점을 발견하였다.
+
+문제를 세 가지로 분류하면 다음과 같다:
+
+1. **내부 단편화 (Internal Fragmentation):** 시퀀스 최대 길이에 맞춰 사전 예약 → 실제 사용 공간 < 예약 공간
+2. **외부 단편화 (External Fragmentation):** 연속 메모리 할당 요구 → 사용 가능하나 쪼개진 공간 활용 불가
+3. **중복 복사 (Redundant Duplication):** Beam Search 등에서 동일 프롬프트 KV 캐시를 여러 번 복사
+
+---
+
+### 2-2. 제안하는 방법 (수식 포함)
+
+#### 📐 PagedAttention의 기본 수식
+
+표준 Transformer의 어텐션 연산:
+
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+
+PagedAttention에서는 KV 캐시를 블록 단위로 분할하여 처리한다. 시퀀스 $s$의 KV 캐시를 블록 크기 $B$로 나누면, $i$번째 블록 $b_i$는 다음과 같이 정의된다:
+
+$$b_i = \{(k_j, v_j) \mid j \in [i \cdot B, \min((i+1) \cdot B - 1, L-1)]\}$$
+
+여기서 $L$은 현재까지 생성된 시퀀스 길이이다.
+
+$t$번째 쿼리 토큰 $q_t$에 대한 PagedAttention 연산:
+
+$$\text{Attention}(q_t, K_{1:T}, V_{1:T}) = \sum_{j=1}^{\lceil T/B \rceil} \text{softmax}\left(\frac{q_t \cdot K_{b_j}^\top}{\sqrt{d_k}}\right) V_{b_j}$$
+
+각 블록 $b_j$는 블록 테이블(Block Table)을 통해 **논리적 블록 번호 → 물리적 GPU 메모리 주소**로 매핑된다:
+
+$$\text{PhysAddr}(\text{logical block}_i) = \text{BlockTable}[s][i]$$
+
+이를 통해 **논리적으로 연속적인 시퀀스가 물리적으로 비연속적인 메모리에 저장**될 수 있다.
+
+#### 내부 단편화 상한
+
+시퀀스 하나당 낭비 가능한 메모리는 마지막 블록의 미사용 슬롯뿐이므로:
+
+$$\text{Waste}_{\max} = B - 1 \text{ tokens/sequence}$$
+
+$$\text{Memory Waste Ratio} \leq \frac{B - 1}{L} \xrightarrow{L \gg B} 0$$
+
+PagedAttention에서 메모리 낭비는 시퀀스의 **마지막 블록에서만 발생**하며, 실제로는 거의 최적 메모리 사용률을 달성하여 낭비가 **4% 미만**에 그친다.
+
+#### Copy-on-Write (CoW) 공유
+
+병렬 샘플링이나 Beam Search 시, 동일 프롬프트를 가진 여러 시퀀스가 KV 블록을 공유한다. 분기(diverge) 시에만 복사가 발생한다:
+
+$$\text{if ref count}(b_i) > 1 \Rightarrow \text{CoW: allocate new block, copy, then write}$$
+
+$$\text{if ref count}(b_i) = 1 \Rightarrow \text{직접 쓰기 (no copy)}$$
+
+PagedAttention의 또 다른 핵심 장점은 **효율적인 메모리 공유**이다. 예를 들어 병렬 샘플링에서 동일 프롬프트로부터 여러 출력 시퀀스가 생성될 때, 프롬프트에 대한 연산과 메모리를 출력 시퀀스들이 공유할 수 있다.
+
+---
+
+### 2-3. 모델 구조 (vLLM 시스템 아키텍처)
+
+vLLM은 **분산 GPU 워커의 실행을 조율하는 중앙 집중식 스케줄러(Centralized Scheduler)** 와 **KV 캐시 매니저(KV Cache Manager)** 로 구성된다. KV 캐시 매니저의 주요 목적은 KV 캐시를 페이지 방식으로 효율적으로 관리하는 것이며, 이 구현은 고정 크기 페이지로 메모리를 분할하고 논리 페이지를 물리 페이지에 매핑하는 **운영체제**로부터 영감을 얻었다.
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    vLLM Architecture                 │
+│                                                     │
+│  ┌─────────────┐        ┌─────────────────────────┐│
+│  │  Centralized│        │     KV Cache Manager    ││
+│  │  Scheduler  │◄──────►│  ┌───────────────────┐  ││
+│  │             │        │  │  Block Table       │  ││
+│  │  - Batching │        │  │ (Logical→Physical) │  ││
+│  │  - Preempt  │        │  └───────────────────┘  ││
+│  │  - Priority │        │  ┌───────────────────┐  ││
+│  └─────────────┘        │  │  Free Block Pool  │  ││
+│                         │  └───────────────────┘  ││
+│  ┌─────────────────────────────────────────────┐  ││
+│  │         Distributed GPU Workers             │  ││
+│  │    PagedAttention Kernel (Custom CUDA)      │  ││
+│  └─────────────────────────────────────────────┘  ││
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+PagedAttention은 요청의 KV 캐시를 **고정 개수의 토큰에 대한 키와 값을 담을 수 있는 블록으로 분할**하며, 이 블록들은 연속된 공간에 저장될 필요가 없다. 따라서 OS의 가상 메모리처럼 **블록을 페이지로, 토큰을 바이트로, 요청을 프로세스로** 간주하는 유연한 방식으로 KV 캐시를 관리할 수 있다.
+
+이 설계는 비교적 작은 블록을 사용하고 필요에 따라 할당함으로써 **내부 단편화를 완화**하며, 모든 블록이 동일한 크기이므로 **외부 단편화를 완전히 제거**한다.
+
+---
+
+### 2-4. 성능 향상
+
+vLLM은 FasterTransformer, Orca와 같은 최신 시스템과 **동일한 수준의 지연시간(latency)** 대비 **2~4배 향상된 처리량(throughput)** 을 달성하였으며, 이 향상은 **더 긴 시퀀스, 더 큰 모델, 더 복잡한 디코딩 알고리즘**일수록 더욱 두드러진다.
+
+vLLM은 HuggingFace Transformers 대비 **최대 24배**, TGI(Text Generation Inference) 대비 **최대 3.5배** 높은 처리량을 달성하며, 기존 시스템이 KV 캐시의 **60~80%를 낭비**하는 것과 달리 낭비를 **4% 미만**으로 줄인다.
+
+실제 사례로, LMSYS는 일일 약 45,000건의 요청 트래픽을 처리하면서 **사용 GPU 수를 50% 절감**하면서도 초당 2~3배 더 많은 요청을 처리하였다.
+
+| 비교 대상 | 처리량 향상 | 특이 사항 |
+|---|---|---|
+| HuggingFace Transformers | ~24× | 고동시성 워크로드 |
+| HuggingFace TGI | ~3.5× | 동일 지연시간 기준 |
+| FasterTransformer / Orca | 2~4× | 동일 지연시간 기준 |
+
+Beam Search 및 병렬 샘플링 시나리오에서 KV 공유 기회가 증가할수록 더 큰 이득을 얻으며, 메모리 절감 효과가 **최대 55%** 로 정량화되었다.
+
+---
+
+### 2-5. 한계점
+
+PagedAttention은 추가적인 간접 참조(indirection)로 인한 **커널 오버헤드**가 일부 벤치마크에서 **10~30%** 에 달하며, CPU에서의 블록 테이블 관리가 **꼬리 지연시간(tail latency)** 에 영향을 미칠 수 있다.
+
+2025년 vAttention 논문은 PagedAttention이 어텐션 커널을 페이징을 지원하도록 **재작성해야 하며**, 소프트웨어 복잡도 증가, 이식성 문제, 중복성 및 실행 오버헤드를 유발한다고 주장하였다.
+
+vLLM의 PagedAttention 커널은 FlashAttention-2 대비 **최대 2.8배 느리며**, 블록 크기 변경 시 커널 실행 시간이 **최대 1.9배** 변동될 수 있다.
+
+vLLM은 블록 테이블을 2D 텐서로 관리하고 미사용 슬롯을 0으로 패딩하는데, 배치에 긴 요청이 소수이고 짧은 요청이 다수인 경우 **불필요한 패딩으로 인한 상당한 오버헤드**가 발생한다.
+
+블록 크기 $B \in [16, 128]$ 범위의 튜닝은 내부 낭비, GPU 활용률, 선점/반응성 오버헤드 간의 균형을 위해 매우 중요하다.
+
+---
+
+## 3. 모델의 일반화 성능 향상 가능성
+
+PagedAttention/vLLM은 단순한 서빙 효율화를 넘어, **다양한 측면에서 모델의 일반화 성능에 간접적으로 기여**한다.
+
+### 3-1. 다양한 디코딩 전략 지원 → 다양한 추론 방식 적용 가능
+
+페이징은 **프롬프트/빔 공유, 동적 증가, 선점(swap/recompute), 분산 모델 병렬 실행**을 가능하게 한다.
+
+이를 통해:
+- **Beam Search**: 다양한 후보 시퀀스를 메모리 효율적으로 탐색 → 더 나은 출력 품질
+- **병렬 샘플링**: 동일 프롬프트에서 다양한 출력 생성 → 앙상블 방식의 일반화 효과
+- **Chain-of-Thought 등 복잡한 추론**: 긴 시퀀스 효율적 처리 가능
+
+### 3-2. 더 큰 배치 크기 → 다양한 요청 동시 처리
+
+더 많은 요청을 배치로 처리함으로써 **다양한 입력 분포에 대한 실시간 처리 능력**이 향상된다. 이는 배포 환경에서의 일반화(generalization in deployment)와 직결된다.
+
+### 3-3. 공유 프리픽스 캐싱 → Few-shot 학습 효율 향상
+
+KV 캐시 재사용(KV cache reuse)은 **동일한 프리픽스를 공유하는 서로 다른 프롬프트가 중간 KV 캐시를 공유하고 중복 메모리 및 연산을 피할 수 있음**을 의미한다.
+
+이는 Few-shot 예시나 시스템 프롬프트를 공유하는 경우, 추론 시간을 단축시키면서 **다양한 in-context learning 시나리오**에서의 일반화 성능을 실용적으로 향상시킨다.
+
+### 3-4. 아키텍처 변경 없는 범용 적용
+
+vLLM with PagedAttention은 **모델 아키텍처의 변경 없이** HuggingFace Transformers 대비 최대 24배 높은 처리량을 제공하여 LLM 서빙의 새로운 SOTA를 달성한다.
+
+이는 OPT, LLaMA, GPT 등 다양한 Transformer 기반 모델에 적용 가능하다는 점에서 **범용적 일반화 가능성**을 시사한다.
+
+---
+
+## 4. 연구에 미치는 영향 및 향후 연구 시 고려할 점
+
+### 4-1. 연구 영향
+
+2024년 LLM 서빙 시스템 서베이는 PagedAttention이 **TGI, vLLM, TensorRT-LLM 등의 지원**을 통해 **LLM 서빙 프레임워크의 산업 표준(industry norm)** 이 되었다고 평가하였다.
+
+PagedAttention은 LLM 서빙 시스템에서 동적 메모리 할당의 **사실상의 표준(de facto standard)** 이 되었으며, TensorRT-LLM, HuggingFace TGI, LightLLM 등 다양한 시스템에서 채택되었다.
+
+**구체적 영향:**
+1. **OS 개념의 AI 시스템 적용:** 가상 메모리, 페이징, CoW 등 OS 개념을 딥러닝 서빙에 접목하는 새로운 패러다임 제시
+2. **KV 캐시 연구의 활성화:** KV 캐시 압축, 양자화, 선택적 저장 등 후속 연구 폭발적 증가
+3. **LLM 서빙 시스템 연구 분야 개척:** SOSP 등 시스템 학회에서 LLM 서빙 최적화 연구가 주류로 부상
+
+---
+
+## 5. 2020년 이후 관련 최신 연구 비교 분석
+
+### 5-1. 주요 관련 연구 타임라인
+
+| 연도 | 논문/시스템 | 핵심 기여 | PagedAttention과의 관계 |
+|---|---|---|---|
+| 2022 | **Orca** (Yu et al.) | Continuous Batching으로 GPU 활용률 향상 | 상호 보완적 관계 |
+| 2022 | **FlashAttention** (Dao et al.) | IO-aware 어텐션, 메모리 효율적 커널 | PagedAttention 커널에서 활용 |
+| 2023 | **PagedAttention/vLLM** | KV 캐시 페이징, vLLM 시스템 | **본 논문** |
+| 2023 | **FlashAttention-2** (Dao) | 더 나은 병렬성으로 어텐션 가속 | vLLM 백엔드 커널로 통합 |
+| 2024 | **SGLang/RadixAttention** (Zheng et al.) | Radix Tree 기반 자동 KV 캐시 재사용 | PagedAttention 확장 |
+| 2025 | **vAttention** (Prabhu et al.) | 물리-가상 메모리 분리로 커널 재작성 불필요 | PagedAttention 대안 |
+
+### 5-2. 세부 비교
+
+#### ① Orca (2022) vs. vLLM (2023)
+
+Orca와 vLLM의 PagedAttention은 **상호 보완적인 기법**이다. 두 시스템 모두 GPU 활용률과 LLM 서빙 처리량을 높이는 것을 목표로 하지만, Orca는 더 많은 요청이 병렬로 처리될 수 있도록 **스케줄링 및 요청 인터리빙**을 통해 이를 달성하는 반면, vLLM은 더 많은 요청의 작업 집합이 메모리에 들어갈 수 있도록 **메모리 활용률 향상**을 통해 이를 달성한다.
+
+#### ② SGLang/RadixAttention (2024)
+
+SGLang은 **RadixAttention**을 도입하여 Radix Tree 자료구조로 요청 간 KV 캐시를 유지하고 자동 프리픽스 재사용을 가능하게 하였다.
+
+시스템 프롬프트, Few-shot 예시, RAG 컨텍스트를 공유하는 요청들이 캐시된 KV 블록을 재사용하며, 프리픽스 공유가 많은 워크로드에서 **최대 5배 빠른 추론**을 달성한다.
+
+#### ③ vAttention (ASPLOS 2025)
+
+vAttention은 **CUDA 가상 메모리 관리 API**를 이용해 가상/물리 메모리 할당을 분리함으로써, KV 캐시의 가상 연속성을 유지하면서 물리 메모리 단편화를 완화한다. 다양한 LLM 특화 최적화를 도입하여 기존 커널의 재작성 없이도 FlashAttention-2 및 FlashInfer 기반의 PagedAttention 커널 대비 **최대 1.23배 향상된 서빙 처리량**을 달성한다.
+
+#### ④ Sarathi-Serve / Chunked Prefill (2024)
+
+Sarathi-serve (Agrawal et al., 2024)는 청크 기반 프리필(chunked-prefill)로 디코딩 연산을 피기백하여 효율성을 개선하였으며, SGLang (Zheng et al., 2023)은 RadixTree를 활용한 더 나은 프리픽스 캐싱과 KV 관리를 구현하였다.
+
+현재 vLLM과 SGLang은 모두 **Continuous Batching, PagedAttention, RadixAttention, Chunked Prefill, Speculative Decoding, Disaggregated Serving, CUDA Graphs** 등을 지원하는 종합적인 서빙 프레임워크로 발전하였다.
+
+### 5-3. 비교 요약표
+
+| 특성 | vLLM (PagedAttention) | SGLang (RadixAttention) | vAttention |
+|---|---|---|---|
+| KV 메모리 관리 | 블록 테이블 기반 페이징 | Radix Tree + 페이징 | CUDA VMM 기반 동적 할당 |
+| 커널 수정 필요 여부 | ✅ 필요 | ✅ 필요 | ❌ 불필요 |
+| 프리픽스 재사용 | 제한적 (수동 설정) | 자동, 광범위 지원 | 지원 가능 |
+| 처리량 개선 | 2~4× vs. SOTA | 5× (공유 프리픽스 시) | 1.23× vs. PagedAttention |
+| 소프트웨어 복잡도 | 중간 | 높음 | 낮음 |
+
+---
+
+## 6. 향후 연구 시 고려할 점
+
+1. **커널 오버헤드 최소화:** PagedAttention 기반 프리필 커널은 비페이지 커널 대비 **최대 37% 느릴 수 있어**, 커널 최적화가 중요한 연구 방향이다.
+
+2. **블록 크기 자동 튜닝:** 블록 크기 $b \in [16, 128]$ 범위의 튜닝은 내부 낭비, GPU 활용률, 선점/반응성 오버헤드 간의 균형에 매우 중요하므로, 워크로드에 따른 **동적/자동 블록 크기 결정 메커니즘** 연구가 필요하다.
+
+3. **KV 캐시 압축과의 통합:** 페이징과 KV 캐시 양자화(Quantization), 희소화(Sparsification) 등의 결합으로 메모리 효율을 추가로 향상할 수 있다.
+
+4. **이기종 하드웨어 적용:** CPU, NPU, 모바일 GPU 등 다양한 하드웨어 환경에서의 이식성 확보가 과제이다.
+
+5. **멀티모달 LLM 확장:** 비전-언어 모델에서 이미지 KV 캐시의 크기 및 패턴이 텍스트와 다르므로, 멀티모달 시나리오를 위한 KV 캐시 관리 전략 연구가 필요하다.
+
+6. **장문 컨텍스트(Long-context) 최적화:** 수백만 토큰 컨텍스트 환경에서의 블록 테이블 관리 비용 및 KV 캐시 선택적 보존(eviction) 전략 연구가 중요하다.
+
+---
+
+## 📚 참고 자료 출처
+
+| # | 출처 | 유형 |
+|---|---|---|
+| 1 | Kwon et al. (2023). *Efficient Memory Management for Large Language Model Serving with PagedAttention.* **SOSP 2023.** [arxiv.org/abs/2309.06180](https://arxiv.org/abs/2309.06180) | 원논문 |
+| 2 | ACM DL: [dl.acm.org/doi/10.1145/3600006.3613165](https://dl.acm.org/doi/10.1145/3600006.3613165) | 공식 발표 |
+| 3 | vLLM Official Blog (2023). [blog.vllm.ai/2023/06/20/vllm.html](https://blog.vllm.ai/2023/06/20/vllm.html) | 공식 블로그 |
+| 4 | vLLM GitHub: [github.com/vllm-project/vllm](https://github.com/vllm-project/vllm) | 오픈소스 |
+| 5 | Prabhu et al. (2025). *vAttention: Dynamic Memory Management for Serving LLMs without PagedAttention.* **ASPLOS 2025.** [arxiv.org/abs/2405.04437](https://arxiv.org/abs/2405.04437) | 후속 연구 |
+| 6 | Zheng et al. (2024). *SGLang/RadixAttention.* [lmsys.org/blog/2024-01-17-sglang](https://www.lmsys.org/blog/2024-01-17-sglang/) | 관련 연구 |
+| 7 | Wikipedia: PagedAttention. [en.wikipedia.org/wiki/PagedAttention](https://en.wikipedia.org/wiki/PagedAttention) | 참고 |
+| 8 | Emergent Mind: PagedAttention. [emergentmind.com/topics/pagedattention](https://www.emergentmind.com/topics/pagedattention) | 분석 |
+| 9 | RunPod Blog: Introduction to vLLM and PagedAttention. [runpod.io/blog/introduction-to-vllm-and-pagedattention](https://www.runpod.io/blog/introduction-to-vllm-and-pagedattention) | 기술 설명 |
+| 10 | Wentao's Blog: vLLM Summary. [wentao.site/vllm_summary](https://wentao.site/vllm_summary/) | 요약 분석 |
+| 11 | Kolluru (2025). *Comparative Analysis of LLM Inference Serving Systems.* [arxiv.org/abs/2511.17593](https://arxiv.org/pdf/2511.17593) | 비교 분석 |
+
+# Efficient Memory Management for Large Language Model Serving with PagedAttention
+
 ## 1. 핵심 요약
 
 ### 1.1 논문의 핵심 주장과 기여
