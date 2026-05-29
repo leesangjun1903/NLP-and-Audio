@@ -395,7 +395,6 @@
 - Memento: Fine-tuning LLM Agents without Fine-tuning LLMs | 2025 · 59회 인용
 - RLP: Reinforcement as a Pretraining Objective | 2025 · 13회 인용
 - Reward Models Are Secretly Value Functions: Temporally Coherent Reward Modeling | 2026
-- ProRL Agent: Rollout-as-a-Service for RL Training of Multi-Turn LLM Agents | 2026 · 7회 인용
 
 
 ### Research
@@ -437,5 +436,6 @@
 - AutoResearchClaw: Self-Reinforcing Autonomous Research with Human-AI Collaboration | 2026
 - AgentScope 1.0: A Developer-Centric Framework for Building Agentic Applications | 2026
 - Zep: A Temporal Knowledge Graph Architecture for Agent Memory | 2026
+- ProRL Agent: Rollout-as-a-Service for RL Training of Multi-Turn LLM Agents | 2026 · 7회 인용
 
 
