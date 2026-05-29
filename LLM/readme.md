@@ -437,5 +437,6 @@
 - AgentScope 1.0: A Developer-Centric Framework for Building Agentic Applications | 2026
 - Zep: A Temporal Knowledge Graph Architecture for Agent Memory | 2026
 - ProRL Agent: Rollout-as-a-Service for RL Training of Multi-Turn LLM Agents | 2026 · 7회 인용
+- EverMemOS: A Self-Organizing Memory Operating System for Structured Long-Horizon Reasoning | 2026 · 12회 인용
 
 
