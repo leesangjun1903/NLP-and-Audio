@@ -434,5 +434,6 @@
 - Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory | 2025 · 445회 인용
 - AutoResearchClaw: Self-Reinforcing Autonomous Research with Human-AI Collaboration | 2026
 - AgentScope 1.0: A Developer-Centric Framework for Building Agentic Applications | 2026
+- Zep: A Temporal Knowledge Graph Architecture for Agent Memory | 2026
 
 
