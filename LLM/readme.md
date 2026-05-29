@@ -318,6 +318,7 @@
 - FairyFuse: Multiplication-Free LLM Inference on CPUs via Fused Ternary Kernels | 2026
 - EditLens: Quantifying the Extent of AI Editing in Text | 2025 · 11회 인용
 - Long Context Pre-Training with Lighthouse Attention | 2026
+- MiniCPM4: Ultra-Efficient LLMs on End Devices | 2025 · 30회 인용
 
 
 ## Prompting
