@@ -441,5 +441,6 @@
 - ProRL Agent: Rollout-as-a-Service for RL Training of Multi-Turn LLM Agents | 2026 · 7회 인용
 - EverMemOS: A Self-Organizing Memory Operating System for Structured Long-Horizon Reasoning | 2026 · 12회 인용
 - GenericAgent: A Token-Efficient Self-Evolving LLM Agent via Contextual Information Density Maximization (V1.0) | 2026 · 3회 인용
+- Agent READMEs: An Empirical Study of Context Files for Agentic Coding | 2025 · 20회 인용
 
 
