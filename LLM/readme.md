@@ -411,6 +411,7 @@
 - Language Models are Multilingual Chain-of-Thought Reasoners | 2022 · 450회 인용
 - A model of errors in transformers
 - Towards end-to-end automation of AI research | 2026 · 4회 인용
+- Do Language Models Need Sleep? Offline Recurrence for Improved Online Inference | 2026
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
