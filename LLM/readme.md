@@ -446,5 +446,6 @@
 - Agent READMEs: An Empirical Study of Context Files for Agentic Coding | 2025 · 20회 인용
 - Formalizing Mathematics at Scale | 2026
 - Scaling Laws for Agent Harnesses via Effective Feedback Compute | 2026
+- Constraint Decay: The Fragility of LLM Agents in Backend Code Generation | 2026
 
 
