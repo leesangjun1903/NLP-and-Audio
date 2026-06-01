@@ -448,5 +448,6 @@
 - Formalizing Mathematics at Scale | 2026
 - Scaling Laws for Agent Harnesses via Effective Feedback Compute | 2026
 - Constraint Decay: The Fragility of LLM Agents in Backend Code Generation | 2026
+- Your Agents Are Aging Too: Agent Lifespan Engineering for Deployed Systems | 2026
 
 
