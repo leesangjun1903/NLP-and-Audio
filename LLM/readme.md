@@ -266,6 +266,7 @@
 - SmolLM2: When Smol Goes Big — Data-Centric Training of a Small Language Model | 2025 · 104회 인용
 - SlimQwen: Exploring the Pruning and Distillation in Large MoE Model Pre-training | 2026
 - PDFMathTranslate: Scientific Document Translation Preserving Layouts | 2025 · 1회 인용
+- Mellum2 Technical Report | 2026
 
 
 ## Techniques
