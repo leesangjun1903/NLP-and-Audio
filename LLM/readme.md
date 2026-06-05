@@ -416,6 +416,7 @@
 - A model of errors in transformers
 - Towards end-to-end automation of AI research | 2026 · 4회 인용
 - Do Language Models Need Sleep? Offline Recurrence for Improved Online Inference | 2026
+- Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback | 2023 · 814회 인용
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
