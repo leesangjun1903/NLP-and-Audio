@@ -458,5 +458,6 @@
 - Harness-1: Reinforcement Learning for Search Agents with State-Externalizing Harnesses | 2026
 - Compiling Agentic Workflows into LLM Weights: Near-Frontier Quality at Two Orders of Magnitude Less Cost | 2026
 - Learning Agent-Compatible Context Management for Long-Horizon Tasks | 2026
+- MOSS: Self-Evolution through Source-Level Rewriting in Autonomous Agent Systems | 2026
 
 
