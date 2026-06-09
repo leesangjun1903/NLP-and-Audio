@@ -456,5 +456,6 @@
 - Constraint Decay: The Fragility of LLM Agents in Backend Code Generation | 2026
 - Your Agents Are Aging Too: Agent Lifespan Engineering for Deployed Systems | 2026
 - Harness-1: Reinforcement Learning for Search Agents with State-Externalizing Harnesses | 2026
+- Compiling Agentic Workflows into LLM Weights: Near-Frontier Quality at Two Orders of Magnitude Less Cost | 2026
 
 
