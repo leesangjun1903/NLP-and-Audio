@@ -323,6 +323,7 @@
 - Long Context Pre-Training with Lighthouse Attention | 2026
 - MiniCPM4: Ultra-Efficient LLMs on End Devices | 2025 · 30회 인용
 - HRM-Text: Efficient Pretraining Beyond Scaling | 2026
+- Forget Attention: Importance-Aware Attention Is All You Need | 2026
 
 
 ## Prompting
