@@ -460,5 +460,6 @@
 - Compiling Agentic Workflows into LLM Weights: Near-Frontier Quality at Two Orders of Magnitude Less Cost | 2026
 - Learning Agent-Compatible Context Management for Long-Horizon Tasks | 2026
 - MOSS: Self-Evolution through Source-Level Rewriting in Autonomous Agent Systems | 2026
+- FuzzingBrain V2: A Multi-Agent LLM System for Automated Vulnerability Discovery and Reproduction | 2026
 
 
