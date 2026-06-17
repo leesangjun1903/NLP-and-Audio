@@ -422,6 +422,7 @@
 - Do Language Models Need Sleep? Offline Recurrence for Improved Online Inference | 2026
 - Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback | 2023 · 814회 인용
 - Do Transformers Need Three Projections? Systematic Study of QKV Variants | 2026
+- Can LLMs Beat Classical Hyperparameter Optimization Algorithms? A Study on autoresearch | 2026
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
