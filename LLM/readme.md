@@ -465,5 +465,6 @@
 - FuzzingBrain V2: A Multi-Agent LLM System for Automated Vulnerability Discovery and Reproduction | 2026
 - Economy of Minds: Emerging Multi-Agent Intelligence with Economic Interactions | 2026
 - AutoForge: Automated Environment Synthesis for Agentic Reinforcement Learning | 2026
+- Self-Harness: Harnesses That Improve Themselves | 2026
 
 
