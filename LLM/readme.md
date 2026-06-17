@@ -467,5 +467,6 @@
 - Economy of Minds: Emerging Multi-Agent Intelligence with Economic Interactions | 2026
 - AutoForge: Automated Environment Synthesis for Agentic Reinforcement Learning | 2026
 - Self-Harness: Harnesses That Improve Themselves | 2026
+- LiveBrowseComp: Are Search Agents Searching, or Just Verifying What They Already Know? | 2026
 
 
