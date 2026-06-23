@@ -470,5 +470,6 @@
 - Self-Harness: Harnesses That Improve Themselves | 2026
 - LiveBrowseComp: Are Search Agents Searching, or Just Verifying What They Already Know? | 2026
 - AutoScientists: Self-Organizing Agent Teams for Long-Running Scientific Experimentation | 2026
+- AtomMem: Building Simple and Effective Memory System for LLM Agents via Atomic Facts | 2026
 
 
