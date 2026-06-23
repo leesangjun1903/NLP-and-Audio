@@ -341,6 +341,7 @@
 - GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning | 2025 · 275회 인용
 - Self-Distillation Enables Continual Learning | 2026 · 82회 인용
 - APEX: Automated Prompt Engineering eXpert with Dynamic Data Selection | 2026
+- Prompt-Level Distillation: A Non-Parametric Alternative to Model Fine-Tuning for Efficient Reasoning | 2026
 
 
 ### RAG
