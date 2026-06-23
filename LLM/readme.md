@@ -474,5 +474,6 @@
 - AutoScientists: Self-Organizing Agent Teams for Long-Running Scientific Experimentation | 2026
 - AtomMem: Building Simple and Effective Memory System for LLM Agents via Atomic Facts | 2026
 - HarnessX: A Composable, Adaptive, and Evolvable Agent Harness Foundry | 2026
+- Automating SKILL.md Generation for Computer-Using Agents via Interaction Trajectory Mining | 2026
 
 
