@@ -379,6 +379,7 @@
 - Injecting Numerical Reasoning Skills into Language Models | 2020 · 261회 인용
 - Training Verifiers to Solve Math Word Problems | 2021 · 5310회 인용
 - SOOHAK: A Mathematician-Curated Benchmark for Evaluating Research-level Math Capabilities of LLMs | 2026
+- LEAP: Supercharging LLMs for Formal Mathematics with Agentic Frameworks | 2026
 
 
 ### Post-Training : Supervised Fine-Tuning
