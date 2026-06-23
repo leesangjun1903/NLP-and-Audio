@@ -475,5 +475,6 @@
 - AtomMem: Building Simple and Effective Memory System for LLM Agents via Atomic Facts | 2026
 - HarnessX: A Composable, Adaptive, and Evolvable Agent Harness Foundry | 2026
 - Automating SKILL.md Generation for Computer-Using Agents via Interaction Trajectory Mining | 2026
+- PR-CAD: Progressive Refinement for Unified Controllable and Faithful Text-to-CAD Generation with Large Language Models | 2026
 
 
