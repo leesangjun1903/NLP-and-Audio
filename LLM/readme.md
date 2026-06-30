@@ -327,6 +327,7 @@
 - Forget Attention: Importance-Aware Attention Is All You Need | 2026
 - Shuffle the Context: RoPE-Perturbed Self-Distillation for Long-Context Adaptation | 2026
 - Agent-as-a-Router: Agentic Model Routing for Coding Tasks | 2026
+- Rethinking Cross-lingual Gaps from a Statistical Viewpoint | 2026
 
 
 ## Prompting
