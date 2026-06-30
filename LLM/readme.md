@@ -485,5 +485,6 @@
 - Autodata: An agentic data scientist to create high quality synthetic data | 2026
 - The End of Code Review: Coding Agents Supersede Human Inspection | 2026
 - SIA: Self Improving AI with Harness & Weight Updates | 2026
+- Self-Compacting Language Model Agents | 2026
 
 
