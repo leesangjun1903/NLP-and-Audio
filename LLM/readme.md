@@ -480,5 +480,6 @@
 - PR-CAD: Progressive Refinement for Unified Controllable and Faithful Text-to-CAD Generation with Large Language Models | 2026
 - Harness Updating Is Not Harness Benefit: Disentangling Evolution Capabilities in Self-Evolving LLM Agents | 2026
 - Autodata: An agentic data scientist to create high quality synthetic data | 2026
+- The End of Code Review: Coding Agents Supersede Human Inspection | 2026
 
 
