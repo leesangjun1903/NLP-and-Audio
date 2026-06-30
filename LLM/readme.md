@@ -479,5 +479,6 @@
 - Automating SKILL.md Generation for Computer-Using Agents via Interaction Trajectory Mining | 2026
 - PR-CAD: Progressive Refinement for Unified Controllable and Faithful Text-to-CAD Generation with Large Language Models | 2026
 - Harness Updating Is Not Harness Benefit: Disentangling Evolution Capabilities in Self-Evolving LLM Agents | 2026
+- Autodata: An agentic data scientist to create high quality synthetic data | 2026
 
 
