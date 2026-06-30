@@ -486,5 +486,6 @@
 - The End of Code Review: Coding Agents Supersede Human Inspection | 2026
 - SIA: Self Improving AI with Harness & Weight Updates | 2026
 - Self-Compacting Language Model Agents | 2026
+- A Technical Taxonomy of LLM Agent Communication Protocols | 2026
 
 
