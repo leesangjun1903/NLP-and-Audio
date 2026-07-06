@@ -329,6 +329,7 @@
 - Agent-as-a-Router: Agentic Model Routing for Coding Tasks | 2026
 - Rethinking Cross-lingual Gaps from a Statistical Viewpoint | 2026
 - Learning to Reason by Analogy via Retrieval-Augmented Reinforcement Fine-Tuning | 2026
+- The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models | 2026 · 10회 인용
 
 
 ## Prompting
