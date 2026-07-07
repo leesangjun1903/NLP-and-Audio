@@ -493,5 +493,6 @@
 - A Technical Taxonomy of LLM Agent Communication Protocols | 2026
 - Critique of Agent Model | 2026
 - AutoMem: Automated Learning of Memory as a Cognitive Skill | 2026
+- Generative Skill Composition for LLM Agents | 2026
 
 
