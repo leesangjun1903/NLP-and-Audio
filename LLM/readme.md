@@ -433,6 +433,7 @@
 - Can LLMs Beat Classical Hyperparameter Optimization Algorithms? A Study on autoresearch | 2026
 - Multi-Turn Reasoning When Context Arrives in Pieces: Scalable Sharding and Memory-Augmented RL | 2026
 - Position: The Alignment Community is Unintentionally Building a Censor’s Toolkit | 2026
+- How much do language models memorize? | 2025 · 60회 인용
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
