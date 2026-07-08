@@ -497,5 +497,6 @@
 - Generative Skill Composition for LLM Agents | 2026
 - Experience Graphs: The Data Foundation for Self-Improving Agents | 2026
 - Towards Automating Scientific Review with Google's Paper Assistant Tool | 2026
+- PreAct: Computer-Using Agents that Get Faster on Repeated Tasks | 2026
 
 
