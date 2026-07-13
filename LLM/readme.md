@@ -498,5 +498,6 @@
 - Experience Graphs: The Data Foundation for Self-Improving Agents | 2026
 - Towards Automating Scientific Review with Google's Paper Assistant Tool | 2026
 - PreAct: Computer-Using Agents that Get Faster on Repeated Tasks | 2026
+- Open-World Evaluations for Measuring Frontier AI Capabilities | 2026 · 7회 인용
 
 
