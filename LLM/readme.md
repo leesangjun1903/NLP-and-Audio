@@ -500,5 +500,6 @@
 - PreAct: Computer-Using Agents that Get Faster on Repeated Tasks | 2026
 - Open-World Evaluations for Measuring Frontier AI Capabilities | 2026 · 7회 인용
 - From Passive Retrieval to Active Memory Navigation: Learning to Use Memory as a Structured Action Space | 2026
+- KernelEvolve: Scaling Agentic Kernel Coding for Heterogeneous AI Accelerators at Meta | 2025 · 21회 인용
 
 
