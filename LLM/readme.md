@@ -416,6 +416,7 @@
 - Dual-objective Language Models: Training Efficiency Without Overfitting | 2026
 - Safety Alignment of LMs via Non-cooperative Games | 2026
 - Is One Layer Enough? Training A Single Transformer Layer Can Match Full-Parameter RL Training | 2026
+- Reinforcement Learning with Metacognitive Feedback Elicits Faithful Uncertainty Expression in LLMs | 2026
 
 
 ### Research
