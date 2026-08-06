@@ -505,5 +505,6 @@
 - KernelEvolve: Scaling Agentic Kernel Coding for Heterogeneous AI Accelerators at Meta | 2025 · 21회 인용
 - Governance Gaps in Agent Interoperability Protocols: What MCP, A2A, and ACP Cannot Express | 2026
 - Nexus : An Agentic Framework for Time Series Forecasting | 2026
+- ORCA-bench: How Ready Are Language Model Agents for Oncall? | 2026
 
 
