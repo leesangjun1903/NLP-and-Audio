@@ -507,5 +507,6 @@
 - Governance Gaps in Agent Interoperability Protocols: What MCP, A2A, and ACP Cannot Express | 2026
 - Nexus : An Agentic Framework for Time Series Forecasting | 2026
 - ORCA-bench: How Ready Are Language Model Agents for Oncall? | 2026
+- HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following | 2026
 
 
