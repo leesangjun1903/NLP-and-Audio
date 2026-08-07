@@ -510,5 +510,6 @@
 - ORCA-bench: How Ready Are Language Model Agents for Oncall? | 2026
 - HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following | 2026
 - AREX: Towards a Recursively Self-Improving Agent for Deep Research | 2026
+- MemoHarness: Agent Harnesses That Learn from Experience | 2026
 
 
