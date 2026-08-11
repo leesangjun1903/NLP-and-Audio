@@ -2,6 +2,398 @@
 
 ---
 
+## 1. Executive Summary (10문장 이내)
+
+본 논문은 Diffusion Large Language Models(dLLMs)의 **임의 순서(arbitrary order) 생성**이 일반적 추론 과제에서 오히려 추론 잠재력을 제한한다는 반직관적 발견을 제시한다.  
+dLLMs는 이론적으로 자유로운 토큰 생성 순서를 통해 AR 모델보다 우월한 추론 경로 탐색이 가능하다고 여겨졌다.  
+그러나 저자들은 Pass@k 지표를 통해 임의 순서 생성이 AR 순서보다 낮은 해 공간 커버리지를 보임을 실증하였다.  
+이 현상의 원인으로 **엔트로피 저하(entropy degradation)** 메커니즘을 제안하는데, 임의 순서 생성 시 모델이 불확실한 논리적 분기 토큰(예: "Therefore", "Since")을 우선 건너뜀으로써 해당 토큰의 엔트로피가 사전에 붕괴된다.  
+기존 dLLM용 RL 방법들은 이 임의 순서 유지를 위해 조합론적 복잡도와 근사 불가능한 가능도 계산 등 과도한 복잡성을 감수한다.  
+저자들은 이를 "유연성 세금(flexibility tax)"이라 규정하고, 단순히 AR 순서로 GRPO를 적용하는 **JustGRPO**를 제안한다.  
+JustGRPO는 RL 학습 시에만 AR 순서를 적용하고, 추론 시에는 dLLM 고유의 병렬 디코딩을 완전히 보존한다.  
+GSM8K 89.1%, MATH-500 45.1% 등 기존 복잡한 diffusion-specific RL 방법들을 능가하는 성능을 달성하였다.  
+이 연구는 dLLM 개발에서 임의 순서 유연성의 가치에 대한 근본적인 재검토를 촉구한다.
+
+---
+
+### 1-1. 연구의 목적과 필요성
+
+**목적:** dLLMs의 임의 순서 생성 유연성이 일반 추론 과제에서 실제로 이점을 제공하는지 실증적으로 검증하고, 더 단순하고 효과적인 RL 훈련 방법을 제안한다.
+
+**필요성:**
+- dLLMs의 RL 적용 연구들이 임의 순서 유지를 당연한 전제로 삼아, 조합폭발적 궤적 처리와 다루기 어려운 가능도 계산 등 불필요한 복잡성을 감수함 (p.3)
+- 임의 순서가 실제로 추론 공간을 확장하는지에 대한 실증적 검증 부재
+- 단순성과 효과성을 동시에 달성하는 dLLM RL 방법론의 필요
+
+> 💡 **Pass@k**: $k$개의 독립 샘플 중 적어도 하나가 정답인 확률. 모델의 추론 잠재력(solution space coverage)을 측정하는 지표로, RL 학습으로 달성 가능한 성능의 상한선 역할을 함.
+
+> 💡 **dLLMs (Diffusion Large Language Models)**: 텍스트 생성을 확산(diffusion) 과정으로 다루는 언어 모델. 전통적인 왼쪽→오른쪽 AR 생성과 달리, 마스킹된 토큰들을 반복적으로 복원하며 임의 순서로 생성 가능.
+
+---
+
+## 2. 핵심 주장과 근거 표
+
+| 핵심 주장 | 근거 | 위치 |
+|-----------|------|-------|
+| 임의 순서 생성이 일반 추론에서 추론 잠재력을 제한 | AR 순서 대비 낮은 Pass@k 스케일링 커브 (3개 dLLM 모델, 4개 벤치마크) | Figure 3, p.4 |
+| 임의 순서 해 공간이 AR의 부분집합에 불과 | Pass@1024 분석: HumanEval에서 AO Only 0.6% vs AR Only 21.3% | Figure 4, p.4 |
+| 순서 임의성이 클수록 추론 잠재력이 단조 감소 | 블록 크기 B=1(AR)→128(최대 임의)에 따른 Pass@k 단조 감소 | Figure 5, p.5 |
+| 엔트로피 저하 메커니즘이 원인 | 논리 연결어("Therefore", "Thus" 등) 디코딩 시 AO의 엔트로피가 AR 대비 급감 | Figure 7, p.6 |
+| 기존 dLLM RL 방법들의 복잡성은 불필요 | 조합폭발 궤적, 근사 불가 가능도, 샘플러-학습자 불일치 문제 분석 | Section 4.1, p.7 |
+| JustGRPO가 단순하면서도 우월한 성능 | GSM8K 89.1%, MATH-500 45.1%로 기존 방법 초과 | Table 1, 2, p.8-9 |
+| AR 훈련 후에도 병렬 디코딩 능력 보존 | EB-Sampler 기반 병렬 디코딩 실험: 고병렬 시 오히려 더 큰 성능 향상 | Figure 8, p.9 |
+| 무작위 순서도 해결책이 되지 못함 | JustGRPO-Random이 GSM8K에서 82.2%로 AR(89.1%)에 크게 뒤처짐 | Table 5, p.18-19 |
+
+---
+
+### 2-1. 해결 문제, 제안 방법, 모델 구조, 성능 및 한계
+
+#### 해결하고자 하는 문제
+
+1. **임의 순서의 역설**: 이론적으로 더 큰 해 공간을 제공해야 할 임의 순서 생성이 실제 추론에서 AR 순서보다 낮은 Pass@k를 보이는 이유 규명
+2. **기존 dLLM RL의 복잡성**: 임의 순서 유지를 위해 감수하는 세 가지 문제:
+   - **토큰 수준 분해의 모호성**: $\pi(o_t|s_t)$ 형태의 고유한 조건부 확률 정의 불가
+   - **다루기 어려운 시퀀스 가능도**: $\pi_\theta(o|q) = \sum_{\tau \in \mathcal{T}} \pi_\theta(o, \tau|q)$에서 $|\mathcal{T}| = O(N!)$
+   - **샘플러-학습자 불일치**: 실제 샘플링 정책 $\pi^{\text{conf}}\_\theta$와 최적화 목표 $\pi_\theta$ 간 불일치
+
+#### 제안하는 방법 (수식 포함)
+
+**Step 1: MDM의 순전파 과정** (Eq. 1, p.3)
+
+$$q(x_{t,k} \mid x_{0,k}) = \begin{cases} [\text{MASK}], & \text{with prob } t \\ x_{0,k}, & \text{with prob } 1-t \end{cases}$$
+
+- $x_{t,k}$: 시간 $t$에서 $k$번째 토큰의 상태
+- $x_{0,k}$: 원본 시퀀스의 $k$번째 토큰
+- $t \in [0,1]$: 마스킹 비율(연속 시간 변수)
+
+> 💡 **Masked Diffusion Model(MDM)**: 토큰을 무작위로 마스킹했다가 복원하는 방식으로 텍스트를 생성하는 확산 모델의 일종. 이미지 생성의 노이즈 추가/제거 과정을 텍스트의 마스킹/복원 과정으로 대체함.
+
+**Step 2: MDM 학습 손실** (Eq. 2, p.3)
+
+$$\mathcal{L}_{\text{MDM}}(\theta) = -\mathbb{E}_{t \sim \mathcal{U}[0,1],\, x_t \sim q(x_t|x_0)} \left[ \frac{1}{t} \sum_{k=1}^{L} \mathbf{1}[x_{t,k} = [\text{MASK}]] \log p_\theta(x_{0,k} \mid x_t) \right]$$
+
+- $L$: 시퀀스 길이
+- $p_\theta(x_{0,k}|x_t)$: 마스킹된 위치 $k$에서 원본 토큰 분포를 추정하는 신경망
+- $\mathbf{1}[\cdot]$: 지시 함수(해당 조건 참이면 1, 거짓이면 0)
+
+> 💡 **NELBO (Negative Evidence Lower Bound)**: 확산 모델 학습의 목적함수. 정확한 데이터 가능도 계산이 어렵기 때문에 그 하한선(ELBO)의 음수를 최소화하는 방식으로 학습함.
+
+**Step 3: Pass@k 추론 잠재력 측정** (Eq. 4, p.4)
+
+$$\text{Pass}@k = \mathbb{E}\left[1 - \frac{\binom{n-c}{k}}{\binom{n}{k}}\right]$$
+
+- $n$: 총 샘플 수
+- $c$: 정답 샘플 수
+- $k$: 평가 시 사용하는 샘플 수
+
+**Step 4: AR 정책 정의를 위한 입력 구성** (Eq. 5, p.7)
+
+$$\tilde{x}_k = [\underbrace{o_1, \ldots, o_{k-1}}_{\text{Observed}}, \underbrace{[\text{MASK}], \ldots, [\text{MASK}]}_{\text{Masked}}]$$
+
+- $o_{1}, \ldots, o_{k-1}$: 이미 생성된 토큰들
+- $[\text{MASK}]$: 아직 미생성된 위치
+
+**Step 5: dLLM 위에 AR 정책 정의** (Eq. 6, p.7)
+
+$$\pi^{\text{AR}}_\theta(\cdot \mid o_{<k}, q) \triangleq \text{Softmax}(f_{\theta,k}(\tilde{x}_k, q))$$
+
+- $f_{\theta,k}$: 위치 $k$에서의 모델 로짓(logit)
+- $q$: 질의(query)
+
+**Step 6: 정확히 계산 가능한 AR 가능도** (Eq. 7, p.7)
+
+$$\pi^{\text{AR}}_\theta(o \mid q) = \prod_{k=1}^{|o|} \pi^{\text{AR}}_\theta(o_k \mid o_{<k}, q)$$
+
+**Step 7: JustGRPO 목적함수** (Eq. 8, p.8)
+
+$$\mathcal{J}(\theta) = \mathbb{E}_{q \sim P(Q), \{o_i\}_{i=1}^G \sim \pi^{\text{AR}}_{\theta_{\text{old}}}} \left[ \frac{1}{G} \sum_{i=1}^G \frac{1}{|o_i|} \sum_{k=1}^{|o_i|} \left( \min\left(\rho_{i,k}\hat{A}_{i,k}, \text{clip}(\rho_{i,k}, 1-\varepsilon, 1+\varepsilon)\hat{A}_{i,k}\right) - \beta \mathbb{D}_{\text{KL}} \right) \right]$$
+
+- $\rho_{i,k} = \frac{\pi^{\text{AR}}\_\theta(o_{i,k}|o_{i, < k},q)}{\pi^{\text{AR}}\_{\theta_{\text{old}}}(o_{i,k}|o_{i, < k},q)}$ : 현재/이전 정책 간 중요도 비율
+- $\hat{A}_{i,k} = (r(o_i) - \mu_G)/\sigma_G$: 그룹 표준화 어드밴티지
+- $\varepsilon$: 클리핑 파라미터
+- $\beta$: KL 정규화 계수
+- $G$: 그룹 크기
+- $\mathbb{D}_{\text{KL}}$: KL 다이버전스
+
+> 💡 **GRPO (Group Relative Policy Optimization)**: DeepSeekMath에서 제안된 RL 알고리즘. 별도의 가치함수(value function) 없이, 동일 질의에서 생성된 여러 응답의 보상을 그룹 단위로 표준화하여 어드밴티지를 추정함.
+
+> 💡 **중요도 비율(importance ratio) $\rho_{i,k}$**: PPO 계열 알고리즘에서 현재 정책과 샘플 수집 시 정책의 차이를 보정하기 위한 비율. 클리핑을 통해 너무 큰 정책 변화를 방지함.
+
+> 💡 **KL 다이버전스(KL Divergence)**: 두 확률분포 간 차이를 측정하는 지표. RL에서 학습된 정책이 기준 정책에서 너무 멀리 벗어나지 않도록 정규화하는 데 사용됨.
+
+#### 모델 구조
+
+| 구성 요소 | 세부 내용 |
+|-----------|----------|
+| 기반 모델 | LLaDA-8B Instruct (Masked Diffusion Model) |
+| 아키텍처 | 양방향 어텐션(causal masking 없음), 시퀀스 수준 디노이저 |
+| 훈련 시 | AR 정책 $\pi^{\text{AR}}_\theta$ 정의 후 표준 GRPO 적용 |
+| 추론 시 | 원래 dLLM 구조 그대로 사용, 병렬 디코딩(EB-Sampler) 가능 |
+| AR 제약의 범위 | 훈련 시간(scaffold)에만 적용, causal masking 부과 없음 |
+
+> 💡 **양방향 어텐션(Bidirectional Attention)**: 시퀀스의 모든 위치가 서로를 참조할 수 있는 어텐션 메커니즘. AR 모델은 미래 토큰을 볼 수 없도록 인과적 마스킹(causal masking)을 사용하지만, dLLM은 이를 사용하지 않음.
+
+> 💡 **EB-Sampler (Entropy Bounded Sampler)**: Ben-Hamu et al. (2025)이 제안한 학습 불필요(training-free) 병렬 디코딩 방법. 엔트로피를 기반으로 여러 토큰을 동시에 언마스킹함.
+
+#### 성능 향상
+
+| 벤치마크 | JustGRPO (256) | 최고 기존 방법 | 향상 |
+|----------|---------------|--------------|------|
+| GSM8K | **89.1%** | SPG: 86.1% | +3.0%p |
+| MATH-500 | **45.1%** | SPG: 40.0% | +5.1%p |
+| HumanEval | **49.4%** | LLaDOU: 59.1%† | - |
+| MBPP | **52.4%** | LLaDOU: 51.6%† | +0.8%p |
+
+† LLaDOU는 추가 보조 모듈 사용, LLaDA-1.5는 대규모 사설 데이터 사용
+
+#### 한계
+
+- **단일 모델 실험**: LLaDA-Instruct 위주, 다른 dLLM 패밀리에 대한 JustGRPO 적용 결과 부족
+- **태스크 범위**: 수학, 코딩에 한정; 비구조적 언어 추론, 창의적 작문 등에서의 검증 없음
+- **임의 순서의 잠재적 이점 영역 미탐색**: 스도쿠, 제브라 퍼즐 등 특수 과제에서의 임의 순서 우위와의 조화 방법 미제시
+- **훈련 오버헤드**: 각 위치를 독립적으로 평가해야 하므로 AR 모델 대비 추가 계산 비용 발생 (단, JustGRPO-Fast로 부분 완화)
+- **이론적 정당화 부재**: 왜 AR 순서가 항상 더 나은 탐색을 유도하는지에 대한 이론적 증명 없음
+
+---
+
+## 3. 각 주장에 페이지/Figure/Table 번호 표시
+
+| 주장 | 근거 위치 |
+|------|----------|
+| AR 순서가 더 높은 Pass@k를 보임 | Figure 1 (Left), p.2; Figure 3, p.5 |
+| 임의 순서 해 공간이 AR 해 공간의 부분집합 | Figure 4, p.4 |
+| 블록 크기 증가 시 Pass@k 단조 감소 | Figure 5, p.5 |
+| 임의 순서가 논리 연결어를 우선적으로 건너뜀 | Figure 6, p.6 |
+| 논리 분기점 토큰의 엔트로피 저하 | Figure 7, p.6 |
+| JustGRPO의 벤치마크 우위 (시스템 수준) | Table 1, p.8 |
+| 동일 조건 재현 실험에서도 JustGRPO 우위 | Table 2, p.9 |
+| AR 훈련 후에도 병렬 디코딩 능력 보존 | Figure 8, p.9-10 |
+| JustGRPO가 ESPO 대비 우수한 시간-정확도 트레이드오프 | Figure 9, p.10 |
+| 무작위 순서가 커버리지 개선에 도움 안 됨 | Table 4, p.19 |
+| JustGRPO-Random이 AR보다 현저히 열등 | Table 5, p.19 |
+| 일반 능력 보존 | Table 6, p.19 |
+
+---
+
+## 4. 저자 보고 결과 vs. 해석 분리
+
+### 저자가 직접 보고한 결과
+
+**연구 주제:** dLLMs의 임의 순서 유연성이 일반 추론 과제에서 갖는 가치와 RL 훈련에서의 역할
+
+**방법:**
+- Pass@k 지표 ($\text{Pass}@k = \mathbb{E}\left[1 - \binom{n-c}{k}/\binom{n}{k}\right]$) 기반 실증 비교
+- 3개 dLLM(LLaDA-Instruct, Dream-Instruct, LLaDA-1.5) × 4개 벤치마크(GSM8K, MATH-500, HumanEval, MBPP)
+- 블록 크기 스위프(B=1,8,32,128)를 통한 임의성 정도 실험
+- AR 정책 $\pi^{\text{AR}}_\theta$ 정의 후 표준 GRPO 적용
+
+**저자 보고 수치 (직접 인용):**
+- JustGRPO GSM8K 89.1% (seq len 256) (Table 1, p.8)
+- JustGRPO MATH-500 45.1% (Table 1, p.8)
+- HumanEval에서 AO Only 0.6% vs AR Only 21.3% (Figure 4, p.4)
+- 모든 $k \in \{8,32,128\}$에서 블록 크기 증가 시 Pass@k 단조 감소 (Figure 5, p.5)
+- 일반 능력 벤치마크에서 MMLU 65.8% (기존 65.5%), MMLU-Pro 36.7% (기존 37.0%) 등 소폭 변동 (Table 6, p.19)
+
+### 리뷰어(나)의 해석 및 평가
+
+1. **결과의 강점**: 3개 모델과 4개 벤치마크에 걸친 일관된 패턴은 설득력이 있음. 특히 단조 감소 패턴(Figure 5)은 단순 이분법을 넘어 연속적 증거를 제공함.
+
+2. **비교 공정성 문제 (⚠️ 통계적 취약)**: Table 1의 baseline들은 서로 다른 LoRA/full fine-tuning, 1/2 토큰/스텝, 공개/사설 데이터 등 이질적 설정을 사용함. Table 2에서 동일 조건 재현을 시도했으나 일부 모델(HumanEval, MBPP 결과 없음)만 포함됨.
+
+3. **엔트로피 저하 인과성 미확립**: Figure 7은 상관관계를 보여주지만, 엔트로피 저하가 Pass@k 감소의 직접 원인임을 인과적으로 증명하지는 않음.
+
+4. **Pass@k 해석의 전제**: RL이 base model의 분포를 날카롭게만 만든다는 전제(Yue et al., 2025)에 기반하여 Pass@k를 RL 상한선으로 사용하는데, 이 전제 자체가 도전받을 수 있음.
+
+---
+
+## 5. 통계적으로 취약한 부분과 비교 불가능한 수치
+
+| 문제 유형 | 해당 내용 | 위치 |
+|-----------|----------|------|
+| ⚠️ 이질적 설정 비교 | Table 1: LoRA vs. full fine-tuning, 1 vs. 2 토큰/스텝 혼재 | Table 1, p.8 |
+| ⚠️ 사설 데이터 사용 | LLaDA-1.5는 "significantly larger scale" 사설 데이터 사용으로 직접 비교 부적절 | Table 1 각주, p.8 |
+| ⚠️ 보조 모듈 사용 | LLaDOU는 추가 trainable 모듈 사용, 구조적으로 JustGRPO와 다름 | Table 1 각주, p.8 |
+| ⚠️ 단일 시드 결과 | 표준편차, 신뢰구간 미보고, 랜덤 시드 영향 불명확 | 전체 실험 |
+| ⚠️ 온도 최적화 불일치 | 임의 순서의 최적 온도(높음)와 AR의 최적 온도(~0.6)가 다름에도 단일 온도로 주요 비교 | Appendix B, p.16 |
+| ⚠️ HumanEval/MBPP 재현 부재 | Table 2에서 d1*, SPG*의 HumanEval, MBPP 결과 누락("-" 표시) | Table 2, p.9 |
+| ⚠️ 소규모 훈련 스텝 | 125 스텝(GSM8K는 50 스텝에 수렴)으로 모든 태스크 일괄 적용 | Table 3, p.15 |
+
+---
+
+## 6. 문서가 답하지 않는 질문
+
+1. **왜 AR 순서가 이론적으로 더 나은 탐색을 제공하는가?** 엔트로피 저하 현상은 기술되었으나 이것이 Pass@k 감소로 이어지는 인과적 메커니즘에 대한 이론적 증명이 없음.
+
+2. **스도쿠·제브라 퍼즐 등 비순차적 추론이 유리한 과제와의 경계는 어디인가?** 임의 순서가 유리한 과제와 불리한 과제를 구분하는 기준이 제시되지 않음.
+
+3. **JustGRPO를 다른 dLLM 아키텍처(예: Mercury, Gemini Diffusion)에 적용하면?** LLaDA 계열 외 모델에서의 일반화 여부 미검증.
+
+4. **더 긴 시퀀스(512 이상)에서도 동일한 결과가 나타나는가?** 512까지의 결과만 보고되며, 긴 연쇄 추론(chain-of-thought)이 필요한 복잡한 문제에서의 동작 미검증.
+
+5. **JustGRPO-Fast에서 상위 25% 엔트로피 임계값은 어떻게 결정되었는가?** 임계값 선택의 민감도 분석 부재.
+
+6. **임의 순서 유연성을 부분적으로 활용하는 하이브리드 방법은 가능한가?** 훈련 중 점진적으로 AR→임의 순서로 전환하는 커리큘럼 접근 등의 탐색 없음.
+
+7. **역방향 정제(bidirectional refinement)와 JustGRPO의 결합 효과는?** Appendix E에서 가능성을 언급하나 실험적 검증 없음.
+
+8. **보상 함수 설계가 결과에 얼마나 영향을 미치는가?** 이진 보상(수학)과 패스율 기반 보상(코딩) 외 다른 보상 설계의 영향 미탐색.
+
+---
+
+## 7. 가장 중요한 그림 5개 해석
+
+### Figure 1 (p.2) - "Less Flexibility Unlocks Better Reasoning Potential"
+
+**해석:** 두 부분으로 구성된 핵심 요약 그림.
+- **(Left)** LLaDA-Instruct에서 AR 순서(■)가 임의 순서(●)보다 높은 Pass@k를 보임. $k=1$에서 두 방법이 유사하지만(각각 약 80-81%), $k$가 커질수록 AR이 더 가파르게 상승하여 $k=128$에서 약 4%p 이상 격차.
+- **(Right)** JustGRPO가 d1(81.1%), ESPO(82.3%), SPG(86.1%), GDPO(82.8%)를 GSM8K에서 모두 초과하며 89.1% 달성.
+- **의의**: 이 그림은 논문 전체의 핵심 주장을 단일 시각으로 제시. 왼쪽의 원인 분석이 오른쪽의 방법론 제안으로 연결되는 논리 구조를 직관적으로 보여줌.
+
+### Figure 3 (p.5) - "Reasoning Potential Measured by Pass@k"
+
+**해석:** 3×4 격자 형태로 3개 dLLM × 4개 벤치마크에 대한 Pass@k 커브 비교.
+- 모든 모델-벤치마크 조합에서 **일관된 패턴**: $k=1$에서 임의 순서가 경쟁력 있거나 우위이나, $k$ 증가에 따라 AR 순서의 스케일링 기울기가 더 가파름.
+- LLaDA-Instruct GSM8K: $k=1$에서 AO≈80%, AR≈79%이나, $k=128$에서 AR이 약 95% 이상으로 상승하며 AO를 크게 추월.
+- **의의**: 결과의 일반성을 3개 아키텍처에 걸쳐 검증함으로써 LLaDA 특유 현상이 아님을 입증. Pass@1 우위에도 불구하고 탐색 다양성에서 AR이 우월함을 시각화.
+
+### Figure 4 (p.4) - "Solution Space Coverage by Pass@1024"
+
+**해석:** 파이차트 형태로 AO Only / AR Only / Both Solved 비율을 4개 벤치마크에 표시.
+- HumanEval: AR Only 21.3% vs AO Only 0.6% — AR이 배타적으로 해결하는 문제가 35배 많음.
+- MBPP: AR Only 14.0% vs AO Only 0.8%.
+- GSM8K: AR Only 1.2% vs AO Only 0.0%.
+- **의의**: 임의 순서 생성이 "이론적으로 더 큰 해 공간"이라는 주장이 실제로는 AR의 부분집합에 불과함을 보여주는 결정적 증거. 특히 AO Only가 극소한 점은 임의 순서만의 고유한 해가 거의 없음을 시사.
+
+### Figure 7 (p.6) - "Entropy Degradation"
+
+**해석:** "Therefore", "Thus", "Since", "To", "Now", "determine", "Given" 등 논리 연결어에 대해 임의 순서(파란 막대)와 AR 순서(주황 점선) 디코딩 시 평균 엔트로피 비교.
+- 전체 평균 토큰 엔트로피(점선)는 두 방법이 유사하지만, 논리 연결어 위치에서만 임의 순서의 엔트로피가 AR 대비 급격히 낮음.
+- 예: "Therefore"에서 AR ~1.5 vs AO ~0.5.
+- **의의**: "유연성 함정"의 메커니즘을 정량적으로 증명. 임의 순서가 전반적 불확실성을 줄이는 것이 아니라, 정확히 분기점 역할을 하는 중요 토큰에서만 선택적으로 엔트로피를 억제함을 보여줌.
+
+> 💡 **엔트로피(Entropy)**: 확률분포의 불확실성을 나타내는 지표. 높은 엔트로피는 여러 가능성이 열려 있음을, 낮은 엔트로피는 하나의 결과가 결정적임을 의미. 추론 맥락에서 높은 엔트로피의 분기 토큰은 탐색 공간을 다양하게 유지하는 역할을 함.
+
+### Figure 8 (p.9) - "JustGRPO Preserves Parallel Decoding Capability"
+
+**해석:** 토큰/스텝(병렬도)에 따른 정확도 변화를 4개 벤치마크에 대해 LLaDA-Instruct(파란 점)와 JustGRPO(주황 점) 비교.
+- 모든 병렬도 설정에서 JustGRPO가 기준 모델 대비 향상: GSM8K +10.6%(1 tok/step) → +13.8%(7.5 tok/step).
+- MBPP: +10.6%(1 tok/step) → +25.5%(~5 tok/step) — 병렬도 증가에 따라 격차 확대.
+- 기준 모델은 병렬도 증가 시 성능이 급감하는 반면, JustGRPO는 상대적으로 안정적.
+- **의의**: AR 훈련이 병렬 디코딩 능력을 손상시킨다는 우려를 불식. 오히려 분포 정제 효과로 병렬 샘플링의 근사 오류에 더 강건한 모델을 만들어냄.
+
+---
+
+## 8. 결론, 시사점, 후속 연구
+
+### 8-1. 저자들이 제시한 시사점 및 후속 연구 계획
+
+**시사점 (Section 7, p.11):**
+1. dLLM의 임의 순서 유연성이 일반 추론에서는 탐색(exploration)보다 착취(exploitation)를 조장함
+2. RL 훈련 시 AR 순서 제약이 오히려 추론 잠재력을 확장하는 반직관적 결론
+3. dLLMs 개발에서 임의 vs. AR 순서의 트레이드오프 재검토 필요
+
+**저자 언급 후속 연구 방향 (Appendix E, p.19):**
+- 역방향 정제(bidirectional refinement)와 JustGRPO의 결합 (CDLM, ParallelBench 방향성)
+- JustGRPO-Fast의 엔트로피 기반 선택적 위치 평가 확장
+
+### 8-1. 모델의 일반화 성능 향상 가능성
+
+본 논문에서 일반화와 관련된 직접적 증거와 가능성:
+
+**현재 일반화 증거:**
+- **다중 모델 일반화**: LLaDA-Instruct, Dream-Instruct, LLaDA-1.5 3개 모델에서 동일 패턴 확인 (Figure 3)
+- **다중 도메인 일반화**: 수학(GSM8K, MATH-500)과 코딩(HumanEval, MBPP) 두 도메인에서 일관된 성능
+- **일반 능력 보존**: MMLU, MMLU-Pro, HellaSwag, ARC-C에서 성능 유지 (Table 6, p.19) — AR scaffold가 reasoning-specific 개선을 달성하면서 일반 지식은 보존
+
+**일반화 향상 가능성 분석:**
+
+AR scaffold 훈련 방식은 구조적으로 다음과 같은 일반화 이점을 제공할 가능성이 있음:
+
+1. **분포 정제 효과**: AR 훈련이 "특정 궤적에 과적합"하지 않고 기저 모델 분포를 전반적으로 정제함 → 병렬 샘플링 근사 오류에 더 강건 (Figure 8 결과가 이를 지지)
+
+2. **도메인 확장 가능성**: 구조화된 순차적 추론이 필요한 모든 과제(법률 추론, 과학적 추론 등)에 적용 가능성 높음. 단, 비선형적 사고가 유리한 과제(예: 역추론)에서는 검증 필요.
+
+3. **스케일 일반화**: JustGRPO-Fast를 통한 연산 효율화는 더 큰 모델(>8B)이나 더 긴 시퀀스에 적용 시 일반화 가능성을 실질적으로 높임.
+
+**한계 및 우려:**
+- 특수 추론 과제(스도쿠, 퍼즐)에서의 일반화는 미검증 — 오히려 임의 순서가 유리할 수 있음
+- 다국어, 멀티모달 설정에서의 일반화 불명확
+
+---
+
+### 8-2. 2020년 이후 관련 최신 연구 비교 분석
+
+#### 주요 관련 연구 계보
+
+| 연구 | 연도 | 핵심 기여 | 본 논문과의 관계 |
+|------|------|-----------|----------------|
+| DDPM (Ho et al.) | 2020 | 연속 도메인 확산 모델 기반 확립 | dLLM의 이론적 토대 |
+| Diffusion-LM (Li et al.) | 2022 | 임베딩 공간 확산 텍스트 생성 | 초기 dLLM 시도, 이산 토큰 문제 노출 |
+| MDLM/SMDM (Lou et al., Sahoo et al., Shi et al.) | 2024 | 이산 마스킹 확산 모델 확립 | MDM 수식(Eq.1, 2)의 기반 |
+| LLaDA (Nie et al.) | 2025 | 대규모 MDM, AR 수준 성능 | 본 논문 기반 모델 |
+| Dream (Ye et al.) | 2025 | 추론 특화 dLLM | 비교 대상 모델 |
+| d1 (Zhao et al.) | 2025 | dLLM + RL(GRPO 유사) 초기 시도 | JustGRPO의 직접 비교 대상 |
+| ESPO (Ou et al.) | 2026 | 시퀀스 수준 관점의 원칙적 RL | Table 1, 2에서 직접 비교 |
+| SPG (Wang et al.) | 2026 | 샌드위치 정책 그래디언트 | 복잡한 임의 순서 보존 RL의 대표 사례 |
+| LLaDOU (Huang et al.) | 2025 | 보조 위치 선택 정책 추가 | 임의 순서 유지하되 궤적 가능도 직접 추정 |
+| Mercury (Inception Labs) | 2025 | 초고속 추론 dLLM | 병렬 디코딩 효율성 측면 비교 |
+
+> 💡 **RLVR (Reinforcement Learning with Verifiable Rewards)**: 수학 계산 결과, 코드 실행 결과 등 자동으로 검증 가능한 보상을 사용하는 강화학습 패러다임. DeepSeek-R1, o1 등에서 추론 능력 향상에 효과적임이 입증됨.
+
+#### 본 논문이 미치는 영향
+
+1. **패러다임 전환**: "더 많은 유연성 = 더 나은 추론"이라는 암묵적 전제에 도전하여, dLLM RL 연구의 설계 철학 재고 촉구
+
+2. **단순성의 복권**: 복잡한 diffusion-specific RL 방법들(ESPO, SPG, GDPO)이 갖는 복잡도의 정당성 약화 — 방법론 단순화 트렌드 가속화 가능
+
+3. **평가 기준 재정립**: Pass@k를 추론 잠재력 측정의 표준 지표로 강조하며 단순 Pass@1 중심 평가의 한계 부각
+
+4. **훈련-추론 분리 원칙**: RL 훈련과 추론 실행의 최적 전략이 다를 수 있음을 보여줌 — 다른 모델 패밀리에서도 이 원칙 적용 가능성
+
+#### 향후 연구 시 고려할 점
+
+1. **적용 범위 경계 탐색**: 임의 순서가 실제로 유리한 과제와 AR이 유리한 과제를 구분하는 분류 기준 수립 필요
+
+2. **이론적 기반 강화**: 엔트로피 저하와 Pass@k 감소 간의 인과관계를 정보이론적으로 증명하는 후속 연구 필요
+
+3. **적응형 순서 전략**: 훈련 중 엔트로피가 높은 분기점에서만 AR을 강제하고 나머지는 임의 순서를 허용하는 하이브리드 방법 탐색
+
+4. **다른 RL 알고리즘과의 결합**: JustGRPO 프레임워크에서 PPO, REINFORCE, DPO 등 다른 RL 방법 적용 비교
+
+5. **더 강한 dLLM과의 결합**: Mercury, Gemini Diffusion 등 더 강력한 기반 모델에 JustGRPO 적용 시 성능 한계 탐색
+
+6. **온도-순서 상호작용 심화 연구**: Appendix B에서 보인 임의 순서의 최적 온도가 더 높다는 발견 — 온도 제어를 통한 임의 순서 탐색 가능성 미완결
+
+7. **역방향 정제와의 통합**: dLLM의 양방향 주의를 활용한 이미 생성된 출력의 반복적 개선과 JustGRPO 결합
+
+8. **멀티모달 dLLM으로의 확장**: MMaDA(Yang et al., 2025) 등 멀티모달 확산 모델에서의 임의 순서 vs. AR 순서 검토
+
+---
+
+## 참고 자료
+
+본 답변은 전적으로 제공된 논문 원문을 기반으로 작성되었습니다:
+
+**논문 원문:**
+- Ni, Z., Wang, S., Yue, Y., Yu, T., Zhao, W., Hua, Y., Chen, T., Song, J., Yu, C., Zheng, B., & Huang, G. (2026). **"The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models."** arXiv:2601.15165v4 [cs.CL].
+- Project page: https://nzl-thu.github.io/the-flexibility-trap
+
+**논문 내 인용 주요 참고문헌:**
+- Nie et al. (2025). "Large Language Diffusion Models." NeurIPS. (LLaDA)
+- Shao et al. (2024). "DeepSeekMath." arXiv:2402.03300. (GRPO 원논문)
+- Chen et al. (2021). "Evaluating Large Language Models Trained on Code." arXiv:2107.03374. (Pass@k)
+- Yue et al. (2025). "Does RL Really Incentivize Reasoning Capacity Beyond the Base Model?" NeurIPS.
+- Ben-Hamu et al. (2025). "Accelerated Sampling from Masked Diffusion Models via Entropy Bounded Unmasking." NeurIPS. (EB-Sampler)
+- Ou et al. (2026). "Principled RL for Diffusion LLMs from a Sequence-Level Perspective." ICLR. (ESPO)
+- Wang et al. (2026a). "SPG: Sandwiched Policy Gradient for Masked Diffusion Language Models." ICLR.
+- Zhao et al. (2025). "d1: Scaling Reasoning in Diffusion Large Language Models via RL." NeurIPS.
+
+**⚠️ 주의:** 이 논문은 arXiv:2601.15165v4 (2026년 6월 9일 기준)로, 아직 peer-review 최종 출판 전 프리프린트일 가능성이 있으며, 일부 인용된 참고문헌(2026년도 ICLR, NeurIPS 논문 등)은 제 학습 데이터 기준(2024년 초)으로 직접 확인이 불가한 미래 문헌입니다. 해당 참고문헌들의 내용은 본 논문의 기술에 의존하여 서술하였음을 밝힙니다.
+
+# The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models
+
+---
+
 ## 1. 핵심 주장과 주요 기여 요약
 
 ### 핵심 주장 (Counter-intuitive Claim)
