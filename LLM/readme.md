@@ -511,5 +511,6 @@
 - HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following | 2026
 - AREX: Towards a Recursively Self-Improving Agent for Deep Research | 2026
 - MemoHarness: Agent Harnesses That Learn from Experience | 2026
+- MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent | 2025 · 167회 인용
 
 
