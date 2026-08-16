@@ -64,9 +64,9 @@ ECE 최대 84% 감소, NLL 최대 76% 감소를 달성하면서 경쟁력 있는
 
 #### Step 1: LoRA 기본 수식 (§3.1, p.2)
 
-$$\Delta W = \frac{\alpha}{r} BA, \quad B \in \mathbb{R}^{d_{\text{out}} \times r}, \quad A \in \mathbb{R}^{r \times d_{\text{in}}} \tag{1}$$
+$$\Delta W = \frac{\alpha}{r} BA, \quad B \in \mathbb{R}^{d_{\text{out}} \times r}, \quad A \in \mathbb{R}^{r \times d_{\text{in}}} $$
 
-$$y = (W_{\text{pre}} + \Delta W)x = W_{\text{pre}} x + \frac{\alpha}{r} B(Ax) \tag{2}$$
+$$y = (W_{\text{pre}} + \Delta W)x = W_{\text{pre}} x + \frac{\alpha}{r} B(Ax) $$
 
 | 기호 | 설명 |
 |---|---|
@@ -83,9 +83,9 @@ $$y = (W_{\text{pre}} + \Delta W)x = W_{\text{pre}} x + \frac{\alpha}{r} B(Ax) \
 
 #### Step 2: 유도 변수 사전분포 및 변분 사후분포 (§3.2, p.3)
 
-$$p(U) = \mathcal{N}(\text{vec}(U) \mid \mathbf{0}, K_U), \quad K_U = K_c \otimes K_r \tag{3}$$
+$$p(U) = \mathcal{N}(\text{vec}(U) \mid \mathbf{0}, K_U), \quad K_U = K_c \otimes K_r $$
 
-$$q(U) = \mathcal{N}(\text{vec}(U) \mid \mathbf{m}, \mathbf{S}) \tag{4}$$
+$$q(U) = \mathcal{N}(\text{vec}(U) \mid \mathbf{m}, \mathbf{S}) $$
 
 | 기호 | 설명 |
 |---|---|
@@ -101,13 +101,13 @@ $$q(U) = \mathcal{N}(\text{vec}(U) \mid \mathbf{m}, \mathbf{S}) \tag{4}$$
 
 #### Step 3: $W$의 $U$에 대한 조건부 분포 및 투영 연산자 (§3.2, p.3)
 
-$$K_r = Z_r Z_r^\top + D_r^2, \quad K_c = Z_c Z_c^\top + D_c^2 \tag{6}$$
+$$K_r = Z_r Z_r^\top + D_r^2, \quad K_c = Z_c Z_c^\top + D_c^2 $$
 
-$$T_r = Z_r^\top K_r^{-1}, \quad T_c = K_c^{-1} Z_c \tag{7}$$
+$$T_r = Z_r^\top K_r^{-1}, \quad T_c = K_c^{-1} Z_c $$
 
-$$M_W(U) = T_r U T_c \tag{8}$$
+$$M_W(U) = T_r U T_c $$
 
-$$p(W \mid U) = \mathcal{N}(W \mid M_W(U), \Sigma_W) \tag{5}$$
+$$p(W \mid U) = \mathcal{N}(W \mid M_W(U), \Sigma_W) $$
 
 | 기호 | 설명 |
 |---|---|
@@ -122,7 +122,7 @@ $$p(W \mid U) = \mathcal{N}(W \mid M_W(U), \Sigma_W) \tag{5}$$
 
 #### Step 4: 정규화 흐름으로 사후분포 강화 (§4.1, p.4)
 
-$$q_0(U_0) = \mathcal{N}(\text{vec}(U_0) \mid \mathbf{m}, \text{diag}(\boldsymbol{\sigma}^2)), \quad U = T_\phi(U_0) \tag{14}$$
+$$q_0(U_0) = \mathcal{N}(\text{vec}(U_0) \mid \mathbf{m}, \text{diag}(\boldsymbol{\sigma}^2)), \quad U = T_\phi(U_0) $$
 
 | 기호 | 설명 |
 |---|---|
@@ -136,9 +136,9 @@ $$q_0(U_0) = \mathcal{N}(\text{vec}(U_0) \mid \mathbf{m}, \text{diag}(\boldsymbo
 
 #### Step 5: 흐름 증강 ELBO (§4.2, p.4)
 
-$$\log q_\phi(U) = \log q_0(T_\phi^{-1}(U)) - \log \left| \det J_{T_\phi}(T_\phi^{-1}(U)) \right| \tag{15}$$
+$$\log q_\phi(U) = \log q_0(T_\phi^{-1}(U)) - \log \left| \det J_{T_\phi}(T_\phi^{-1}(U)) \right| $$
 
-$$\mathcal{L}_{\text{ELBO}} = \underbrace{\mathbb{E}_{U_0 \sim q_0, \varepsilon}[\log p(\mathcal{D} \mid W)]}_{\text{(1) 기대 로그 우도}} - \underbrace{\mathbb{E}_{U_0 \sim q_0}\left[\log q_0(U_0) - \log \left| \det J_{T_\phi}(U_0) \right| - \log p(T_\phi(U_0))\right]}_{\text{(2) 유도 변수 KL}} - \underbrace{\frac{D}{2}(\lambda^2 - 1 - 2\log\lambda)}_{\text{(3) 조건부 KL}} \tag{16}$$
+$$\mathcal{L}_{\text{ELBO}} = \underbrace{\mathbb{E}_{U_0 \sim q_0, \varepsilon}[\log p(\mathcal{D} \mid W)]}_{\text{(1) 기대 로그 우도}} - \underbrace{\mathbb{E}_{U_0 \sim q_0}\left[\log q_0(U_0) - \log \left| \det J_{T_\phi}(U_0) \right| - \log p(T_\phi(U_0))\right]}_{\text{(2) 유도 변수 KL}} - \underbrace{\frac{D}{2}(\lambda^2 - 1 - 2\log\lambda)}_{\text{(3) 조건부 KL}} $$
 
 | 기호 | 설명 |
 |---|---|
@@ -154,7 +154,7 @@ $$\mathcal{L}_{\text{ELBO}} = \underbrace{\mathbb{E}_{U_0 \sim q_0, \varepsilon}
 
 #### Step 6: 조건부 KL 폐쇄형 (Appendix A.4, p.13-14)
 
-$$\text{KL}(q(W \mid U) \| p(W \mid U)) = \frac{d_W}{2}(\lambda^2 - 1 - 2\log\lambda) \tag{31}$$
+$$\text{KL}(q(W \mid U) \| p(W \mid U)) = \frac{d_W}{2}(\lambda^2 - 1 - 2\log\lambda) $$
 
 이 항은 $U$에 독립적이므로 샘플링이나 Hessian 계산 없이 정확하게 계산됨.
 
