@@ -441,6 +441,7 @@
 - Position: The Alignment Community is Unintentionally Building a Censor’s Toolkit | 2026
 - How much do language models memorize? | 2025 · 60회 인용
 - Inducing language models to assert their own consciousness restores human beliefs and values | 2026
+- Memorization Dynamics in Knowledge Distillation for Language Models | 2026 · 2회 인용
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
