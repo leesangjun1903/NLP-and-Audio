@@ -444,6 +444,7 @@
 - Inducing language models to assert their own consciousness restores human beliefs and values | 2026
 - Memorization Dynamics in Knowledge Distillation for Language Models | 2026 · 2회 인용
 - Sycophantic AI Decreases Prosocial Intentions and Promotes Dependence | 2026
+- When Skills Meet Safety: Benchmarking and Characterizing the Adaptive Jailbreak Robustness of Skill-Merged LLMs | 2026
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
