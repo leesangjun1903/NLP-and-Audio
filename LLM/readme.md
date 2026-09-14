@@ -421,6 +421,7 @@
 - Is One Layer Enough? Training A Single Transformer Layer Can Match Full-Parameter RL Training | 2026
 - Reinforcement Learning with Metacognitive Feedback Elicits Faithful Uncertainty Expression in LLMs | 2026
 - Single-Rollout Asynchronous Optimization for Agentic Reinforcement Learning | 2026
+- You Can Learn Tokenization End-to-End with Reinforcement Learning | 2026
 
 
 ### Research
