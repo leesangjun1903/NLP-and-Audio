@@ -334,6 +334,7 @@
 - Train Smarter, Not Longer: Memorization-Guided Data Reuse for Efficient LLM Training | 2026
 - Deterministic Differentiable Structured Pruning for Large Language Models | 2026 · 1회 인용
 - Recirculation | 2026
+- L³: Large Lookup Layers | 2026 · 5회 인용
 
 
 ## Prompting
