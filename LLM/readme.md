@@ -521,5 +521,6 @@
 - MemoHarness: Agent Harnesses That Learn from Experience | 2026
 - MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent | 2025 · 167회 인용
 - Agent Lightning v1.0: Towards Harnessed Agentic RL | 2026
+- Auto-RecSys: Harnessing Autonomous Research Agents for Industry-Scale Recommender Systems | 2026
 
 
