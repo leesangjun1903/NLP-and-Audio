@@ -335,6 +335,7 @@
 - Deterministic Differentiable Structured Pruning for Large Language Models | 2026 · 1회 인용
 - Recirculation | 2026
 - L³: Large Lookup Layers | 2026 · 5회 인용
+- Language Models Can Control Their Own Attention | 2026
 
 
 ## Prompting
