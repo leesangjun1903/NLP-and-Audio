@@ -448,6 +448,7 @@
 - Memorization Dynamics in Knowledge Distillation for Language Models | 2026 · 2회 인용
 - Sycophantic AI Decreases Prosocial Intentions and Promotes Dependence | 2026
 - When Skills Meet Safety: Benchmarking and Characterizing the Adaptive Jailbreak Robustness of Skill-Merged LLMs | 2026
+- The Embedder's Dilemma: LLMs Are Better, but at What Cost? | 2026 · 3회 인용
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
