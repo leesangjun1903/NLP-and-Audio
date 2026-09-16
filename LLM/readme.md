@@ -261,6 +261,7 @@
 - Differential Transformer | 2024 · 298회 인용
 - Large Language Diffusion Models | 2025 · 595회 인용
 - MAI-Thinking-1: Building a Hill-Climbing Machine | 2026
+- An Event is Worth One Token: Event Tokenization for Industrial-scale LLM Recommendation | 2026
 
 ## sLMs
 - GraphCodeBERT: Pre-training Code Representations with Data Flow | 2020 · 1457회 인용
