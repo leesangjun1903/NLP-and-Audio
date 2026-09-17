@@ -525,5 +525,6 @@
 - Agent Lightning v1.0: Towards Harnessed Agentic RL | 2026
 - Auto-RecSys: Harnessing Autonomous Research Agents for Industry-Scale Recommender Systems | 2026
 - AgentGrad: Intervention-guided Prompt Optimization for Multi Agent Systems | 2026
+- Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems | 2026 · 2회 인용
 
 
