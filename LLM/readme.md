@@ -527,5 +527,7 @@
 - AgentGrad: Intervention-guided Prompt Optimization for Multi Agent Systems | 2026
 - Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems | 2026 · 2회 인용
 - Scaling Long-Horizon LLM Agent via Context-Folding | 2025 · 112회 인용
+- Metaⁿ: Recursive Self-Improvement through Emergent Depth | 2026
+- Prime Agent: A Self-Improving RLM Harness | 2026 · 5회 인용
 
 
