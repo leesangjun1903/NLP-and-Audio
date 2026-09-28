@@ -530,5 +530,6 @@
 - Metaⁿ: Recursive Self-Improvement through Emergent Depth | 2026
 - Prime Agent: A Self-Improving RLM Harness | 2026 · 5회 인용
 - Harness-of-Harness: Multi-Day Autonomous Software Development with Continual Improvement | 2026 · 1회 인용
+- Context as an Environment: Programmatic Context Management for Long-Horizon Agents | 2026 · 1회 인용 
 
 
