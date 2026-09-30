@@ -532,5 +532,6 @@
 - Harness-of-Harness: Multi-Day Autonomous Software Development with Continual Improvement | 2026 · 1회 인용
 - Context as an Environment: Programmatic Context Management for Long-Horizon Agents | 2026 · 1회 인용
 - WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution | 2026
+- The Compaction Cliff in Long-Running AI Agent Memory | 2026
 
 
