@@ -534,5 +534,6 @@
 - WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution | 2026
 - The Compaction Cliff in Long-Running AI Agent Memory | 2026
 - What is Missing from AI Post-Training AI: An Empirical Analysis | 2026
+- Physics of Agents: Statistical Mechanics Predicts Collective Behavior of AI Agents | 2026
 
 
