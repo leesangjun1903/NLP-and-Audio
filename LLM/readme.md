@@ -337,6 +337,7 @@
 - Recirculation | 2026
 - L³: Large Lookup Layers | 2026 · 5회 인용
 - Language Models Can Control Their Own Attention | 2026
+- Sharpness-Aware Pretraining Mitigates Catastrophic Forgetting | 2026 · 11회 인용
 
 
 ## Prompting
