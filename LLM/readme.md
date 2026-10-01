@@ -455,6 +455,7 @@
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
 - The Probabilistic Relevance Framework: BM25 and Beyond | 2009 · 5775회 인용
 - CogLTX: Applying BERT to Long Texts | 2020 · 198회 인용
+- SCRIBES: Web-Scale Script-Based Semi-Structured Data Extraction with Reinforcement Learning | 2025 · 3회 인용
 
 
 ## Agent
