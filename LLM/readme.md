@@ -540,5 +540,6 @@
 - Harness-Zero: Harness Distillation via Agent-as-Harness | 2026
 - SoL-Pi: Recursively Scaling Auto-Research Loops for Efficient Agent Harness | 2026
 - Jev-Mem: System-One-Controlled Agentic Memory for Efficient AI Agents | 2026
+- WFM: Wiki Foundation Model for Complex Agentic Reasoning | 2026
 
 
