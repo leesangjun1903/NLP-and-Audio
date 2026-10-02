@@ -338,6 +338,7 @@
 - L³: Large Lookup Layers | 2026 · 5회 인용
 - Language Models Can Control Their Own Attention | 2026
 - Sharpness-Aware Pretraining Mitigates Catastrophic Forgetting | 2026 · 11회 인용
+- SlopShape: Identifying AI-Generated Commercial Web Content | 2026
 
 
 ## Prompting
