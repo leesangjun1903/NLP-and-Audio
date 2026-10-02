@@ -339,6 +339,7 @@
 - Language Models Can Control Their Own Attention | 2026
 - Sharpness-Aware Pretraining Mitigates Catastrophic Forgetting | 2026 · 11회 인용
 - SlopShape: Identifying AI-Generated Commercial Web Content | 2026
+- LoRA-generating hypernetworks for efficient on-device LLM generative personalization | 2026
 
 
 ## Prompting
