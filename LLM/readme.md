@@ -340,6 +340,7 @@
 - Sharpness-Aware Pretraining Mitigates Catastrophic Forgetting | 2026 · 11회 인용
 - SlopShape: Identifying AI-Generated Commercial Web Content | 2026
 - LoRA-generating hypernetworks for efficient on-device LLM generative personalization | 2026
+- Compile by Training: Turning Natural-Language Specifications into Local Neural Functions | 2026
 
 
 ## Prompting
