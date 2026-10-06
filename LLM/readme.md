@@ -370,6 +370,7 @@
 - GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints | 2023 · 1607회 인용
 - LightRAG: Simple and Fast Retrieval-Augmented Generation | 2024 · 431회 인용
 - Adaptive Chunking: Optimizing Chunking-Method Selection for RAG | 2026
+- Efficient, Property-Aligned Fan-Out Retrieval via RL-Compiled Diffusion | 2026
 
 ## Chain-of-Thought(CoT)
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
