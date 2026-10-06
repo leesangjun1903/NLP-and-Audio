@@ -341,6 +341,7 @@
 - SlopShape: Identifying AI-Generated Commercial Web Content | 2026
 - LoRA-generating hypernetworks for efficient on-device LLM generative personalization | 2026
 - Compile by Training: Turning Natural-Language Specifications into Local Neural Functions | 2026
+- Spend Bits Where Queries Look: KV Cache Vector Quantization with Attention-Preserving Transforms | 2026
 
 
 ## Prompting
