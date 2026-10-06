@@ -546,5 +546,6 @@
 - Jev-Mem: System-One-Controlled Agentic Memory for Efficient AI Agents | 2026
 - WFM: Wiki Foundation Model for Complex Agentic Reasoning | 2026
 - RRSI: Regularized Recursive Self-Improvement of Agent Harnesses | 2026
+- An Empirical Study of Harness Design for Coding Agents | 2026
 
 
