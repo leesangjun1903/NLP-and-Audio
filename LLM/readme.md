@@ -547,5 +547,6 @@
 - WFM: Wiki Foundation Model for Complex Agentic Reasoning | 2026
 - RRSI: Regularized Recursive Self-Improvement of Agent Harnesses | 2026
 - An Empirical Study of Harness Design for Coding Agents | 2026
+- Agora: Git as Shared Memory for Collective AutoResearch | 2026
 
 
