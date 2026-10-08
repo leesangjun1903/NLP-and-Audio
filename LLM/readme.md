@@ -432,6 +432,7 @@
 - Reinforcement Learning with Metacognitive Feedback Elicits Faithful Uncertainty Expression in LLMs | 2026
 - Single-Rollout Asynchronous Optimization for Agentic Reinforcement Learning | 2026
 - You Can Learn Tokenization End-to-End with Reinforcement Learning | 2026
+- RLHF : Reinforcement Learning from Human Feedback | 2025 · 171회 인용
 
 
 ### Research
