@@ -343,6 +343,7 @@
 - Compile by Training: Turning Natural-Language Specifications into Local Neural Functions | 2026
 - Spend Bits Where Queries Look: KV Cache Vector Quantization with Attention-Preserving Transforms | 2026
 - Breaking the Token Ceiling: Distilling Smaller, Stronger Byte Models | 2026
+- Sample-Efficient Alignment for LLMs | 2024 · 17회 인용
 
 
 ## Prompting
