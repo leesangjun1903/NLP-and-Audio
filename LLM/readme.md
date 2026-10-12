@@ -345,6 +345,7 @@
 - Breaking the Token Ceiling: Distilling Smaller, Stronger Byte Models | 2026
 - Sample-Efficient Alignment for LLMs | 2024 · 17회 인용
 - Context Language Models | 2026 · 2회 인용
+- Learning to Solve Hard Problems in RL for LLMs by Never Giving Up | 2026
 
 
 ## Prompting
