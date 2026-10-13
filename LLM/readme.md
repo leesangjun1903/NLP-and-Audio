@@ -402,6 +402,7 @@
 - Training Verifiers to Solve Math Word Problems | 2021 · 5310회 인용
 - SOOHAK: A Mathematician-Curated Benchmark for Evaluating Research-level Math Capabilities of LLMs | 2026
 - LEAP: Supercharging LLMs for Formal Mathematics with Agentic Frameworks | 2026
+- NFT: Bridging Supervised Learning and Reinforcement Learning in Math Reasoning | 2025 · 42회 인용
 
 
 ### Post-Training : Supervised Fine-Tuning
