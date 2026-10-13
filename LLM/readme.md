@@ -559,5 +559,6 @@
 - An Empirical Study of Harness Design for Coding Agents | 2026
 - Agora: Git as Shared Memory for Collective AutoResearch | 2026
 - Procedural Graphs: Self-Evolving Execution Structures for LLM Agents | 2026
+- Learning from Research: Toward Lifelong Agent Harness Evolution | 2026
 
 
