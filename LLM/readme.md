@@ -560,5 +560,6 @@
 - Agora: Git as Shared Memory for Collective AutoResearch | 2026
 - Procedural Graphs: Self-Evolving Execution Structures for LLM Agents | 2026
 - Learning from Research: Toward Lifelong Agent Harness Evolution | 2026
+- Catching Developers in the Flow: Low-Latency Agentic Program Repair at Google Scale | 2026
 
 
