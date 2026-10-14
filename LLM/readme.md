@@ -347,6 +347,7 @@
 - Context Language Models | 2026 · 2회 인용
 - Learning to Solve Hard Problems in RL for LLMs by Never Giving Up | 2026
 - SIGMA: Self-Improving Alignment Generalization from a Model Spec | 2026
+- “As a Language Model…”: Chat Template Switches LLM Self-Referential Voice and Activation Steering Reproduces It | 2026
 
 
 ## Prompting
