@@ -563,5 +563,6 @@
 - Learning from Research: Toward Lifelong Agent Harness Evolution | 2026
 - Catching Developers in the Flow: Low-Latency Agentic Program Repair at Google Scale | 2026
 - VeriHarness: Scaling Agentic Verification for Long-Horizon Tasks | 2026
+- SCLATE: A Substrate for Continual-Learning Agent Training and Evaluation | 2026
 
 
