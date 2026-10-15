@@ -567,5 +567,6 @@
 - VeriHarness: Scaling Agentic Verification for Long-Horizon Tasks | 2026
 - SCLATE: A Substrate for Continual-Learning Agent Training and Evaluation | 2026
 - Mixture of Self-Improving Branches For Agent Harness Optimization | 2026
+- AIM: Agentic Idea Management for Automated Research | 2026
 
 
