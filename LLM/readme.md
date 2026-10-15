@@ -441,6 +441,7 @@
 - You Can Learn Tokenization End-to-End with Reinforcement Learning | 2026
 - RLHF : Reinforcement Learning from Human Feedback | 2025 · 171회 인용
 - RewardBench: Evaluating Reward Models for Language Modeling | 2024 · 813회 인용
+- RLTL;DR: Self-improvement by Internalizing Self-generated Feedback | 2026
 
 
 ### Research
