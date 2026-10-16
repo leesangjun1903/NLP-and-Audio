@@ -572,5 +572,6 @@
 - Mixture of Self-Improving Branches For Agent Harness Optimization | 2026
 - AIM: Agentic Idea Management for Automated Research | 2026
 - Recursive Self-Improvement through Multi-Agent Self-Supervision | 2026
+- Recursive Harness Self-Improvement | 2026
 
 
