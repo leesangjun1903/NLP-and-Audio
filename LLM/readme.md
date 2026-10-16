@@ -571,5 +571,6 @@
 - SCLATE: A Substrate for Continual-Learning Agent Training and Evaluation | 2026
 - Mixture of Self-Improving Branches For Agent Harness Optimization | 2026
 - AIM: Agentic Idea Management for Automated Research | 2026
+- Recursive Self-Improvement through Multi-Agent Self-Supervision | 2026
 
 
