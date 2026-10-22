@@ -575,5 +575,6 @@
 - Recursive Self-Improvement through Multi-Agent Self-Supervision | 2026
 - Recursive Harness Self-Improvement | 2026
 - Harness²: Recursive Agent Harnessing for an Open World | 2026
+- DiscoLoop: Looping Discrete Embeddings and Continuous Hidden States for Multi-hop Reasoning | 2026
 
 
