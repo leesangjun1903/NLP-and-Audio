@@ -574,5 +574,6 @@
 - AIM: Agentic Idea Management for Automated Research | 2026
 - Recursive Self-Improvement through Multi-Agent Self-Supervision | 2026
 - Recursive Harness Self-Improvement | 2026
+- Harness²: Recursive Agent Harnessing for an Open World | 2026
 
 
