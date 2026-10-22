@@ -580,5 +580,6 @@
 - DiscoLoop: Looping Discrete Embeddings and Continuous Hidden States for Multi-hop Reasoning | 2026
 - Harmony Harness: Multi-Objective Self-Evolution of Agent Harnesses | 2026
 - LongHarness: Advancing Agentic Reasoning over 100M-Token Corpora via Stateful Evidence Management | 2026
+- VEPA: Verified Evolving Formal Policy for Lifelong LLM Agent Guardrails | 2026
 
 
