@@ -479,6 +479,7 @@
 - CogLTX: Applying BERT to Long Texts | 2020 · 198회 인용
 - SCRIBES: Web-Scale Script-Based Semi-Structured Data Extraction with Reinforcement Learning | 2025 · 3회 인용
 - LIGE-GR: A Smooth Leap from Ranking to Generative Recommendation in the LLM Era | 2026
+- Google Earth AI Geospatial Reasoning Agent | 2026
 
 
 ## Agent
