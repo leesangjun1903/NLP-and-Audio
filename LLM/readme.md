@@ -471,6 +471,7 @@
 - When Skills Meet Safety: Benchmarking and Characterizing the Adaptive Jailbreak Robustness of Skill-Merged LLMs | 2026
 - The Embedder's Dilemma: LLMs Are Better, but at What Cost? | 2026 · 3회 인용
 - Tailored to you: longitudinal effects of personalising language models | 2026
+- A team of Gemini 4 Argon agents beats Minecraft | 2026
 
 ### Frameworks
 - Logic-Guided Data Augmentation and Regularization for Consistent Question Answering | 2020 · 132회 인용
