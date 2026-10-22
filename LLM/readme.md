@@ -351,6 +351,7 @@
 - Decoding Looped Transformers Better for (Almost) Free | 2026
 - SkillGym: Internalizing Human Skills into LLMs for Real-World Problem Solving | 2026
 - ReplaySSM: Cache SSM Inputs, Not State | 2026
+- StudentSim: Training LLM-based Student Simulators | 2026
 
 
 ## Prompting
