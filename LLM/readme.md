@@ -582,5 +582,6 @@
 - Harmony Harness: Multi-Objective Self-Evolution of Agent Harnesses | 2026
 - LongHarness: Advancing Agentic Reasoning over 100M-Token Corpora via Stateful Evidence Management | 2026
 - VEPA: Verified Evolving Formal Policy for Lifelong LLM Agent Guardrails | 2026
+- Are Self-Evolving Agents Continual Learners? | 2026
 
 
