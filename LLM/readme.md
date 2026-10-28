@@ -584,5 +584,6 @@
 - VEPA: Verified Evolving Formal Policy for Lifelong LLM Agent Guardrails | 2026
 - Are Self-Evolving Agents Continual Learners? | 2026
 - DiscoveryRSI: Recursively Learning to Discover Valuable Hypotheses | 2026
+- Diagnostic Analysis for Large Language Model Reasoning | 2026
 
 
