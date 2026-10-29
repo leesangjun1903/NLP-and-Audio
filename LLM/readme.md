@@ -588,5 +588,6 @@
 - Diagnostic Analysis for Large Language Model Reasoning | 2026
 - Harness Scaling for Generalizable Agentic Reinforcement Learning | 2026
 - LoGRA: Scaling LLM Reinforcement Learning with Low-Rank Gradient Sketches | 2026
+- Hybrid Reasoning Agents | 2026
 
 
