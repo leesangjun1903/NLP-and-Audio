@@ -382,6 +382,7 @@
 - LightRAG: Simple and Fast Retrieval-Augmented Generation | 2024 · 431회 인용
 - Adaptive Chunking: Optimizing Chunking-Method Selection for RAG | 2026
 - Efficient, Property-Aligned Fan-Out Retrieval via RL-Compiled Diffusion | 2026
+- Is Complex Agentic Memory Always Needed? Naive RAG Is Stronger Than We Thought | 2026
 
 ## Chain-of-Thought(CoT)
 - Faithful Chain-of-Thought Reasoning | 2023 · 358회 인용
@@ -585,5 +586,6 @@
 - Are Self-Evolving Agents Continual Learners? | 2026
 - DiscoveryRSI: Recursively Learning to Discover Valuable Hypotheses | 2026
 - Diagnostic Analysis for Large Language Model Reasoning | 2026
+- Harness Scaling for Generalizable Agentic Reinforcement Learning | 2026
 
 
